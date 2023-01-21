@@ -1,45 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import { getMovieListByQuery, getGenreList, getMovieListbyGenre, getConfiguration, getImage } from './functions/requestfunctions';
 
 
 
 function App() {
 
   useEffect(() => {
-    checkAPI();
+    getMovieListByQuery('star wars');
+    // getGenreList();
+    // getMovieListbyGenre(28);
+    // getConfiguration();
   },[]);
 
 
 
-  async function checkAPI() {
-
-    const response = await fetch('http://localhost:5000/genres', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await response.json();
-    return response.ok ? data.genreList : data.err;
-
-
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.genreList);
-      
-    } else {
-      const err = await response.json();
-      console.log(err);
-      console.log("ERROR");
-    }
-  }
+  
 
 
   return (
     <div className="App">
       <h1>Hello WOW</h1>
+      <img src={"https://image.tmdb.org/t/p/w500/2SatEFCs04oFRqkZuY1fODYXeFI.jpg"} alt="logo" ></img>
     </div>
   );
 }
