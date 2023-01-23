@@ -49,16 +49,40 @@ app.get('/genres', async (req, res) => {
     
 });
 
+// middleware for verifying movie by genre cache
+const verifyMovieByQueryCache = async (req, res, next) => {
+    try {
+        const query = req.body.query;
+        if (cache.has(`query-${query}`)) {
+            console.log("QueryMovieList: cache hit");
+
+            res.status(200).send({
+                movieList: cache.get(`query-${query}`)
+            });
+            return;
+        }
+        console.log("QueryMovieList: cache miss");
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+}
 
 
 
-app.post('/movielistquery', async (req, res) => {
+app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
     // fetches movie list based on query
     const query = req.body.query;
     const url = `${urlQueryMovieList}&query=${query}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
+
+        // set cache
+        console.log("QueryMovieList: setting cache");
+        cache.set(`query-${query}`, data.results);
 
         res.status(200).send({
             movieList: data.results
@@ -70,27 +94,30 @@ app.post('/movielistquery', async (req, res) => {
     
 });
 
-// middleware for verifying cache
-const verifyCache = (req, res, next) => {
+// middleware for verifying movie by genre cache
+const verifyMovieByGenreCache = async (req, res, next) => {
     try {
         const genreId = req.body.genreId;
-        if (cache.has(genreId)) {
-            console.log("cache hit");
-            const movieList = cache.get(genreId);
-            // console.log(movieList);
-            req.status(200).send({ movieList });
+        if (cache.has(`genre-${genreId}`)) {
+            console.log("GenreMovieList: cache hit");
+
+            res.status(200).send({
+                movieList: cache.get(`genre-${genreId}`)
+            });
+            return;
         }
-        console.log("cache miss");
+        console.log("GenreMovieList: cache miss");
         next();
     } catch (error) {
-        console.log(erorr);
-        req.status(500).send({ error });
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
     }
 }
 
 
 
-app.post('/movielistgenre', verifyCache, async (req, res) => {
+app.post('/movielistgenre', verifyMovieByGenreCache, async (req, res) => {
     // fetches movie list based on genre
     const genreId = req.body.genreId;
     const url = `${urlGenreMovieList}&with_genres=${genreId}`;
@@ -99,8 +126,8 @@ app.post('/movielistgenre', verifyCache, async (req, res) => {
         const data = await response.json();
         
         // set cache
-        console.log("setting cache");
-        cache.set(genreId, data.results);
+        console.log("GenreMovieList: setting cache");
+        cache.set(`genre-${genreId}`, data.results);
 
         // send response
         res.status(200).send({
