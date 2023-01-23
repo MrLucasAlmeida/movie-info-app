@@ -1,16 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { getMovieListByQuery, getGenreList, getMovieListbyGenre, getConfiguration, getImage } from './functions/requestfunctions';
+import { getMovieListByQuery, getGenreList, getMovieListbyGenre, getConfiguration } from './functions/requestfunctions';
 
 
 
 function App() {
 
   useEffect(() => {
-    getMovieListByQuery('star wars');
+    // getMovieListByQuery('star wars');
     // getGenreList();
+    getMovieListbyGenre(28);
+    // getMovieListbyGenre(12);
     // getMovieListbyGenre(28);
+
     // getConfiguration();
   },[]);
 

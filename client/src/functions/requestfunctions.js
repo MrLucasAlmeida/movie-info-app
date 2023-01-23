@@ -47,15 +47,3 @@ export async function getConfiguration() {
     console.log(response.ok ? data.configuration : data.error);
 }
 
-export async function getImage(imagePath) {
-    const response = await fetch(`http://localhost:5000/image`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ imagePath })
-    });
-    const data = await response.json();
-    console.log(response.ok ? data.image : data.error);
-}
-
