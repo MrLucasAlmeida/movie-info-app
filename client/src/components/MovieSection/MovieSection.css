@@ -1,0 +1,25 @@
+.moviesection-container {
+    flex: 80%;
+    background-color: green;
+    height: 100vh;
+    margin:0;
+}
+.scrollable-content {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.scrollable-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+.scrollable-content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+p {
+    border: 1px solid black;
+}
+
+
