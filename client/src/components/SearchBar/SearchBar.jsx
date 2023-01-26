@@ -2,7 +2,7 @@ import React from 'react'
 import SearchIcon from '../../images/search.svg'
 import './SearchBar.css'
 
-function SearchBar() {
+function SearchBar({ searchTerm, setSearchTerm }) {
   return (
     <div className="search">
         <input

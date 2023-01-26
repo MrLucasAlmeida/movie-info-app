@@ -11,7 +11,7 @@
 
 
 .button {
-    background-color: #303030;
+    background-color: black;
     color: white;
     height: 80px;
     border: 1px solid black;
@@ -22,7 +22,8 @@
 }
 
 .button:hover {
-    opacity: 0.97;
+    background-color: rgb(40, 40, 40);
+    color: white;
     cursor: pointer;
 }
 

@@ -2,10 +2,25 @@
     display: flex;
     flex-direction: column;
     flex: 20%;
-    background: orange;
+    background: #303030;
     height: 100vh;
     margin:0;
 }
+
+.nav-bar-logo-container {
+    width: 100%;
+    display: flex;
+
+}
+.nav-bar-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+
+
 
 .scrollable-content-nav-bar {
     height: 100%;
@@ -14,12 +29,32 @@
 }
 
 
-.scrollable-content-nav-bar::-webkit-scrollbar {
+/* .scrollable-content-nav-bar::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   /* Hide scrollbar for IE, Edge and Firefox */
 .scrollable-content-nav-bar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+/* width */
+.scrollable-content-nav-bar::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .scrollable-content-nav-bar::-webkit-scrollbar-track {
+    background: #bcbcbc;
+  }
+  
+  /* Handle */
+  .scrollable-content-nav-bar::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  .scrollable-content-nav-bar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

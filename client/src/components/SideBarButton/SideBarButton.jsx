@@ -11,7 +11,7 @@ function SideBarButton( {text}) {
 
 
   return (
-    <div className='button' onClick={handleClick}>
+    <div className='button'>
         <span className='span'>{text}</span> 
     </div>
   )

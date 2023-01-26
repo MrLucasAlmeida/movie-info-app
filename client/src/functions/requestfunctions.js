@@ -1,4 +1,5 @@
 export async function getMovieListByQuery(query) {
+    if (query === '') return [];
 
     const response = await fetch('http://localhost:5000/movielistquery', {
         method: 'POST',
@@ -9,9 +10,12 @@ export async function getMovieListByQuery(query) {
     });
     const data = await response.json();
     console.log(response.ok ? data.movieList : data.error);
+    return response.ok ? data.movieList : data.error;
 }
 
 export async function getMovieListbyGenre(genreId) {
+
+    if (genreId === '') return [];
     const response = await fetch('http://localhost:5000/movielistgenre', {
         method: 'POST',
         headers: {
@@ -21,6 +25,7 @@ export async function getMovieListbyGenre(genreId) {
     });
     const data = await response.json();
     console.log(response.ok ? data.movieList : data.error);
+    return response.ok ? data.movieList : data.error;
 }
 
 
@@ -33,6 +38,7 @@ export async function getGenreList() {
     });
     const data = await response.json();
     console.log(response.ok ? data.genreList : data.error);
+    return response.ok ? data.movieList : data.error;
 }
 
 
@@ -45,5 +51,6 @@ export async function getConfiguration() {
     });
     const data = await response.json();
     console.log(response.ok ? data.configuration : data.error);
+    return response.ok ? data.movieList : data.error;
 }
 
