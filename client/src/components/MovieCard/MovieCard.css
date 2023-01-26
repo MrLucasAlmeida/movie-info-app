@@ -1,0 +1,16 @@
+.movie {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 1.5rem;
+    
+}
+
+.poster-image {
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.poster-image img {
+    width: 300px;
+}

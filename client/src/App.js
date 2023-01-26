@@ -6,6 +6,8 @@ import FilmFlix from './components/FilmFlix/FilmFlix.jsx';
 
 
 function App() {
+
+
     return (
     <div className="App">
       <FilmFlix></FilmFlix>

@@ -5,7 +5,7 @@ import SideBarButton from '../SideBarButton/SideBarButton.jsx'
 function NavBar() {
   return (
     <div className='nav-bar'>
-      <div className='scrollable-content'>
+      <div className='scrollable-content-nav-bar'>
           <SideBarButton text='Action'></SideBarButton>
           <SideBarButton text='Thriller'></SideBarButton>
           <SideBarButton text='Horror'></SideBarButton>

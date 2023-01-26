@@ -1,25 +1,44 @@
+.search-container {
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+
+}
+
+
+
+
 .moviesection-container {
     flex: 80%;
     background-color: green;
     height: 100vh;
     margin:0;
 }
-.scrollable-content {
+.scrollable-content-moviesection-container {
+    
+    
     height: 100%;
     overflow-y: scroll;
 }
 
-.scrollable-content::-webkit-scrollbar {
+.scrollable-content-moviesection-container::-webkit-scrollbar {
     display: none;
   }
 
   /* Hide scrollbar for IE, Edge and Firefox */
-.scrollable-content {
+.scrollable-content-moviesection-container {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-p {
-    border: 1px solid black;
+
+.movie-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items:flex-start;
 }
 
 

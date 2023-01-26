@@ -1,38 +1,58 @@
 import React from 'react'
 import './MovieSection.css'
 
+import MovieCard from '../MovieCard/MovieCard.jsx'
+import SearchBar from '../SearchBar/SearchBar'
+
 function MovieSection() {
+
   return (
     <div className='moviesection-container'>
-      <div className='scrollable-content'>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>wowow</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>wow</p>
-        <p>Hello</p>
-        <p>Hello</p>
+      <div className='scrollable-content-moviesection-container'>
 
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>woww</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>Hello</p>
-        <p>wow</p>
-        <p>Hello</p>
-        <p>Hello</p>
+        <div className='search-container'>
+          <SearchBar></SearchBar>
+        </div>
+        
+
+
+        <div className='movie-card-container'>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+          <MovieCard></MovieCard>
+        </div>
         
       </div>
     </div>
