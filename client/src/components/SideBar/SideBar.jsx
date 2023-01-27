@@ -2,8 +2,35 @@ import React from 'react'
 import './SideBar.css'
 import SideBarButton from '../SideBarButton/SideBarButton.jsx'
 import NetflixLogo from '../../images/Netflix-Logo.jpg'
+import { useEffect, useState } from 'react'
 
-function NavBar({ setMovies }) {
+import { getGenreList} from '../../functions/requestfunctions';
+
+// import images
+import genreIcons from '../../images/genres/index.js'
+
+function SideBar({ setMovies }) {
+  
+  async function getListOfGenres() {
+    const response = await getGenreList();
+    if (response == undefined) {
+      return;
+    }
+    console.log('got the list of genres');
+    console.log(response);
+    setGenreObjects(response);
+  }
+
+
+  const [genreObjects, setGenreObjects] = useState([]);
+
+  
+  useEffect(() => {
+    getListOfGenres();
+  }, []);
+
+
+
   return (
     <div className='nav-bar'>
       
@@ -17,25 +44,17 @@ function NavBar({ setMovies }) {
 
 
 
-          <SideBarButton text='WOWOW'></SideBarButton>
-          <SideBarButton text='Thriller'></SideBarButton>
-          <SideBarButton text='Horror'></SideBarButton>
-          <SideBarButton text='Comedy'></SideBarButton>
+          {genreObjects?.length > 0 ? (
+          genreObjects.map((genre, idx) => (
+              <SideBarButton key={idx} text={genre.name} image={genreIcons[genre.name.toLowerCase()]} genreId={genre.id}></SideBarButton>
+            )
+          )
+          ) : (
+            <h1>No Genres</h1>
+          )
 
-          <SideBarButton text='Action'></SideBarButton>
-          <SideBarButton text='Thriller'></SideBarButton>
-          <SideBarButton text='Horror'></SideBarButton>
-          <SideBarButton text='Comedy'></SideBarButton>
+          }
           
-          <SideBarButton text='Action'></SideBarButton>
-          <SideBarButton text='Thriller'></SideBarButton>
-          <SideBarButton text='Horror'></SideBarButton>
-          <SideBarButton text='Comedy'></SideBarButton>
-          
-          <SideBarButton text='Action'></SideBarButton>
-          <SideBarButton text='Thriller'></SideBarButton>
-          <SideBarButton text='Horror'></SideBarButton>
-          <SideBarButton text='Comedy'></SideBarButton>
           
           
 
@@ -44,4 +63,4 @@ function NavBar({ setMovies }) {
   )
 }
 
-export default NavBar
+export default SideBar

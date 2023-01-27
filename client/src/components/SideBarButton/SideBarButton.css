@@ -25,6 +25,11 @@
     background-color: rgb(40, 40, 40);
     color: white;
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items:flex-start;
 }
 
 span {
@@ -34,6 +39,13 @@ span {
     margin: auto;
     font-family: var(--font-raleway);
     font-size: 30px;
+    flex-basis: auto;
 
     
+}
+.button img {
+    filter: invert(1);
+    height: 70%;
+    margin-left: 10px;
+    display: flex;
 }

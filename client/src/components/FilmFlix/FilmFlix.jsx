@@ -31,17 +31,17 @@ function FilmFlix() {
 
 
   useEffect(() => {
-    movieListQuery(searchTerm);
+    // movieListQuery(searchTerm);
   }, []);
 
   useEffect(() => {
     console.log('fetched movies by query');
-    movieListQuery(searchTerm);
+    // movieListQuery(searchTerm);
   }, [searchTerm]);
 
   useEffect(() => {
     console.log('fetched movies by genres');
-    movieListGenre(genreTerm);
+    // movieListGenre(genreTerm);
   }, [genreTerm]);
   
 

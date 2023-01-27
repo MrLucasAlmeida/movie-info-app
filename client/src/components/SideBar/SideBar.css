@@ -1,7 +1,7 @@
 .nav-bar {
     display: flex;
     flex-direction: column;
-    flex: 20%;
+    flex: 1;
     background: #303030;
     height: 100vh;
     margin:0;

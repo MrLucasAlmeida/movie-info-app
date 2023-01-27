@@ -38,7 +38,6 @@ app.get('/genres', async (req, res) => {
     try {
         const response = await fetch(urlGenreList);
         const data = await response.json();
-
         res.status(200).send({
             genreList: data.genres
         });
