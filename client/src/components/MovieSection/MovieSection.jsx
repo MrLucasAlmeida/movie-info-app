@@ -2,15 +2,46 @@ import React from 'react'
 import './MovieSection.css'
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
-import SearchBar from '../SearchBar/SearchBar'
-import { useEffect } from 'react'
+import SearchBar from '../SearchBar/SearchBar.jsx'
+import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
+
+import { useEffect, useState } from 'react'
 
 function MovieSection({ movies, searchTerm, setSearchTerm }) {
 
 
-  useEffect(() => {
+  function getRandomMovie() {
+    // get a random movie from the movies array
+    if (movies.length === 0) {return {}}
+    // keep looking for new movie until we find one that has a backdrop image
+    let randomIdx = Math.floor(Math.random() * movies.length);
 
-  }, []);
+    while (movies[randomIdx].backdrop_path === null) {
+      randomIdx = Math.floor(Math.random() * movies.length);
+    }
+
+    console.log(movies[randomIdx]);
+    setFeaturedMovie(movies[randomIdx]);
+  }
+
+  function placePoster() {
+    if (featuredMovie === {}) {
+      return <div>NO POSTER</div>
+    } else {
+      return (
+        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
+      )
+    }
+  }
+
+
+  const [featuredMovie, setFeaturedMovie] = useState({});
+
+
+  useEffect(() => {
+    // change the random movie featured
+    getRandomMovie();
+  }, [movies]);
 
 
   return (
@@ -21,6 +52,13 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
         </div>
         
+        {placePoster()}
+        
+
+
+
+
+
 
 
         {

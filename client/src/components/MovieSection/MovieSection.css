@@ -8,11 +8,19 @@
 }
 
 
+.featured-movie {
+    display: flex;
+    width: 100%;
+    background-color: red;
+    justify-content: center;
+}
+
 
 
 .moviesection-container {
     flex: 4;
     background-color: #303030;
+    flex-direction: column;
     height: 100vh;
     margin:0;
 }

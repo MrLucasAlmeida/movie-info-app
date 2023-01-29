@@ -33,11 +33,42 @@ app.get('/', (req, res) => {
 });
 
 
+// middleware for verifying genre list cache
+const verifyGenreListCache = async (req, res, next) => {
+    try {
+        const query = req.body.query;
+        if (cache.has('genreList')) {
+            console.log("GenreList: cache hit");
+
+            res.status(200).send({
+                genreList: cache.get('genreList')
+            });
+            return;
+        }
+        console.log("GenreList: cache miss");
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+}
+
+
+
+
+
 // GET request for list of movie genres
-app.get('/genres', async (req, res) => {
+app.get('/genres', verifyGenreListCache, async (req, res) => {
     try {
         const response = await fetch(urlGenreList);
         const data = await response.json();
+
+        // set cache
+        console.log("GenreList: setting cache");
+        cache.set('genreList', data.genres);
+
+
         res.status(200).send({
             genreList: data.genres
         });

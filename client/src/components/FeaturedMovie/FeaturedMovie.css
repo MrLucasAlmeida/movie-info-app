@@ -1,0 +1,12 @@
+.featured-movie-container {
+    display: flex;
+    width: auto;
+    background-color: green;
+    margin: 5vh 3% 2%;
+}
+
+.featured-movie-container img {
+    display: flex;
+    width: 100%;
+    object-fit: contain;
+}

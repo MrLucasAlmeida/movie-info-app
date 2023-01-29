@@ -15,7 +15,7 @@ export async function getMovieListByQuery(query) {
 
 export async function getMovieListbyGenre(genreId) {
 
-    if (genreId === '') return [];
+    if (genreId === -1) return [];
     const response = await fetch('http://localhost:5000/movielistgenre', {
         method: 'POST',
         headers: {
@@ -51,6 +51,6 @@ export async function getConfiguration() {
     });
     const data = await response.json();
     console.log(response.ok ? data.configuration : data.error);
-    return response.ok ? data.movieList : data.error;
+    return response.ok ? data.configuration : data.error;
 }
 

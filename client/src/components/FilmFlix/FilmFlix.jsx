@@ -26,8 +26,8 @@ function FilmFlix() {
 
 
   const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [genreTerm, setGenreTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('avenger');
+  const [genreTerm, setGenreTerm] = useState(-1);
 
 
   useEffect(() => {
@@ -35,13 +35,12 @@ function FilmFlix() {
   }, []);
 
   useEffect(() => {
-    console.log('fetched movies by query');
-    // movieListQuery(searchTerm);
+    movieListQuery(searchTerm);
+    getConfiguration();
   }, [searchTerm]);
 
   useEffect(() => {
-    console.log('fetched movies by genres');
-    // movieListGenre(genreTerm);
+    movieListGenre(genreTerm);
   }, [genreTerm]);
   
 
