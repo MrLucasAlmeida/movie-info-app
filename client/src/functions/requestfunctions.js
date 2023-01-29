@@ -37,7 +37,7 @@ export async function getGenreList() {
         }
     });
     const data = await response.json();
-    console.log(response.ok ? data.genreList : data.error);
+    // console.log(response.ok ? data.genreList : data.error);
     return response.ok ? data.genreList : data.error;
 }
 

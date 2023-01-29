@@ -5,7 +5,7 @@ import MovieCard from '../MovieCard/MovieCard.jsx'
 import SearchBar from '../SearchBar/SearchBar.jsx'
 import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 function MovieSection({ movies, searchTerm, setSearchTerm }) {
 
@@ -24,23 +24,18 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
     setFeaturedMovie(movies[randomIdx]);
   }
 
-  function placePoster() {
-    if (featuredMovie === {}) {
-      return <div>NO POSTER</div>
-    } else {
-      return (
-        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
-      )
-    }
-  }
-
 
   const [featuredMovie, setFeaturedMovie] = useState({});
 
 
   useEffect(() => {
+
+  }, []);
+
+  useEffect(() => {
     // change the random movie featured
     getRandomMovie();
+    // Document.getElementbyClass('.scrollable-content-moviesection-container').scrollTo(0, 0);
   }, [movies]);
 
 
@@ -52,7 +47,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
         </div>
         
-        {placePoster()}
+        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
         
 
 

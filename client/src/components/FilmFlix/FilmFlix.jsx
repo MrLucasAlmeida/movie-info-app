@@ -36,7 +36,6 @@ function FilmFlix() {
 
   useEffect(() => {
     movieListQuery(searchTerm);
-    getConfiguration();
   }, [searchTerm]);
 
   useEffect(() => {

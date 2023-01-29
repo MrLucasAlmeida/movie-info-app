@@ -1,12 +1,34 @@
 .featured-movie-container {
-    display: flex;
-    width: auto;
-    background-color: green;
-    margin: 5vh 3% 2%;
+    position: relative; 
+    margin: 3% 3% 2%;
 }
 
+.featured-movie-info {
+    position: absolute;
+    left: 3%;
+    bottom: 5%;
+    color: white;
+    width: 40%;
+    text-align: left;
+}
+
+.featured-movie-info h1 {
+    font-size: 3vw;
+    font-weight: 600;
+    margin: 10px;
+    font-family: 'Trebuchet MS';
+}
+.featured-movie-info p {
+    font-size: 1.2vw;
+    font-weight: 400;
+    margin: 10px;
+    font-family: 'Trebuchet MS';
+}
+
+
+
 .featured-movie-container img {
-    display: flex;
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    filter: brightness(50%);
 }

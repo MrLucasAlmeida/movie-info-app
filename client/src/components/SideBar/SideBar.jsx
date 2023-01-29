@@ -17,7 +17,6 @@ function SideBar({ setGenreTerm }) {
       return;
     }
     console.log('got the list of genres');
-    console.log(response);
     setGenreObjects(response);
   }
 
