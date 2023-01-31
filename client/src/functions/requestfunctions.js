@@ -54,3 +54,20 @@ export async function getConfiguration() {
     return response.ok ? data.configuration : data.error;
 }
 
+
+export async function getMovieDetails(movieId) {
+    console.log('movieId was null when fetching details');
+
+    const response = await fetch(`http://localhost:5000/movie/${movieId}`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ movieId })
+    });
+    const data = await response.json();
+    console.log('got movie details back');
+    console.log(response.ok ? data : data.error);
+    return response.ok ? data : data.error;
+}
+

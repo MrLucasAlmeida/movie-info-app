@@ -1,10 +1,26 @@
 import React from 'react'
+import { useEffect } from 'react';
 import './FeaturedMovie.css'
+import { getMovieDetails } from '../../functions/requestfunctions';
 
 function FeaturedMovie({ movie }) {
+
+
+
+  useEffect(() => {
+    console.log(movie);
+    if (movie?.id === undefined) {
+      console.log('movie id is undefined');
+    } else {
+      getMovieDetails(movie?.id);
+    }
+    
+  }, [movie]);
+
   if (Object.keys(movie).length === 0) {
     return null;
   }
+  
 
   return (
       <div className='featured-movie-container'>

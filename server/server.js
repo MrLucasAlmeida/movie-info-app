@@ -10,6 +10,7 @@ const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${pr
 const urlQueryMovieList = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&include_adult=false`
 const urlGenreMovieList = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&`
 
+
 // create express app
 const app = express();
 app.use(cors());
@@ -54,10 +55,6 @@ const verifyGenreListCache = async (req, res, next) => {
     }
 }
 
-
-
-
-
 // GET request for list of movie genres
 app.get('/genres', verifyGenreListCache, async (req, res) => {
     try {
@@ -79,6 +76,7 @@ app.get('/genres', verifyGenreListCache, async (req, res) => {
     
 });
 
+
 // middleware for verifying movie by genre cache
 const verifyMovieByQueryCache = async (req, res, next) => {
     try {
@@ -99,8 +97,6 @@ const verifyMovieByQueryCache = async (req, res, next) => {
         res.status(500).send({ error });
     }
 }
-
-
 
 app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
     // fetches movie list based on query
@@ -124,6 +120,7 @@ app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
     
 });
 
+
 // middleware for verifying movie by genre cache
 const verifyMovieByGenreCache = async (req, res, next) => {
     try {
@@ -144,8 +141,6 @@ const verifyMovieByGenreCache = async (req, res, next) => {
         res.status(500).send({ error });
     }
 }
-
-
 
 app.post('/movielistgenre', verifyMovieByGenreCache, async (req, res) => {
     // fetches movie list based on genre
@@ -183,6 +178,81 @@ app.get('/configuration', async (req, res) => {
         res.status(500).send({ error });
     }
 });
+
+
+// middleware for verifying movie details cache
+const verifyMovieDetailsCache = async (req, res, next) => {
+    try {
+        const movie_id = req.params.id;
+        if (cache.has(`moviedetails-${movie_id}`)) {
+            console.log("MovieDetails: cache hit");
+            
+
+            const movieDetailObject = cache.get(`moviedetails-${movie_id}`);
+            res.status(200).send(movieDetailObject);
+            return;
+        }
+        console.log("MovieDetails: cache miss");
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+}
+
+app.post('/movie/:id',  async (req, res) => {
+    // create urls for information fetching
+    const movie_id = req.params.id;
+    console.log(movie_id);
+    const urlMovieDetails = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    const urlMovieCredits = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    const urlMovieVideos = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+
+
+    try {
+        const responseMovieDetails = await fetch(urlMovieDetails);
+        const dataMovieDetails = await responseMovieDetails.json();
+
+        const responseMovieCredits = await fetch(urlMovieCredits);
+        const dataMovieCredits = await responseMovieCredits.json();
+
+        const responseMovieVideos = await fetch(urlMovieVideos);
+        const dataMovieVideos = await responseMovieVideos.json();
+
+
+        // set cache
+        console.log("MovieDetails: setting cache");
+        const movieDetailObject = {
+            movieDetails: dataMovieDetails,
+            movieCredits: dataMovieCredits,
+            movieVideos: dataMovieVideos
+        };
+        cache.set(`moviedetails-${movie_id}`, movieDetailObject);
+
+
+        // send response
+        res.status(200).send(movieDetailObject);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
 
 
 
