@@ -4,8 +4,9 @@ import './MovieSection.css'
 import MovieCard from '../MovieCard/MovieCard.jsx'
 import SearchBar from '../SearchBar/SearchBar.jsx'
 import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
-
+import MovieInfo from '../MovieInfo/MovieInfo.jsx'
 import { useEffect, useState, useRef } from 'react'
+
 
 function MovieSection({ movies, searchTerm, setSearchTerm }) {
 
@@ -25,7 +26,41 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
   }
 
 
+  function showMovieListFunction() {
+    
+
+    if (movies?.length > 0) {
+      return (
+        <>
+        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
+        <div className='movie-card-container'>
+          {movies.map((movie, idx) => (
+            <MovieCard key={idx} movie={movie}></MovieCard>
+          ))}
+          
+        </div>
+        </>
+      )
+    } else {
+      return (
+        <div className='empty'>
+          <h2>No movies found</h2>
+        </div>
+      )
+    }
+  }
+
+  function showMovieInfoFunction() {
+
+    return (
+      <MovieInfo movieId={movieId}></MovieInfo>
+    )
+  }
+
+
   const [featuredMovie, setFeaturedMovie] = useState({});
+  const [movieInfoId, setMovieInfoId] = useState(-1);
+  const [showMovieList, setShowMovieList] = useState(false);
 
 
   useEffect(() => {
@@ -47,7 +82,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
         </div>
         
-        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
+        
         
 
 
@@ -56,19 +91,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
 
 
 
-        {
-        movies?.length > 0 ? (
-          <div className='movie-card-container'>
-            {movies.map((movie, idx) => (
-              <MovieCard key={idx} movie={movie}></MovieCard>
-            ))}
-            
-          </div>
-        ) : (
-          <div className='empty'>
-            <h2>No movies found</h2>
-          </div>
-        )}
+        {showMovieList ? showMovieListFunction() : showMovieInfoFunction()}
           
         
       </div>

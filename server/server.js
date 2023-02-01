@@ -201,10 +201,9 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     }
 }
 
-app.post('/movie/:id',  async (req, res) => {
+app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
     // create urls for information fetching
     const movie_id = req.params.id;
-    console.log(movie_id);
     const urlMovieDetails = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieCredits = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieVideos = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
