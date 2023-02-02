@@ -56,8 +56,6 @@ export async function getConfiguration() {
 
 
 export async function getMovieDetails(movieId) {
-    console.log('movieId was null when fetching details');
-
     const response = await fetch(`http://localhost:5000/movie/${movieId}`, {
         method: 'POST',
         headers: {

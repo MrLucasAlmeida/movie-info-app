@@ -22,12 +22,11 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
     }
 
     console.log(movies[randomIdx]);
-    setFeaturedMovie(movies[randomIdx]);
+    return movies[randomIdx];
   }
 
 
   function showMovieListFunction() {
-    
 
     if (movies?.length > 0) {
       return (
@@ -53,13 +52,14 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
   function showMovieInfoFunction() {
 
     return (
-      <MovieInfo movieId={movieId}></MovieInfo>
+      <MovieInfo movieId={movieInfoId}></MovieInfo>
+      // <h1>NO MOVIEINFO</h1>
     )
   }
 
 
   const [featuredMovie, setFeaturedMovie] = useState({});
-  const [movieInfoId, setMovieInfoId] = useState(-1);
+  const [movieInfoId, setMovieInfoId] = useState(1771);
   const [showMovieList, setShowMovieList] = useState(false);
 
 
@@ -69,8 +69,10 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
 
   useEffect(() => {
     // change the random movie featured
-    getRandomMovie();
-    // Document.getElementbyClass('.scrollable-content-moviesection-container').scrollTo(0, 0);
+    if (showMovieList) {
+      console.log('featured movie is');
+      setFeaturedMovie(getRandomMovie());
+    }    
   }, [movies]);
 
 
