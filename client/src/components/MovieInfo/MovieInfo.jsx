@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 function MovieInfo({ movieId }) {
 
-  async function setMovieDetails() {
+  async function getMovieDetailsFunction() {
     console.log(movieId);
     if (movieId === -1) {
       console.log('movie id is invalid');
@@ -27,13 +27,15 @@ function MovieInfo({ movieId }) {
 
 
 
-  function createMovieInfoCard(movieInfo) {
+  async function createMovieInfoCard() {
     console.log('checking movieInfo object');
-    
+    const movieInfo = await getMovieDetailsFunction();
     console.log(Object.keys(movieInfo));
+    console.log(Object.keys(movieInfo).length);
     if (Object.keys(movieInfo).length > 0) {
+      console.log('movie info card showing');
     return (
-      <div className='.movieInfo-container'>
+      <div className='movieInfo-container'>
         <div className='movieInfo-image'>
 
         </div>
@@ -56,11 +58,11 @@ function MovieInfo({ movieId }) {
 
 
 
-  const [movieInformation, setMovieInformation] = useState({});
+  // const [movieInformation, setMovieInformation] = useState({});
 
 
   useEffect(() => {
-    setMovieInformation(setMovieDetails());
+    // setMovieInformation(getMovieDetails());
   }, []);
 
 
@@ -68,7 +70,7 @@ function MovieInfo({ movieId }) {
 
   return (
     <>
-      {createMovieInfoCard(movieInformation)}
+      {async () => await createMovieInfoCard()}
     </>
     
   )
