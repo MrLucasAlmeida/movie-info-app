@@ -11,14 +11,14 @@ function FilmFlix() {
 
   async function movieListQuery(query) {
     const response = await getMovieListByQuery(query);
-    console.log(response);
+    // console.log(response);
     setMovies(response);
     
   }
 
   async function movieListGenre(genreId) {
     const response = await getMovieListbyGenre(genreId);
-    console.log(response);
+    // console.log(response);
     setMovies(response);
     
   }

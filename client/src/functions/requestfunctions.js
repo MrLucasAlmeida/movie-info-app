@@ -9,7 +9,7 @@ export async function getMovieListByQuery(query) {
         body: JSON.stringify({ query })
     });
     const data = await response.json();
-    console.log(response.ok ? data.movieList : data.error);
+    // console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
 
@@ -24,7 +24,7 @@ export async function getMovieListbyGenre(genreId) {
         body: JSON.stringify({ genreId })
     });
     const data = await response.json();
-    console.log(response.ok ? data.movieList : data.error);
+    // console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
 

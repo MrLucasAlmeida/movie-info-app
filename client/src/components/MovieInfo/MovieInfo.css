@@ -1,6 +1,29 @@
 .movieInfo-container {
-    background-color: red;
+
+    display: flex;
     
+    
+}
+.movieInfo-image {
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1.2;
+}
+.movieInfo-image img {
+    margin: 20%;
+    width: 50%;
+    border-radius: 20px;
+    overflow: hidden;
+
+    
+    
+    
+}
+.movieInfo-info {
+    background-color: green;
+    flex: 1;
 }
 
 

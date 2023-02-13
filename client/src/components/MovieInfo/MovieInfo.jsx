@@ -3,44 +3,33 @@ import './MovieInfo.css'
 import { getMovieDetails } from '../../functions/requestfunctions'
 import { useEffect, useState } from 'react';
 
-function MovieInfo({ movieId }) {
+function MovieInfo({ movieInfoStuff }) {
 
-  async function getMovieDetailsFunction() {
-    console.log(movieId);
-    if (movieId === -1) {
-      console.log('movie id is invalid');
-      return {};
-    } else {
-      const { movieCredits, movieDetails, movieVideos } = await getMovieDetails(movieId);
-      // check if it came back with a valid response
-      if (movieCredits.status_code === 34 ||
-        movieDetails.status_code === 34 ||
-        movieVideos.status_code === 34) {
-        console.log('some information came back invalid');
-        return {};
-      } else {
-        console.log('movie details loaded SUCCESSFULLY');
-        return { movieCredits, movieDetails, movieVideos };
-      }
-    }
-  }
+  
 
 
 
-  async function createMovieInfoCard() {
-    console.log('checking movieInfo object');
-    const movieInfo = await getMovieDetailsFunction();
-    console.log(Object.keys(movieInfo));
-    console.log(Object.keys(movieInfo).length);
-    if (Object.keys(movieInfo).length > 0) {
+  function createMovieInfoCard(mInfo) {
+    if (Object.keys(mInfo).length > 0) {
       console.log('movie info card showing');
+      const { movieCredits, movieDetails, movieVideos } = mInfo;
+      const mCredits = movieCredits;
+      const mDetails = movieDetails;
+      const mVideos = movieVideos;
+
+
     return (
       <div className='movieInfo-container'>
         <div className='movieInfo-image'>
-
+            <img src={mDetails.poster_path !== null ? 
+            `https://image.tmdb.org/t/p/w500${mDetails.poster_path}` :
+            'https://via.placeholder.com/400'}></img>
         </div>
         <div className='movieInfo-info'>
-          
+          <h1>{mDetails.original_title}</h1>
+          <p>{mDetails.tagline}</p>
+          <p>{mDetails.overview}</p>
+
         </div>
       </div>
     )
@@ -58,20 +47,13 @@ function MovieInfo({ movieId }) {
 
 
 
-  // const [movieInformation, setMovieInformation] = useState({});
-
-
-  useEffect(() => {
-    // setMovieInformation(getMovieDetails());
-  }, []);
-
-
-
 
   return (
     <>
-      {async () => await createMovieInfoCard()}
+      {createMovieInfoCard(movieInfoStuff)}
     </>
+      
+    
     
   )
 }

@@ -7,8 +7,50 @@ import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
 import MovieInfo from '../MovieInfo/MovieInfo.jsx'
 import { useEffect, useState, useRef } from 'react'
 
+import { getMovieDetails } from '../../functions/requestfunctions'
+
 
 function MovieSection({ movies, searchTerm, setSearchTerm }) {
+
+  const [featuredMovie, setFeaturedMovie] = useState({});
+  const [movieInfoId, setMovieInfoId] = useState(1771);
+  const [movieInfo, setMovieInfo] = useState({});
+  const [showMovieList, setShowMovieList] = useState(true);
+
+
+
+
+
+
+
+  async function setMovieDetailsFunction(movieId) {
+    const movieDetails = await getMovieDetailsFunction(movieId);
+    console.log(movieDetails);
+    setMovieInfo(movieDetails);
+  
+  }
+
+  async function getMovieDetailsFunction(movieId) {
+    console.log(movieId);
+    if (movieId === -1) {
+      console.log('movie id is invalid');
+      return {};
+    } else {
+      const { movieCredits, movieDetails, movieVideos } = await getMovieDetails(movieId);
+      // check if it came back with a valid response
+      if (movieCredits.status_code === 34 ||
+        movieDetails.status_code === 34 ||
+        movieVideos.status_code === 34) {
+        console.log('some information came back invalid');
+        return {};
+      } else {
+        console.log('movie details loaded SUCCESSFULLY');
+        return { movieCredits, movieDetails, movieVideos };
+      }
+    }
+  }
+
+  
 
 
   function getRandomMovie() {
@@ -52,28 +94,28 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
   function showMovieInfoFunction() {
 
     return (
-      <MovieInfo movieId={movieInfoId}></MovieInfo>
+      <MovieInfo movieInfoStuff={movieInfo}></MovieInfo>
       // <h1>NO MOVIEINFO</h1>
     )
   }
 
 
-  const [featuredMovie, setFeaturedMovie] = useState({});
-  const [movieInfoId, setMovieInfoId] = useState(1771);
-  const [showMovieList, setShowMovieList] = useState(false);
+  
 
-
-  useEffect(() => {
-
-  }, []);
 
   useEffect(() => {
     // change the random movie featured
     if (showMovieList) {
-      console.log('featured movie is');
+      // console.log('featured movie is');
       setFeaturedMovie(getRandomMovie());
     }    
   }, [movies]);
+
+  useEffect(() => {
+    setMovieDetailsFunction(movieInfoId)
+  }, [movieInfoId]);
+
+  
 
 
   return (
@@ -83,11 +125,6 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
         <div className='search-container'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
         </div>
-        
-        
-        
-
-
 
 
 
