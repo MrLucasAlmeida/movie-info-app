@@ -25,10 +25,24 @@ function MovieInfo({ movieInfoStuff }) {
             `https://image.tmdb.org/t/p/w500${mDetails.poster_path}` :
             'https://via.placeholder.com/400'}></img>
         </div>
-        <div className='movieInfo-info'>
-          <h1>{mDetails.original_title}</h1>
-          <p>{mDetails.tagline}</p>
-          <p>{mDetails.overview}</p>
+        <div className='info'>
+          <div>
+            <h1 id='title'>{mDetails.original_title}</h1>
+            <p id='tagline'>{mDetails.tagline}</p>
+            
+          </div>
+            
+          <div>
+            <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
+          </div>
+          
+          <div>
+            <h2>Information:</h2>
+            <p id='overview'>{mDetails.overview}</p>
+            <h2>Credits:</h2>
+          </div>
+          
+
 
         </div>
       </div>

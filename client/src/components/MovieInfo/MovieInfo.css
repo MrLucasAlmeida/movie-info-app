@@ -1,5 +1,4 @@
 .movieInfo-container {
-
     display: flex;
     
     
@@ -9,30 +8,85 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1.2;
+    flex: 1;
 }
 .movieInfo-image img {
-    margin: 20%;
+    margin-top: 10%;
     width: 50%;
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
 
     
     
     
 }
-.movieInfo-info {
+.info {
     background-color: green;
     flex: 1;
+    
+}
+/* header (title, tagline) */
+
+.info div:nth-child(1) {
+    display: inline-block;
+    width: 100%;
+    background-color: red;
+}
+
+.info div:nth-child(1) #title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px;
+    
+}
+.info div:nth-child(1) #tagline {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    
 }
 
 
 
+/* runtime and release date */
+
+.info div:nth-child(2) {
+    display: inline-block;
+    width: 100%;
+    background-color: yellow;
+    text-align: right;
+    margin: 0;
+}
+.info div:nth-child(2) #metadata {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+}
 
 
 
+/* movie info area */
 
+.info div:nth-child(3) {
+    background-color: aqua;
+    margin: 0;
+    text-align: left;
+}
+.info div:nth-child(3) h2 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin: 0px 30px 5px;
+    padding: 0;
+    text-align: left;
+}
 
+.info div:nth-child(3) #overview {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 10px 30px 20px;
+    
+    
+}
 
 
 .empty-movieinfo {

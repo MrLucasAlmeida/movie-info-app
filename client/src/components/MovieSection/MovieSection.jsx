@@ -15,7 +15,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
   const [movieInfo, setMovieInfo] = useState({});
-  const [showMovieList, setShowMovieList] = useState(true);
+  const [showMovieList, setShowMovieList] = useState(false);
 
 
 
