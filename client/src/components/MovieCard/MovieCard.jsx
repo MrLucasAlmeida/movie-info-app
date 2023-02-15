@@ -1,9 +1,18 @@
 import React from 'react'
 import './MovieCard.css'
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, setMovieInfoId, setShowMovieList}) {
+
+
+  function handleClick() {
+    setMovieInfoId(movie.id);
+    setShowMovieList(false);
+  }
+
+
+
   return (
-    <div className='movie'>
+    <div className='movie' onClick={() => handleClick()}>
       <div className='poster-image'>
         <img 
           src={movie.poster_path !== null ? 

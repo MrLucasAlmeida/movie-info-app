@@ -28,6 +28,7 @@ function FilmFlix() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('avenger');
   const [genreTerm, setGenreTerm] = useState(-1);
+  const [showMovieList, setShowMovieList] = useState(true);
 
 
   useEffect(() => {
@@ -47,8 +48,13 @@ function FilmFlix() {
 
   return (
     <div className='filmflix-container'>
-        <SideBar setGenreTerm={setGenreTerm}></SideBar>
-        <MovieSection movies={movies} searchTerm={searchTerm} setSearchTerm={setSearchTerm}></MovieSection>
+        <SideBar setGenreTerm={setGenreTerm} setShowMovieList={setShowMovieList}></SideBar>
+        <MovieSection movies={movies}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        showMovieList={showMovieList}
+        setShowMovieList={setShowMovieList}
+        ></MovieSection>
     </div>
   )
 }

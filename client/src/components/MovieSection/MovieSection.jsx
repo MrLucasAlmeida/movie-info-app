@@ -10,12 +10,12 @@ import { useEffect, useState, useRef } from 'react'
 import { getMovieDetails } from '../../functions/requestfunctions'
 
 
-function MovieSection({ movies, searchTerm, setSearchTerm }) {
+function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setShowMovieList }) {
 
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
   const [movieInfo, setMovieInfo] = useState({});
-  const [showMovieList, setShowMovieList] = useState(false);
+  // const [showMovieList, setShowMovieList] = useState(true);
 
 
 
@@ -73,10 +73,16 @@ function MovieSection({ movies, searchTerm, setSearchTerm }) {
     if (movies?.length > 0) {
       return (
         <>
-        <FeaturedMovie movie={featuredMovie}></FeaturedMovie>
+        <FeaturedMovie  movie={featuredMovie}
+                        setShowMovieList={setShowMovieList}
+                        setMovieInfoId={setMovieInfoId}
+                        ></FeaturedMovie>
         <div className='movie-card-container'>
           {movies.map((movie, idx) => (
-            <MovieCard key={idx} movie={movie}></MovieCard>
+            <MovieCard  key={idx}
+                        movie={movie}
+                        setMovieInfoId={setMovieInfoId}
+                        setShowMovieList={setShowMovieList}></MovieCard>
           ))}
           
         </div>

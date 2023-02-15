@@ -2,12 +2,13 @@ import React from 'react'
 import './SideBarButton.css'
 
 
-function SideBarButton( {text, image, genreId, setGenreTerm }) {
+function SideBarButton( {text, image, genreId, setGenreTerm, setShowMovieList }) {
 
 
   function handleClick() {
     console.log(genreId);
     setGenreTerm(genreId);
+    setShowMovieList(true);
   }
 
 

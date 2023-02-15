@@ -3,14 +3,21 @@ import { useEffect } from 'react';
 import './FeaturedMovie.css'
 import { getMovieDetails } from '../../functions/requestfunctions';
 
-function FeaturedMovie({ movie }) {
+function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
+
+  function handleClick() {
+    setShowMovieList(false);
+    setMovieInfoId(movie.id);
+
+  }
+
   if (Object.keys(movie).length === 0) {
     return null;
   }
   
 
   return (
-      <div className='featured-movie-container'>
+      <div className='featured-movie-container' onClick={() => handleClick()}>
 
         
 

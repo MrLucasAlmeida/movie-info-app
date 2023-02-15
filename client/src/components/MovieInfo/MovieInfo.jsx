@@ -6,7 +6,24 @@ import { useEffect, useState } from 'react';
 function MovieInfo({ movieInfoStuff }) {
 
   
-
+  function showMovieActorImages(actorArray) {
+    console.log('showing movie actor images');
+    let actorImages = [];
+    for (let i = 0; i < 6; i++) {
+      if (actorArray[i].profile_path !== null) {
+        console.log('actor image showing');
+        actorImages.push((
+          <img src={`https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}`}></img>
+        ));
+      } else {
+        console.log('actor image failed to load');
+        actorImages.push((
+          <img src='https://via.placeholder.com/185'></img>
+        ));
+      }
+    }
+    return actorImages;
+  }
 
 
   function createMovieInfoCard(mInfo) {
@@ -40,6 +57,9 @@ function MovieInfo({ movieInfoStuff }) {
             <h2>Information:</h2>
             <p id='overview'>{mDetails.overview}</p>
             <h2>Credits:</h2>
+            <div id='actors'>
+              {showMovieActorImages(mCredits.cast)}
+            </div>
           </div>
           
 
