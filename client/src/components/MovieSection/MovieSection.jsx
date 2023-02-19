@@ -10,7 +10,7 @@ import { useEffect, useState, useRef } from 'react'
 import { getMovieDetails } from '../../functions/requestfunctions'
 
 
-function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setShowMovieList }) {
+function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setShowMovieList, setPageNumber, isLoading }) {
 
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
@@ -66,6 +66,18 @@ function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setSho
     console.log(movies[randomIdx]);
     return movies[randomIdx];
   }
+
+
+  function handleInfiniteScroll() {
+    let movieSec = document.querySelector('.scrollable-content-moviesection-container');
+    if (!showMovieList) {return;}
+    if (movieSec.scrollTop + movieSec.clientHeight + 1 >= movieSec.scrollHeight) {
+      console.log('bottom of page');
+      setPageNumber(prevPageNumber => prevPageNumber + 1);
+    }
+  }
+
+
 
 
   function showMovieListFunction() {
@@ -126,7 +138,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setSho
 
   return (
     <div className='moviesection-container'>
-      <div className='scrollable-content-moviesection-container'>
+      <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
 
         <div className='search-container'>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
@@ -137,7 +149,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setSho
 
 
         {showMovieList ? showMovieListFunction() : showMovieInfoFunction()}
-          
+        {isLoading && <h1>Loading...</h1>}
         
       </div>
     </div>

@@ -16,23 +16,31 @@ function FilmFlix() {
     
   }
 
-  async function movieListGenre(genreId) {
-    const response = await getMovieListbyGenre(genreId);
+  async function movieListGenre(genreId, pageNum) {
+    const response = await getMovieListbyGenre(genreId, pageNum);
     // console.log(response);
-    setMovies(response);
+    // setMovies(response);
+    setMovies(prevMovies => [...prevMovies, ...response]);
     
+  }
+  function pause(milliseconds) {
+    var dt = new Date();
+    while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
   }
 
 
 
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('avenger');
-  const [genreTerm, setGenreTerm] = useState(-1);
+  const [genreTerm, setGenreTerm] = useState(12);
   const [showMovieList, setShowMovieList] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
     // movieListQuery(searchTerm);
+    
   }, []);
 
   useEffect(() => {
@@ -40,8 +48,23 @@ function FilmFlix() {
   }, [searchTerm]);
 
   useEffect(() => {
-    movieListGenre(genreTerm);
+    movieListGenre(genreTerm,pageNumber);
+    setMovies([]);
+    setPageNumber(1);
+    let movieSec = document.querySelector('.scrollable-content-moviesection-container');
+    movieSec.scrollTop = 0;
   }, [genreTerm]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    movieListGenre(genreTerm,pageNumber);
+    // have a loading bar that will always appear at the bottom
+    // use a timeout to wait for movies
+    setIsLoading(false);
+
+
+
+  }, [pageNumber]);
   
 
 
@@ -54,6 +77,8 @@ function FilmFlix() {
         setSearchTerm={setSearchTerm}
         showMovieList={showMovieList}
         setShowMovieList={setShowMovieList}
+        setPageNumber={setPageNumber}
+        isLoading={isLoading}
         ></MovieSection>
     </div>
   )

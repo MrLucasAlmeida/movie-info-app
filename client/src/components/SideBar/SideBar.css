@@ -41,7 +41,7 @@
 
 /* width */
 .scrollable-content-nav-bar::-webkit-scrollbar {
-    width: 10px;
+    width: 13px;
   }
   
   /* Track */
@@ -52,6 +52,7 @@
   /* Handle */
   .scrollable-content-nav-bar::-webkit-scrollbar-thumb {
     background: #888;
+    border-radius: 100px;
   }
   
   /* Handle on hover */

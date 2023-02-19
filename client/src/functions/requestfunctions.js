@@ -13,15 +13,16 @@ export async function getMovieListByQuery(query) {
     return response.ok ? data.movieList : data.error;
 }
 
-export async function getMovieListbyGenre(genreId) {
+export async function getMovieListbyGenre(genreId, pageNum) {
 
     if (genreId === -1) return [];
+    console.log(pageNum);
     const response = await fetch('http://localhost:5000/movielistgenre', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ genreId })
+        body: JSON.stringify({ genreId, pageNum })
     });
     const data = await response.json();
     // console.log(response.ok ? data.movieList : data.error);

@@ -125,11 +125,12 @@ app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
 const verifyMovieByGenreCache = async (req, res, next) => {
     try {
         const genreId = req.body.genreId;
-        if (cache.has(`genre-${genreId}`)) {
+        const page = req.body.pageNum;
+        if (cache.has(`genre-${genreId}-${page}`)) {
             console.log("GenreMovieList: cache hit");
 
             res.status(200).send({
-                movieList: cache.get(`genre-${genreId}`)
+                movieList: cache.get(`genre-${genreId}-${page}`)
             });
             return;
         }
@@ -145,14 +146,15 @@ const verifyMovieByGenreCache = async (req, res, next) => {
 app.post('/movielistgenre', verifyMovieByGenreCache, async (req, res) => {
     // fetches movie list based on genre
     const genreId = req.body.genreId;
-    const url = `${urlGenreMovieList}&with_genres=${genreId}`;
+    const page = req.body.pageNum;
+    const url = `${urlGenreMovieList}&with_genres=${genreId}&page=${page}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
         
         // set cache
         console.log("GenreMovieList: setting cache");
-        cache.set(`genre-${genreId}`, data.results);
+        cache.set(`genre-${genreId}-${page}`, data.results);
 
         // send response
         res.status(200).send({
