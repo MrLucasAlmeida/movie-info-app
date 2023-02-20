@@ -1,9 +1,11 @@
 .search-container {
     display: flex;
-    height: 10vh;
+    /* height: 10vh; */
     justify-content: center;
     align-items: center;
-    margin: 2% auto;
+    margin: 0 auto 0;
+    background-color:#111111;
+    width: 100%;
 
 }
 
