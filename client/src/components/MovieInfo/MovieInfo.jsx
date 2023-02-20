@@ -24,6 +24,18 @@ function MovieInfo({ movieInfoStuff }) {
     }
     return actorImages;
   }
+  // returns video link for movie trailer
+  function findMovieTrailer(videos) {
+    console.log('finding movie trailer');
+    for (let i = 0; i < videos.results.length; i++) {
+      if (videos.results[i].type === 'Trailer') {
+        console.log('movie trailer found');
+        return `https://www.youtube.com/watch?v=${videos.results[i].key}`;
+      }
+    }
+    console.log('movie trailer not found');
+    return 'https://www.youtube.com';
+  }
 
 
   function createMovieInfoCard(mInfo) {
@@ -50,8 +62,14 @@ function MovieInfo({ movieInfoStuff }) {
           </div>
             
           <div>
+            <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button>
             <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
           </div>
+          
+          
+            
+          
+          
           
           <div>
             <h2>Information:</h2>
