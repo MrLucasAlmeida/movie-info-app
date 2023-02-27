@@ -141,7 +141,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
       <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
 
         <div className='search-container'>
-          <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm}></SearchBar>
+          <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm} setShowMovieList={setShowMovieList}></SearchBar>
         </div>
 
 

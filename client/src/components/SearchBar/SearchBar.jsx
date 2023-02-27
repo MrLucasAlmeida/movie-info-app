@@ -2,9 +2,13 @@ import React from 'react'
 import SearchIcon from '../../images/search.svg'
 import './SearchBar.css'
 
-function SearchBar({ queryTerm, setQueryTerm }) {
+function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
 
-
+  function handleSearch(e) {
+    if (e.keyCode !== 13) {return;}
+    setQueryTerm(e.target.value);
+    setShowMovieList(true);
+  }
   
 
 
@@ -13,16 +17,13 @@ function SearchBar({ queryTerm, setQueryTerm }) {
     <div className="search">
         <input
           placeholder='Search All Movies'
-          // value={'superman'}
           id='search-bar'
-          // onChange={(e) => setQueryTerm(e.target.value)}
-          onSubmit={(e) => setQueryTerm(e.target.value)}
-          onKeyDown={(e) => {e.keyCode === 13 && setQueryTerm(e.target.value)}}
+          onKeyDown={handleSearch}
         />
         <img
           src={SearchIcon}
           alt='search icon'
-          onClick={() => setQueryTerm(document.getElementById('search-bar').value)}
+          onClick={() => {setQueryTerm(document.getElementById('search-bar').value);setShowMovieList(true);}}
         />
       </div>
   )

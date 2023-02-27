@@ -46,11 +46,12 @@ function FilmFlix() {
   const [showMovieList, setShowMovieList] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [queryTerm, setQueryTerm] = useState(12);
+  const [queryTerm, setQueryTerm] = useState('super');
 
 
   useEffect(() => {
     // movieListQuery(searchTerm);
+    console.log('app loaded');
     
   }, []);
   // useEffect(() => {
