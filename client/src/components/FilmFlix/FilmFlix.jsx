@@ -9,10 +9,22 @@ import { useState, useEffect } from 'react'
 function FilmFlix() {
 
 
-  async function movieListQuery(query) {
-    const response = await getMovieListByQuery(query);
+  async function movieListQuery(query, pageNum) {
+    let response = [];
+    if (typeof query === 'number') {
+      // doing search by genre id
+      console.log('searching by genre id');
+      response = await getMovieListbyGenre(query, pageNum);
+    } else {
+      // doing search by string
+      response = await getMovieListByQuery(query);
+    }
+    
     // console.log(response);
-    setMovies(response);
+    setMovies(prevMovies => {
+      const newMovies = [...prevMovies, ...response];
+      return newMovies;
+    });
     
   }
 
@@ -20,7 +32,7 @@ function FilmFlix() {
     const response = await getMovieListbyGenre(genreId, pageNum);
     // console.log(response);
     // setMovies(response);
-    setMovies(prevMovies => [...prevMovies, ...response]);
+    
     
   }
   function pause(milliseconds) {
@@ -31,33 +43,35 @@ function FilmFlix() {
 
 
   const [movies, setMovies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('avenger');
-  const [genreTerm, setGenreTerm] = useState(12);
   const [showMovieList, setShowMovieList] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [queryTerm, setQueryTerm] = useState(12);
 
 
   useEffect(() => {
     // movieListQuery(searchTerm);
     
   }, []);
+  // useEffect(() => {
+  //   movieListQuery(queryTerm, 1);
+  // }, [queryTerm]);
 
   useEffect(() => {
-    movieListQuery(searchTerm);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    movieListGenre(genreTerm,pageNumber);
+    movieListQuery(queryTerm,pageNumber);
     setMovies([]);
     setPageNumber(1);
     let movieSec = document.querySelector('.scrollable-content-moviesection-container');
     movieSec.scrollTop = 0;
-  }, [genreTerm]);
+
+
+
+    console.log(movies);
+  }, [queryTerm]);
 
   useEffect(() => {
     setIsLoading(true);
-    movieListGenre(genreTerm,pageNumber);
+    movieListQuery(queryTerm,pageNumber);
     // have a loading bar that will always appear at the bottom
     // use a timeout to wait for movies
     setIsLoading(false);
@@ -71,10 +85,10 @@ function FilmFlix() {
 
   return (
     <div className='filmflix-container'>
-        <SideBar setGenreTerm={setGenreTerm} setShowMovieList={setShowMovieList}></SideBar>
+        <SideBar setQueryTerm={setQueryTerm} setShowMovieList={setShowMovieList}></SideBar>
         <MovieSection movies={movies}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
+        queryTerm={queryTerm}
+        setQueryTerm={setQueryTerm}
         showMovieList={showMovieList}
         setShowMovieList={setShowMovieList}
         setPageNumber={setPageNumber}

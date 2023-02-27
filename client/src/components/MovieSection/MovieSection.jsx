@@ -10,7 +10,7 @@ import { useEffect, useState, useRef } from 'react'
 import { getMovieDetails } from '../../functions/requestfunctions'
 
 
-function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setShowMovieList, setPageNumber, isLoading }) {
+function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading }) {
 
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
@@ -63,7 +63,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setSho
       randomIdx = Math.floor(Math.random() * movies.length);
     }
 
-    console.log(movies[randomIdx]);
+    // console.log(movies[randomIdx]);
     return movies[randomIdx];
   }
 
@@ -141,7 +141,7 @@ function MovieSection({ movies, searchTerm, setSearchTerm, showMovieList, setSho
       <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
 
         <div className='search-container'>
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchBar>
+          <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm}></SearchBar>
         </div>
 
 

@@ -9,7 +9,7 @@ import { getGenreList} from '../../functions/requestfunctions';
 // import images
 import genreIcons from '../../images/genres/index.js'
 
-function SideBar({ setGenreTerm, setShowMovieList }) {
+function SideBar({ setQueryTerm, setShowMovieList }) {
   
   async function getListOfGenres() {
     const response = await getGenreList();
@@ -48,7 +48,7 @@ function SideBar({ setGenreTerm, setShowMovieList }) {
               <SideBarButton  key={idx} text={genre.name}
                               image={genreIcons[genre.name.toLowerCase()]}
                               genreId={genre.id}
-                              setGenreTerm={setGenreTerm}
+                              setQueryTerm={setQueryTerm}
                               setShowMovieList={setShowMovieList}
                               ></SideBarButton>
             )

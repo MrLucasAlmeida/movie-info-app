@@ -2,19 +2,27 @@ import React from 'react'
 import SearchIcon from '../../images/search.svg'
 import './SearchBar.css'
 
-function SearchBar({ searchTerm, setSearchTerm }) {
+function SearchBar({ queryTerm, setQueryTerm }) {
+
+
+  
+
+
+
   return (
     <div className="search">
         <input
           placeholder='Search All Movies'
-          value={'superman'}
-        //   onChange={(e) => setSearchTerm(e.target.value)}
-          // onSubmit={(e) => setSearchTerm(e.target.value)}
+          // value={'superman'}
+          id='search-bar'
+          // onChange={(e) => setQueryTerm(e.target.value)}
+          onSubmit={(e) => setQueryTerm(e.target.value)}
+          onKeyDown={(e) => {e.keyCode === 13 && setQueryTerm(e.target.value)}}
         />
         <img
           src={SearchIcon}
           alt='search icon'
-        //   onClick={() => movieSearch(searchTerm)}
+          onClick={() => setQueryTerm(document.getElementById('search-bar').value)}
         />
       </div>
   )
