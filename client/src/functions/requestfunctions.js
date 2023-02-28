@@ -1,4 +1,4 @@
-export async function getMovieListByQuery(query) {
+export async function getMovieListByQuery(query, pageNum) {
     if (query === '') return [];
 
     const response = await fetch('http://localhost:5000/movielistquery', {
@@ -6,7 +6,7 @@ export async function getMovieListByQuery(query) {
         headers: {
         'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ query, pageNum })
     });
     const data = await response.json();
     // console.log(response.ok ? data.movieList : data.error);

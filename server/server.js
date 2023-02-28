@@ -77,15 +77,16 @@ app.get('/genres', verifyGenreListCache, async (req, res) => {
 });
 
 
-// middleware for verifying movie by genre cache
+// middleware for verifying movie by query cache
 const verifyMovieByQueryCache = async (req, res, next) => {
     try {
         const query = req.body.query;
-        if (cache.has(`query-${query}`)) {
+        const page = req.body.pageNum;
+        if (cache.has(`query-${query}-${page}`)) {
             console.log("QueryMovieList: cache hit");
 
             res.status(200).send({
-                movieList: cache.get(`query-${query}`)
+                movieList: cache.get(`query-${query}-${page}`)
             });
             return;
         }
@@ -101,14 +102,15 @@ const verifyMovieByQueryCache = async (req, res, next) => {
 app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
     // fetches movie list based on query
     const query = req.body.query;
-    const url = `${urlQueryMovieList}&query=${query}`;
+    const page = req.body.pageNum;
+    const url = `${urlQueryMovieList}&query=${query}&page=${page}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
 
         // set cache
         console.log("QueryMovieList: setting cache");
-        cache.set(`query-${query}`, data.results);
+        cache.set(`query-${query}-${page}`, data.results);
 
         res.status(200).send({
             movieList: data.results

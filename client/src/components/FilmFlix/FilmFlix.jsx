@@ -17,14 +17,43 @@ function FilmFlix() {
       response = await getMovieListbyGenre(query, pageNum);
     } else {
       // doing search by string
-      response = await getMovieListByQuery(query);
+      console.log('searching by string');
+      response = await getMovieListByQuery(query, pageNum);
     }
     
     // console.log(response);
-    setMovies(prevMovies => {
-      const newMovies = [...prevMovies, ...response];
-      return newMovies;
-    });
+
+    // check if the response contains a duplicate movie
+    // let flag = false;
+    // for (let i = 0; i < response.length; i++) {
+    //   for (let j = 0; j < movies.length; j++) {
+    //     if (response[i].id === movies[j].id) {
+    //       return;
+    //     }
+    //   }
+    // }
+    // if (flag) {
+    //   console.log("there was a duplicate movie");
+    //   return;
+    // }
+    // let newMoviesList = [...movies];
+    // console.log(newMoviesList);
+    // for (let i = 0; i < response.length; i++) {
+    //   if (!newMoviesList.includes(response[i])) {
+    //     newMoviesList.push(response[i]);
+    //   }
+    // }
+    // console.log(response);
+    if (!ranOnce) {
+      setMovies(response);
+    } else {
+      setMovies(prevMovies => {
+        const newMovies = [...prevMovies, ...response];
+        console.log(newMovies);
+        return newMovies;
+      });
+    }
+    
     
   }
 
@@ -46,12 +75,16 @@ function FilmFlix() {
   const [showMovieList, setShowMovieList] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [queryTerm, setQueryTerm] = useState('super');
+  const [queryTerm, setQueryTerm] = useState(12);
+  const [ranOnce, setRanOnce] = useState(false);
 
 
   useEffect(() => {
     // movieListQuery(searchTerm);
     console.log('app loaded');
+    // setMovies([]);
+    movieListQuery(queryTerm,1);
+    setRanOnce(true);
     
   }, []);
   // useEffect(() => {
@@ -59,9 +92,11 @@ function FilmFlix() {
   // }, [queryTerm]);
 
   useEffect(() => {
-    movieListQuery(queryTerm,pageNumber);
-    setMovies([]);
+    if (!ranOnce) return;
+    console.log("query term changed");
     setPageNumber(1);
+    setMovies([]);
+    movieListQuery(queryTerm,pageNumber);
     let movieSec = document.querySelector('.scrollable-content-moviesection-container');
     movieSec.scrollTop = 0;
 
@@ -71,15 +106,16 @@ function FilmFlix() {
   }, [queryTerm]);
 
   useEffect(() => {
+    if (!ranOnce) return;
+    console.log("page number changed");
     setIsLoading(true);
     movieListQuery(queryTerm,pageNumber);
     // have a loading bar that will always appear at the bottom
     // use a timeout to wait for movies
     setIsLoading(false);
-
-
-
   }, [pageNumber]);
+
+  
   
 
 
