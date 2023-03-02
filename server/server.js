@@ -211,7 +211,7 @@ app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
     const urlMovieDetails = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieCredits = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieVideos = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
-
+    const urlReccMovies = `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
 
     try {
         const responseMovieDetails = await fetch(urlMovieDetails);
@@ -223,13 +223,17 @@ app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
         const responseMovieVideos = await fetch(urlMovieVideos);
         const dataMovieVideos = await responseMovieVideos.json();
 
+        const responseReccMovies = await fetch(urlReccMovies);
+        const dataReccMovies = await responseReccMovies.json();
+
 
         // set cache
         console.log("MovieDetails: setting cache");
         const movieDetailObject = {
             movieDetails: dataMovieDetails,
             movieCredits: dataMovieCredits,
-            movieVideos: dataMovieVideos
+            movieVideos: dataMovieVideos,
+            movieRecc: dataReccMovies
         };
         cache.set(`moviedetails-${movie_id}`, movieDetailObject);
 

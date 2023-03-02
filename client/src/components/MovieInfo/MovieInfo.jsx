@@ -3,7 +3,9 @@ import './MovieInfo.css'
 import { getMovieDetails } from '../../functions/requestfunctions'
 import { useEffect, useState } from 'react';
 
-function MovieInfo({ movieInfoStuff }) {
+import MovieCard from '../MovieCard/MovieCard.jsx'
+
+function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
 
   
   function showMovieActorImages(actorArray) {
@@ -41,48 +43,71 @@ function MovieInfo({ movieInfoStuff }) {
   function createMovieInfoCard(mInfo) {
     if (Object.keys(mInfo).length > 0) {
       console.log('movie info card showing');
-      const { movieCredits, movieDetails, movieVideos } = mInfo;
+      const { movieCredits, movieDetails, movieVideos, movieRecc } = mInfo;
       const mCredits = movieCredits;
       const mDetails = movieDetails;
       const mVideos = movieVideos;
+      const mRecc = movieRecc;
+
+      // checks if there is over 20 movies in the recommendations array
+      // if there is, it will only show the first 20
+      if (mRecc.results.length > 20) {
+        mRecc.results = mRecc.results.slice(0, 20);
+      }
 
 
     return (
-      <div className='movieInfo-container'>
-        <div className='movieInfo-image'>
-            <img src={mDetails.poster_path !== null ? 
-            `https://image.tmdb.org/t/p/w500${mDetails.poster_path}` :
-            'https://via.placeholder.com/400'}></img>
-        </div>
-        <div className='info'>
-          <div>
-            <h1 id='title'>{mDetails.original_title}</h1>
-            <p id='tagline'>{mDetails.tagline}</p>
-            
+      <div className='movieInfoCard-container'>
+        <div className='info-container'>
+          <div className='movieInfo-image'>
+              <img src={mDetails.poster_path !== null ? 
+              `https://image.tmdb.org/t/p/w500${mDetails.poster_path}` :
+              'https://via.placeholder.com/400'}></img>
           </div>
-            
-          <div>
-            <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button>
-            <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
-          </div>
-          
-          
-            
-          
-          
-          
-          <div>
-            <h2>Information:</h2>
-            <p id='overview'>{mDetails.overview}</p>
-            <h2>Credits:</h2>
-            <div id='actors'>
-              {showMovieActorImages(mCredits.cast)}
+          <div className='info'>
+            <div>
+              <h1 id='title'>{mDetails.original_title}</h1>
+              <p id='tagline'>{mDetails.tagline}</p>
+              
             </div>
+              
+            <div>
+              <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button>
+              <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
+            </div>
+            
+            
+              
+            
+            
+            
+            <div>
+              <h2>Information:</h2>
+              <p id='overview'>{mDetails.overview}</p>
+              <h2>Credits:</h2>
+              <div id='actors'>
+                {showMovieActorImages(mCredits.cast)}
+              </div>
+            </div>
+            
+
+
           </div>
-          
-
-
         </div>
+
+        {/* display movie recommendations here */}
+        <div id='recommended'>Recommended</div>
+        <div id='reccMoviesContainer'>
+        {mRecc.results.map((movie, idx) => (
+            <MovieCard  key={idx}
+                        movie={movie}
+                        setMovieInfoId={setMovieInfoId}
+                        setShowMovieList={setShowMovieList}></MovieCard>
+          ))}
+        </div>
+
+        
+
       </div>
     )
     } else {

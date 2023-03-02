@@ -8,6 +8,16 @@ import { useState, useEffect } from 'react'
 
 function FilmFlix() {
 
+  const [movies, setMovies] = useState([]);
+  const [showMovieList, setShowMovieList] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [queryTerm, setQueryTerm] = useState(12);
+
+
+
+
+
 
   async function movieListQuery(query, pageNum) {
     let response = [];
@@ -36,23 +46,30 @@ function FilmFlix() {
     //   console.log("there was a duplicate movie");
     //   return;
     // }
-    // let newMoviesList = [...movies];
-    // console.log(newMoviesList);
-    // for (let i = 0; i < response.length; i++) {
-    //   if (!newMoviesList.includes(response[i])) {
-    //     newMoviesList.push(response[i]);
-    //   }
-    // }
-    // console.log(response);
-    if (!ranOnce) {
-      setMovies(response);
-    } else {
-      setMovies(prevMovies => {
-        const newMovies = [...prevMovies, ...response];
-        console.log(newMovies);
-        return newMovies;
-      });
+    let newMoviesList = [...movies];
+
+    console.log(newMoviesList);
+    for (let i = 0; i < response.length; i++) {
+      let flag = true;
+      for (let j = 0; j < newMoviesList.length; j++) {
+        if (response[i].id === newMoviesList[j].id) {
+          console.log("there was a duplicate movie");
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        newMoviesList.push(response[i]);
+      }
     }
+
+    console.log(newMoviesList);
+    // console.log(newMoviesList.length);
+
+    setMovies(prevMovies => {
+      // console.log([...prevMovies,...response]);
+      return newMoviesList;
+    });
     
     
   }
@@ -71,20 +88,13 @@ function FilmFlix() {
 
 
 
-  const [movies, setMovies] = useState([]);
-  const [showMovieList, setShowMovieList] = useState(true);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [queryTerm, setQueryTerm] = useState(12);
-  const [ranOnce, setRanOnce] = useState(false);
+  // const [ranOnce, setRanOnce] = useState(false);
 
 
   useEffect(() => {
     // movieListQuery(searchTerm);
     console.log('app loaded');
-    // setMovies([]);
-    movieListQuery(queryTerm,1);
-    setRanOnce(true);
+    setMovies([]);
     
   }, []);
   // useEffect(() => {
@@ -92,27 +102,31 @@ function FilmFlix() {
   // }, [queryTerm]);
 
   useEffect(() => {
-    if (!ranOnce) return;
     console.log("query term changed");
     setPageNumber(1);
-    setMovies([]);
-    movieListQuery(queryTerm,pageNumber);
+    if (movies !== []) {
+      setMovies([]);
+    }
+    // console.log("reset movies");
+    movieListQuery(queryTerm, 1);
+    
+    
+    
+    
     let movieSec = document.querySelector('.scrollable-content-moviesection-container');
     movieSec.scrollTop = 0;
 
 
 
-    console.log(movies);
+    // console.log(movies);
   }, [queryTerm]);
 
   useEffect(() => {
-    if (!ranOnce) return;
+    if (pageNumber === 1) {return;}
     console.log("page number changed");
-    setIsLoading(true);
     movieListQuery(queryTerm,pageNumber);
     // have a loading bar that will always appear at the bottom
     // use a timeout to wait for movies
-    setIsLoading(false);
   }, [pageNumber]);
 
   

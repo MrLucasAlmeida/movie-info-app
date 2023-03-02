@@ -36,16 +36,17 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
       console.log('movie id is invalid');
       return {};
     } else {
-      const { movieCredits, movieDetails, movieVideos } = await getMovieDetails(movieId);
+      const { movieCredits, movieDetails, movieVideos, movieRecc } = await getMovieDetails(movieId);
       // check if it came back with a valid response
       if (movieCredits.status_code === 34 ||
         movieDetails.status_code === 34 ||
-        movieVideos.status_code === 34) {
+        movieVideos.status_code === 34 ||
+        movieRecc.status_code === 34) {
         console.log('some information came back invalid');
         return {};
       } else {
         console.log('movie details loaded SUCCESSFULLY');
-        return { movieCredits, movieDetails, movieVideos };
+        return { movieCredits, movieDetails, movieVideos, movieRecc };
       }
     }
   }
@@ -81,7 +82,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
 
   function showMovieListFunction() {
-
+    
     if (movies?.length > 0) {
       return (
         <>
@@ -110,9 +111,15 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
   }
 
   function showMovieInfoFunction() {
-
+    // moves scroll to top of page
+    let movieSec = document.querySelector('.scrollable-content-moviesection-container');
+    movieSec.scrollTop = 0;
+    
     return (
-      <MovieInfo movieInfoStuff={movieInfo}></MovieInfo>
+      <MovieInfo movieInfoStuff={movieInfo}
+                  setShowMovieList={setShowMovieList}
+                  setMovieInfoId={setMovieInfoId}
+      ></MovieInfo>
       // <h1>NO MOVIEINFO</h1>
     )
   }
