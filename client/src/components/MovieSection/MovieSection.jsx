@@ -25,7 +25,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
   async function setMovieDetailsFunction(movieId) {
     const movieDetails = await getMovieDetailsFunction(movieId);
-    console.log(movieDetails);
+    // console.log(movieDetails);
     setMovieInfo(movieDetails);
   
   }
@@ -45,7 +45,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
         console.log('some information came back invalid');
         return {};
       } else {
-        console.log('movie details loaded SUCCESSFULLY');
+        // console.log('movie details loaded SUCCESSFULLY');
         return { movieCredits, movieDetails, movieVideos, movieRecc };
       }
     }

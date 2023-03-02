@@ -65,8 +65,8 @@ export async function getMovieDetails(movieId) {
         body: JSON.stringify({ movieId })
     });
     const data = await response.json();
-    console.log('got movie details back');
-    console.log(response.ok ? data : data.error);
+    // console.log('got movie details back');
+    // console.log(response.ok ? data : data.error);
     return response.ok ? data : data.error;
 }
 

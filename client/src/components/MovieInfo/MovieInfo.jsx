@@ -42,7 +42,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
 
   function createMovieInfoCard(mInfo) {
     if (Object.keys(mInfo).length > 0) {
-      console.log('movie info card showing');
+      // console.log('movie info card showing');
       const { movieCredits, movieDetails, movieVideos, movieRecc } = mInfo;
       const mCredits = movieCredits;
       const mDetails = movieDetails;
