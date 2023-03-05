@@ -7,7 +7,7 @@ function SideBarButton( {text, image, genreId, setQueryTerm, setShowMovieList })
 
   function handleClick() {
     console.log(genreId);
-    setQueryTerm(genreId);
+    setQueryTerm('%genre:' + genreId);
     setShowMovieList(true);
   }
 

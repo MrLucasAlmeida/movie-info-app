@@ -36,17 +36,17 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
       console.log('movie id is invalid');
       return {};
     } else {
-      const { movieCredits, movieDetails, movieVideos, movieRecc } = await getMovieDetails(movieId);
+      const { movieCredits, movieDetails, movieVideos, movieSimilar } = await getMovieDetails(movieId);
       // check if it came back with a valid response
       if (movieCredits.status_code === 34 ||
         movieDetails.status_code === 34 ||
         movieVideos.status_code === 34 ||
-        movieRecc.status_code === 34) {
+        movieSimilar.status_code === 34) {
         console.log('some information came back invalid');
         return {};
       } else {
         // console.log('movie details loaded SUCCESSFULLY');
-        return { movieCredits, movieDetails, movieVideos, movieRecc };
+        return { movieCredits, movieDetails, movieVideos, movieSimilar };
       }
     }
   }

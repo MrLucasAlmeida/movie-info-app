@@ -41,18 +41,25 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
 
 
   function createMovieInfoCard(mInfo) {
-    if (Object.keys(mInfo).length > 0) {
+    try {
       // console.log('movie info card showing');
-      const { movieCredits, movieDetails, movieVideos, movieRecc } = mInfo;
+      const { movieCredits, movieDetails, movieVideos, movieSimilar } = mInfo;
       const mCredits = movieCredits;
       const mDetails = movieDetails;
       const mVideos = movieVideos;
-      const mRecc = movieRecc;
+      const mSimilar = movieSimilar;
 
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20
-      if (mRecc.results.length > 20) {
-        mRecc.results = mRecc.results.slice(0, 20);
+      // also sort by popularity
+      console.log(mSimilar.results);
+      // sort by most popular
+      mSimilar.results = mSimilar.results.sort((a,b) => b.vote_average - a.vote_average);
+      // limit to just 10 values
+      mSimilar.results = mSimilar.results.slice(0, 10);
+
+      if (mSimilar.results.length > 20) {
+        // mSimilar.results = mSimilar.results.slice(0, 20);
       }
 
 
@@ -96,9 +103,10 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
         </div>
 
         {/* display movie recommendations here */}
-        <div id='recommended'>Recommended</div>
+        {mSimilar.results.length > 0 && <div id='recommended'>Recommended</div>}
+        
         <div id='reccMoviesContainer'>
-        {mRecc.results.map((movie, idx) => (
+        {mSimilar.results.map((movie, idx) => (
             <MovieCard  key={idx}
                         movie={movie}
                         setMovieInfoId={setMovieInfoId}
@@ -110,7 +118,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
 
       </div>
     )
-    } else {
+    } catch {
       console.log('movie info failed to load');
       return (
         <div className='empty-movieinfo'>

@@ -2,7 +2,7 @@ import React from 'react'
 import './FilmFlix.css'
 import SideBar from '../SideBar/SideBar.jsx'
 import MovieSection from '../MovieSection/MovieSection.jsx'
-import { getMovieListByQuery, getGenreList, getMovieListbyGenre, getConfiguration } from '../../functions/requestfunctions';
+import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfiguration, getMovieListbyCategory } from '../../functions/requestfunctions';
 import { useState, useEffect } from 'react'
 
 
@@ -12,7 +12,7 @@ function FilmFlix() {
   const [showMovieList, setShowMovieList] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [queryTerm, setQueryTerm] = useState(12);
+  const [queryTerm, setQueryTerm] = useState('%category:upcoming');
 
 
 
@@ -21,14 +21,28 @@ function FilmFlix() {
 
   async function movieListQuery(query, pageNum) {
     let response = [];
-    if (typeof query === 'number') {
+    if (query.includes('%genre')) {
+
       // doing search by genre id
+      const genreId = parseInt(query.split(':')[1]);
       console.log('searching by genre id');
-      response = await getMovieListbyGenre(query, pageNum);
+      response = await getMovieListbyGenre(genreId, pageNum);
+
+
+    } else if (query.includes('%category')) {
+
+      // doing search by category
+      console.log('searching by category');
+      const category = query.split(':')[1];
+      response = await getMovieListbyCategory(category, pageNum);
+    } else if (query.includes('%keyword')) {
+      // doing search by keyword
+      const keyword = query.split(':')[1];
+      response = await getMovieListByKeyword(keyword, pageNum);
     } else {
       // doing search by string
       console.log('searching by string');
-      response = await getMovieListByQuery(query, pageNum);
+      response = await getMovieListByKeyword('superman', pageNum);
     }
     
     // console.log(response);
@@ -46,32 +60,28 @@ function FilmFlix() {
     //   console.log("there was a duplicate movie");
     //   return;
     // }
-    // let newMoviesList = [...movies];
+    let newMoviesList = [...movies];
 
-    // console.log(newMoviesList);
-    // for (let i = 0; i < response.length; i++) {
-    //   let flag = true;
-    //   for (let j = 0; j < newMoviesList.length; j++) {
-    //     if (response[i].id === newMoviesList[j].id) {
-    //       console.log("there was a duplicate movie");
-    //       flag = false;
-    //       break;
-    //     }
-    //   }
-    //   if (flag) {
-    //     newMoviesList.push(response[i]);
-    //   }
-    // }
-
-    // console.log(newMoviesList);
-    // console.log(newMoviesList.length);
+    for (let i = 0; i < response.length; i++) {
+      let flag = true;
+      for (let j = 0; j < newMoviesList.length; j++) {
+        if (response[i].id === newMoviesList[j].id) {
+          console.log("there was a duplicate movie");
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        newMoviesList.push(response[i]);
+      }
+    }
 
     if (pageNum === 1) {
       console.log(response);
       setMovies(response);
     } else {
-      console.log([...movies, ...response]);
-      setMovies([...movies, ...response]);
+      console.log(newMoviesList);
+      setMovies(newMoviesList);
     }
 
     // setMovies(prevMovies => {
@@ -135,6 +145,7 @@ function FilmFlix() {
     // if (pageNumber === 1) {console.log('on first page');return;}
     console.log("page number changed");
     movieListQuery(queryTerm,pageNumber);
+    console.log(pageNumber);
     // have a loading bar that will always appear at the bottom
     // use a timeout to wait for movies
   }, [pageNumber]);

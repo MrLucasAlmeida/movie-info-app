@@ -6,7 +6,7 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
 
   function handleSearch(e) {
     if (e.keyCode !== 13) {return;}
-    setQueryTerm(e.target.value);
+    setQueryTerm('%keyword:'+e.target.value);
     setShowMovieList(true);
   }
   
@@ -23,7 +23,7 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
         <img
           src={SearchIcon}
           alt='search icon'
-          onClick={() => {setQueryTerm(document.getElementById('search-bar').value);setShowMovieList(true);}}
+          onClick={() => {setQueryTerm('%keyword:'+document.getElementById('search-bar').value);setShowMovieList(true);}}
         />
       </div>
   )
