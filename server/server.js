@@ -78,19 +78,19 @@ app.get('/genres', verifyGenreListCache, async (req, res) => {
 
 
 // middleware for verifying movie by query cache
-const verifyMovieByQueryCache = async (req, res, next) => {
+const verifyMovieByKeywordCache = async (req, res, next) => {
     try {
-        const query = req.body.query;
+        const keyword = req.body.keyword;
         const page = req.body.pageNum;
-        if (cache.has(`query-${query}-${page}`)) {
-            console.log("QueryMovieList: cache hit");
+        if (cache.has(`keyword-${keyword}-${page}`)) {
+            console.log(`keyword-${keyword}-${page}: cache hit`);
 
             res.status(200).send({
-                movieList: cache.get(`query-${query}-${page}`)
+                movieList: cache.get(`keyword-${keyword}-${page}`)
             });
             return;
         }
-        console.log("QueryMovieList: cache miss");
+        console.log(`keyword-${keyword}-${page}: cache miss`);
         next();
     } catch (error) {
         console.log("there was an error");
@@ -99,18 +99,18 @@ const verifyMovieByQueryCache = async (req, res, next) => {
     }
 }
 
-app.post('/movielistquery', verifyMovieByQueryCache, async (req, res) => {
+app.post('/movielist/keyword', verifyMovieByKeywordCache, async (req, res) => {
     // fetches movie list based on query
-    const query = req.body.query;
+    const keyword = req.body.keyword;
     const page = req.body.pageNum;
-    const url = `${urlQueryMovieList}&query=${query}&page=${page}`;
+    const url = `${urlQueryMovieList}&query=${keyword}&page=${page}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
 
         // set cache
-        console.log("QueryMovieList: setting cache");
-        cache.set(`query-${query}-${page}`, data.results);
+        console.log(`keyword-${keyword}-${page}: setting cache`);
+        cache.set(`keyword-${keyword}-${page}`, data.results);
 
         res.status(200).send({
             movieList: data.results
@@ -129,14 +129,14 @@ const verifyMovieByGenreCache = async (req, res, next) => {
         const genreId = req.body.genreId;
         const page = req.body.pageNum;
         if (cache.has(`genre-${genreId}-${page}`)) {
-            console.log("GenreMovieList: cache hit");
+            console.log(`genre-${genreId}-${page}: cache hit`);
 
             res.status(200).send({
                 movieList: cache.get(`genre-${genreId}-${page}`)
             });
             return;
         }
-        console.log("GenreMovieList: cache miss");
+        console.log(`genre-${genreId}-${page}: cache miss`);
         next();
     } catch (error) {
         console.log("there was an error");
@@ -145,7 +145,7 @@ const verifyMovieByGenreCache = async (req, res, next) => {
     }
 }
 
-app.post('/movielistgenre', verifyMovieByGenreCache, async (req, res) => {
+app.post('/movielist/genre', verifyMovieByGenreCache, async (req, res) => {
     // fetches movie list based on genre
     const genreId = req.body.genreId;
     const page = req.body.pageNum;
@@ -155,7 +155,7 @@ app.post('/movielistgenre', verifyMovieByGenreCache, async (req, res) => {
         const data = await response.json();
         
         // set cache
-        console.log("GenreMovieList: setting cache");
+        console.log(`genre-${genreId}-${page}: setting cache`);
         cache.set(`genre-${genreId}-${page}`, data.results);
 
         // send response
@@ -189,14 +189,14 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     try {
         const movie_id = req.params.id;
         if (cache.has(`moviedetails-${movie_id}`)) {
-            console.log("MovieDetails: cache hit");
+            console.log(`moviedetails-${movie_id}: cache hit`);
             
 
             const movieDetailObject = cache.get(`moviedetails-${movie_id}`);
             res.status(200).send(movieDetailObject);
             return;
         }
-        console.log("MovieDetails: cache miss");
+        console.log(`moviedetails-${movie_id}: cache miss`);
         next();
     } catch (error) {
         console.log("there was an error");
@@ -223,17 +223,17 @@ app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
         const responseMovieVideos = await fetch(urlMovieVideos);
         const dataMovieVideos = await responseMovieVideos.json();
 
-        const responseReccMovies = await fetch(urlReccMovies);
-        const dataReccMovies = await responseReccMovies.json();
+        const responseSimilarMovies = await fetch(urlReccMovies);
+        const dataSimilarMovies = await responseSimilarMovies.json();
 
 
         // set cache
-        console.log("MovieDetails: setting cache");
+        console.log(`moviedetails-${movie_id}: setting cache`);
         const movieDetailObject = {
             movieDetails: dataMovieDetails,
             movieCredits: dataMovieCredits,
             movieVideos: dataMovieVideos,
-            movieRecc: dataReccMovies
+            movieSimilar: dataSimilarMovies
         };
         cache.set(`moviedetails-${movie_id}`, movieDetailObject);
 
@@ -246,8 +246,51 @@ app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
     }
 });
 
+// middleware for checking cache for now playing, popular, top rated, upcoming movies
+const verifyMovieByCategoryCache = async (req, res, next) => {
+    try {
+        const category = req.body.category;
+        const page = req.body.pageNum;
+        if (cache.has(`category-${category}-${page}`)) {
+            console.log(`category-${category}-${page}: cache hit`);
+
+            res.status(200).send({
+                movieList: cache.get(`category-${category}-${page}`)
+            });
+            return;
+        }
+        console.log(`category-${category}-${page}: cache miss`);
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+}
 
 
+// post function for now playing movies, popular movies, top rated movies, upcoming movies
+app.post('/movielist/category', verifyMovieByCategoryCache, async (req, res) => {
+    // fetches movie list based on genre
+    const category = req.body.category;
+    const page = req.body.pageNum;
+    const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        // set cache
+        console.log(`category-${category}-${page}: setting cache`);
+        cache.set(`category-${category}-${page}`, data.results);
+
+        // send response
+        res.status(200).send({
+            movieList: data.results
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+});
 
 
 
