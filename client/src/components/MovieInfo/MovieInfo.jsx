@@ -59,6 +59,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
       const mVideos = movieVideos;
       const mSimilar = movieSimilar;
 
+      console.log(mDetails);
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20
       // also sort by popularity
@@ -72,7 +73,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
         // mSimilar.results = mSimilar.results.slice(0, 20);
       }
 
-
+      
     return (
       <div className='movieInfoCard-container'>
         <div className='info-container'>
@@ -83,7 +84,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
           </div>
           <div className='info'>
             <div>
-              <h1 id='title'>{mDetails.original_title}</h1>
+              <h1 id='title'>{mDetails.original_title} ({mDetails.release_date.substring(0,4)})</h1>
               <p id='tagline'>{mDetails.tagline}</p>
               
             </div>
@@ -99,9 +100,9 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
             
             
             <div>
-              <h2>Information:</h2>
+              <h2>Overview:</h2>
               <p id='overview'>{mDetails.overview}</p>
-              <h2>Credits:</h2>
+              <h2>Cast:</h2>
               <div id='actors'>
                 {showMovieActorImages(mCredits.cast)}
               </div>
@@ -113,7 +114,7 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
         </div>
 
         {/* display movie recommendations here */}
-        {mSimilar.results.length > 0 && <div id='recommended'>Recommended</div>}
+        {mSimilar.results.length > 0 && <div id='recommended'>You Might Also Like</div>}
         
         <div id='reccMoviesContainer'>
         {mSimilar.results.map((movie, idx) => (

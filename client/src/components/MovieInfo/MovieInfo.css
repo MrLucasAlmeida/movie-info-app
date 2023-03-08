@@ -8,19 +8,27 @@
     flex: 1;
 }
 .movieInfo-image img {
+    position: relative;
     margin-top: 10%;
     margin-bottom: 10%;
-    width: 50%;
+    margin-left: 0;
+    margin-right: auto;
+    width: 70%;
     
     border-radius: 15px;
     overflow: hidden;
+
+    box-shadow: 0.5em 1em 1em rgb(124, 124, 124);
 
     
     
     
 }
+.light-mode .movieInfo-image img {
+    box-shadow: 0.5em 1em 1em rgb(64 64 70);
+}
 .info {
-    flex: 1;
+    flex: 1.5;
     
 }
 /* header (title, tagline) */
@@ -31,14 +39,14 @@
 }
 
 .info div:nth-child(1) #title {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
     margin: 10px;
     
 }
 .info div:nth-child(1) #tagline {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 2rem;
+    /* font-weight: 500; */
     margin: 0;
     
 }
@@ -59,8 +67,8 @@
     margin-bottom: 20px;
 }
 .info div:nth-child(2) #metadata {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 600;
     margin: 20px;
     float: right;
 }
@@ -105,16 +113,16 @@
     text-align: left;
 }
 .info div:nth-child(3) h2 {
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 2.2rem;
+    font-weight: 600;
     margin: 0px 30px 5px;
     padding: 0;
     text-align: left;
 }
 
 .info div:nth-child(3) #overview {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.8rem;
+    font-weight: 450;
     margin: 10px 30px 20px;
 }
 
@@ -151,8 +159,9 @@
 
 #recommended {
     text-align: left;
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 500;
+    /* text-align: center; */
     color: white;
     margin-left: 50px;
     margin-bottom: 10px;
