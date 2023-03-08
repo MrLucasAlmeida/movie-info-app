@@ -117,8 +117,9 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
     
     return (
       <MovieInfo movieInfoStuff={movieInfo}
-                  setShowMovieList={setShowMovieList}
                   setMovieInfoId={setMovieInfoId}
+                  setShowMovieList={setShowMovieList}
+                  setQueryTerm={setQueryTerm}
       ></MovieInfo>
       // <h1>NO MOVIEINFO</h1>
     )

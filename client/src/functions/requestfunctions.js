@@ -86,3 +86,19 @@ export async function getMovieListbyCategory(category, pageNum) {
     // console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
+
+export async function getMovieListbyPerson(personId, pageNum) {
+
+    if (personId === '') return [];
+    console.log(pageNum);
+    const response = await fetch('http://localhost:5000/movielist/person', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ personId, pageNum })
+    });
+    const data = await response.json();
+    // console.log(response.ok ? data.movieList : data.error);
+    return response.ok ? data.movieList : data.error;
+}

@@ -292,6 +292,50 @@ app.post('/movielist/category', verifyMovieByCategoryCache, async (req, res) => 
     }
 });
 
+const verifyMovieByPeopleCache = async (req, res, next) => {
+    try {
+        const personId = req.body.personId;
+        const page = req.body.pageNum;
+        if (cache.has(`people-${personId}-${page}`)) {
+            console.log(`people-${personId}-${page}: cache hit`);
+
+            res.status(200).send({
+                movieList: cache.get(`people-${personId}-${page}`)
+            });
+            return;
+        }
+        console.log(`people-${personId}-${page}: cache miss`);
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+}
+
+
+app.post('/movielist/person', verifyMovieByPeopleCache, async (req, res) => {
+    // fetches movie list based on genre
+    const personId = req.body.personId;
+    const page = req.body.pageNum;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&with_people=${personId}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        // set cache
+        console.log(`people-${personId}-${page}: setting cache`);
+        cache.set(`people-${personId}-${page}`, data.results);
+
+        // send response
+        res.status(200).send({
+            movieList: data.results
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+});
+
 
 
 

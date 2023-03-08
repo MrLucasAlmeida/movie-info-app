@@ -1,7 +1,7 @@
 import React from 'react'
 import './SideBar.css'
 import SideBarButton from '../SideBarButton/SideBarButton.jsx'
-import NetflixLogo from '../../images/Netflix-Logo.jpg'
+import PopFlix from '../../images/popflix-image.png'
 import { useEffect, useState } from 'react'
 
 import { getGenreList} from '../../functions/requestfunctions';
@@ -38,16 +38,34 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
 
       <div className='scrollable-content-nav-bar'>
         <div className='nav-bar-logo-container'>
-          <img src={NetflixLogo} alt="Netflix Logo"/>
+          <img src={PopFlix} alt="Netflix Logo"/>
         </div>
-
+          {/* create non genre side bar button */}
+          <SideBarButton  key='popular' text='Popular'
+                              image={genreIcons['popular']}
+                              id='popular'
+                              setQueryTerm={setQueryTerm}
+                              setShowMovieList={setShowMovieList}
+                              ></SideBarButton>
+          <SideBarButton  key='upcoming' text='Upcoming'
+                              image={genreIcons['upcoming']}
+                              id='upcoming'
+                              setQueryTerm={setQueryTerm}
+                              setShowMovieList={setShowMovieList}
+                              ></SideBarButton>
+          <SideBarButton  key='top rated' text='Top Rated'
+                              image={genreIcons['top rated']}
+                              id='top_rated'
+                              setQueryTerm={setQueryTerm}
+                              setShowMovieList={setShowMovieList}
+                              ></SideBarButton>
 
 
           {genreObjects?.length > 0 ? (
           genreObjects.map((genre, idx) => (
               <SideBarButton  key={idx} text={genre.name}
                               image={genreIcons[genre.name.toLowerCase()]}
-                              genreId={genre.id}
+                              id={genre.id}
                               setQueryTerm={setQueryTerm}
                               setShowMovieList={setShowMovieList}
                               ></SideBarButton>

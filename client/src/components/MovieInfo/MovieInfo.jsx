@@ -5,17 +5,27 @@ import { useEffect, useState } from 'react';
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
 
-function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList }) {
-
+function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryTerm }) {
+  function handleMovieActorClick(personId) {
+    console.log('movie actor clicked');
+    setShowMovieList(true);
+    setQueryTerm('%person:'+personId);
+  }
   
   function showMovieActorImages(actorArray) {
     console.log('showing movie actor images');
+    console.log(actorArray);
     let actorImages = [];
     for (let i = 0; i < 6; i++) {
       if (actorArray[i].profile_path !== null) {
         console.log('actor image showing');
         actorImages.push((
-          <img src={`https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}`}></img>
+          <img  
+          src={`https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}`}
+          onClick={(e) => handleMovieActorClick(actorArray[i].id)}
+          key={`actor-image-${actorArray[i].id}`}
+          ></img>
+          
         ));
       } else {
         console.log('actor image failed to load');

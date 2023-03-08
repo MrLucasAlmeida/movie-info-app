@@ -2,7 +2,7 @@ import React from 'react'
 import './FilmFlix.css'
 import SideBar from '../SideBar/SideBar.jsx'
 import MovieSection from '../MovieSection/MovieSection.jsx'
-import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfiguration, getMovieListbyCategory } from '../../functions/requestfunctions';
+import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfiguration, getMovieListbyCategory, getMovieListbyPerson } from '../../functions/requestfunctions';
 import { useState, useEffect } from 'react'
 
 
@@ -39,6 +39,10 @@ function FilmFlix() {
       // doing search by keyword
       const keyword = query.split(':')[1];
       response = await getMovieListByKeyword(keyword, pageNum);
+    } else if (query.includes('%person')) {
+      // doing search by person
+      const personId = query.split(':')[1];
+      response = await getMovieListbyPerson(personId, pageNum);
     } else {
       // doing search by string
       console.log('searching by string');
