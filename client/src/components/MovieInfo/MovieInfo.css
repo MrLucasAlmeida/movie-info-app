@@ -42,6 +42,9 @@
     margin: 0;
     
 }
+.light-mode .info div:nth-child(1) {
+    color: black;
+}
 
 
 
@@ -61,6 +64,11 @@
     margin: 20px;
     float: right;
 }
+
+.light-mode .info div:nth-child(2) {
+    color: black;
+}
+
 #trailer-btn {
     float: left;
     padding: 10px 20px 10px;
@@ -68,9 +76,6 @@
     background-color: transparent;
     border-radius: 30px;
     border-color: white;
-    
-
-
 }
 #trailer-btn a {
     /* width: 100%;
@@ -79,6 +84,13 @@
     color: white;
     text-decoration: none;
 
+}
+
+.light-mode #trailer-btn {
+    border-color: black;
+}
+.light-mode #trailer-btn a {
+    color: black;
 }
 
 
@@ -104,8 +116,10 @@
     font-size: 1rem;
     font-weight: 500;
     margin: 10px 30px 20px;
-    
-    
+}
+
+.light-mode .info div:nth-child(3) {
+    color: black;
 }
 
 /* movie actor images */
@@ -128,7 +142,9 @@
 
 .empty-movieinfo {
     height: auto;
-    
+}
+.light-mode .empty-movieinfo {
+    color: black;
 }
 
 
@@ -140,6 +156,9 @@
     color: white;
     margin-left: 50px;
     margin-bottom: 10px;
+}
+.light-mode #recommended {
+    color: black;
 }
 #reccMoviesContainer {
     display: flex;

@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // create cache client
-const cache = new NodeCache({ stdTTL: 300 });
+const cache = new NodeCache({ stdTTL: 600 });
 
 
 

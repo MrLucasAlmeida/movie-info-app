@@ -141,6 +141,12 @@ function FilmFlix() {
     movieSec.scrollTop = 0;
 
 
+    // test light mode
+    console.log('toggle light mode');
+    document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
+    
+
+
 
     // console.log(movies);
   }, [queryTerm]);

@@ -14,6 +14,13 @@
     -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
     box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
   }
+  .light-mode .search {
+    background-color: #f5f5f5;
+    border-color: #1f2123;
+    /* box-shadow: 5px 5px 7px #e1e1e1, -5px -5px 7px #e1e1e1; */
+    box-shadow: none;
+  }
+
   
   .search input {
     flex: 1;
@@ -27,9 +34,16 @@
     color: #a1a1a1;
     background: #1f2123;
   }
+  .light-mode .search input {
+    color: #1f2123;
+    background-color: #f5f5f5;
+  }
   
   .search img {
     width: 35px;
     height: 35px;
     cursor: pointer;
+  }
+  .light-mode .search img {
+    filter: invert(1);
   }

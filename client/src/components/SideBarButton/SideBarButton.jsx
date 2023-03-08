@@ -19,7 +19,7 @@ function SideBarButton( {text, image, id, setQueryTerm, setShowMovieList }) {
 
 
   return (
-    <div className='button' onClick={() => handleClick()}>
+    <div className='sidebarbutton' onClick={() => handleClick()}>
         <img src={image} alt={text}></img>
         <span className='span'>{text}</span> 
     </div>
