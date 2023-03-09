@@ -9,13 +9,16 @@ import { useEffect, useState, useRef } from 'react'
 
 import { getMovieDetails } from '../../functions/requestfunctions'
 
+import LightModeIcon from '../../images/lightModeTest.png';
+import DarkModeIcon from '../../images/darkMode.svg';
 
-function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading }) {
+
+function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading, setIsLoading, pageNumber }) {
 
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
   const [movieInfo, setMovieInfo] = useState({});
-  // const [showMovieList, setShowMovieList] = useState(true);
+  const [isLightMode, setIsLightMode] = useState(true);
 
 
 
@@ -24,9 +27,11 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
 
   async function setMovieDetailsFunction(movieId) {
+    setIsLoading(true);
     const movieDetails = await getMovieDetailsFunction(movieId);
     // console.log(movieDetails);
     setMovieInfo(movieDetails);
+    setIsLoading(false);
   
   }
 
@@ -125,7 +130,40 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
     )
   }
 
+  function loadMovieSection() {
+    let movieSec = '';
+    if (isLoading) {
 
+      if (showMovieList && pageNumber > 1) {
+        console.log('isloading and showmovielist');
+        // make sure to scroll to the bottom
+        let movieSec = document.querySelector('.scrollable-content-moviesection-container');
+        movieSec.scrollTop = movieSec.scrollHeight;
+        return [showMovieListFunction(), <h1 id='loading'>Loading...</h1>];
+      }
+      console.log('just loading');
+      return <h1 id='loading'>Loading...</h1>;
+      // return movieSec;
+    } else {
+      console.log('default loaded');
+      return showMovieList ? showMovieListFunction() : showMovieInfoFunction();
+    }
+  }
+
+  function handleDarkLightClick(e) {
+    const lightDarkContainer = e.target;
+  }
+
+  useEffect(() => {
+    const lightDarkContainer = document.querySelector('#light-dark-container');
+    if (isLightMode) {
+      console.log('is light mode');
+      lightDarkContainer.innerHTML = <img src={LightModeIcon}></img>;
+    } else {
+      console.log('is dark mode');
+      lightDarkContainer.innerHTML = {DarkModeIcon};
+    }
+  }, [isLightMode]);
   
 
 
@@ -148,16 +186,19 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
     <div className='moviesection-container'>
       <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
 
-        <div className='search-container'>
+        <div className='top-header-container'>
+          <button id='light-dark-container'>
+            {/* add icon here */}
+          </button>
           <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm} setShowMovieList={setShowMovieList}></SearchBar>
+          <div>Login</div>
         </div>
 
 
 
 
 
-        {showMovieList ? showMovieListFunction() : showMovieInfoFunction()}
-        {isLoading && <h1>Loading...</h1>}
+        {loadMovieSection()}
         
       </div>
     </div>

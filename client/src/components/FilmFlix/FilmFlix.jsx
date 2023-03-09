@@ -6,6 +6,8 @@ import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfigurat
 import { useState, useEffect } from 'react'
 
 
+//https://filmpire.netlify.app/
+
 function FilmFlix() {
 
   const [movies, setMovies] = useState([]);
@@ -20,19 +22,20 @@ function FilmFlix() {
 
 
   async function movieListQuery(query, pageNum) {
+    setIsLoading(true);
     let response = [];
     if (query.includes('%genre')) {
 
       // doing search by genre id
       const genreId = parseInt(query.split(':')[1]);
-      console.log('searching by genre id');
+      // console.log('searching by genre id');
       response = await getMovieListbyGenre(genreId, pageNum);
 
 
     } else if (query.includes('%category')) {
 
       // doing search by category
-      console.log('searching by category');
+      // console.log('searching by category');
       const category = query.split(':')[1];
       response = await getMovieListbyCategory(category, pageNum);
     } else if (query.includes('%keyword')) {
@@ -45,25 +48,10 @@ function FilmFlix() {
       response = await getMovieListbyPerson(personId, pageNum);
     } else {
       // doing search by string
-      console.log('searching by string');
+      // console.log('searching by string');
       response = await getMovieListByKeyword('superman', pageNum);
     }
     
-    // console.log(response);
-
-    // check if the response contains a duplicate movie
-    // let flag = false;
-    // for (let i = 0; i < response.length; i++) {
-    //   for (let j = 0; j < movies.length; j++) {
-    //     if (response[i].id === movies[j].id) {
-    //       return;
-    //     }
-    //   }
-    // }
-    // if (flag) {
-    //   console.log("there was a duplicate movie");
-    //   return;
-    // }
     let newMoviesList = [...movies];
 
     for (let i = 0; i < response.length; i++) {
@@ -87,11 +75,8 @@ function FilmFlix() {
       console.log(newMoviesList);
       setMovies(newMoviesList);
     }
+    setIsLoading(false);
 
-    // setMovies(prevMovies => {
-    //   // console.log([...prevMovies,...response]);
-    //   return newMoviesList;
-    // });
     
     
   }
@@ -103,14 +88,7 @@ function FilmFlix() {
     
     
   }
-  function pause(milliseconds) {
-    var dt = new Date();
-    while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
-  }
 
-
-
-  // const [ranOnce, setRanOnce] = useState(false);
 
 
   useEffect(() => {
@@ -129,12 +107,12 @@ function FilmFlix() {
     if (pageNumber === 1) {
       movieListQuery(queryTerm,1);
     }
-    
+
     setPageNumber(1);
+    
+    
     // console.log("reset movies");
     // movieListQuery(queryTerm, 1);
-    
-    
     
     
     let movieSec = document.querySelector('.scrollable-content-moviesection-container');
@@ -142,8 +120,8 @@ function FilmFlix() {
 
 
     // test light mode
-    console.log('toggle light mode');
-    document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
+    // console.log('toggle light mode');
+    // document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
     
 
 
@@ -155,7 +133,7 @@ function FilmFlix() {
     // if (pageNumber === 1) {console.log('on first page');return;}
     console.log("page number changed");
     movieListQuery(queryTerm,pageNumber);
-    console.log(pageNumber);
+    // console.log(pageNumber);
     // have a loading bar that will always appear at the bottom
     // use a timeout to wait for movies
   }, [pageNumber]);
@@ -175,6 +153,8 @@ function FilmFlix() {
         setShowMovieList={setShowMovieList}
         setPageNumber={setPageNumber}
         isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        pageNumber={pageNumber}
         ></MovieSection>
     </div>
   )

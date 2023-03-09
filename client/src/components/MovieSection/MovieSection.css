@@ -1,15 +1,26 @@
-.search-container {
+.top-header-container {
     display: flex;
     /* height: 10vh; */
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin: 0 auto 0;
-    background-color:#111111;
+    box-shadow: 0px 5px 15px black;
+    background-color: #303030;
     width: 100%;
 
 }
-.light-mode .search-container {
-    background-color: #ebebeb;
+.light-mode .top-header-container {
+    background-color: #c8020c;
+}
+
+#light-dark-container {
+    background-color: transparent;
+    border: none;
+    margin-left: 50px;
+}
+#light-dark-container img {
+    background-color: transparent;
+    width: 60px;
 }
 
 
@@ -24,7 +35,7 @@
 
 .moviesection-container {
     flex: 4;
-    background-color: #303030;
+    background-color: rgb(18, 18, 18);
     flex-direction: column;
     height: 100vh;
     margin:0;
@@ -63,4 +74,9 @@
     color: #111111;
 }
 
-
+#loading {
+    color: white;
+}
+.light-mode #loading {
+    color: #111111;
+}
