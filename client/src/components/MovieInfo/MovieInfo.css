@@ -130,21 +130,83 @@
     color: black;
 }
 
+
+
+
+
 /* movie actor images */
+
+#cast-header {
+    text-align: left;
+    font-size: 3rem;
+    font-weight: 500;
+    /* text-align: center; */
+    color: white;
+    margin-left: 50px;
+    margin-bottom: 15px;
+}
+.light-mode #cast-header {
+    color: black;
+}
 #actors {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-items: top;
+    justify-content: center;
     margin: 0;
     padding: 0;
     width: 100%;
+    
 }
-#actors img {
+#actor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 20px 20px;
+    padding: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 20px;
     width: 100px;
-    height: 100px;
-    margin: 10px 0px 10px 20px;
-    border-radius: 20px;
-    object-fit: cover;
+    height: auto;
+    cursor: pointer;
+    
 }
+#actor-container img {
+    width: 100px;
+    height: 150px;
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+    /* object-fit: cover; */
+}
+#actor-container p:nth-child(2) {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: left;
+    width: 100%;
+}
+.light-mode #actor-container p:nth-child(2) {
+    color: black;
+}
+#actor-container p:nth-child(3) {
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    width: 100%;
+}
+.light-mode #actor-container p:nth-child(3) {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+
+
+
+
 
 
 
@@ -164,7 +226,8 @@
     /* text-align: center; */
     color: white;
     margin-left: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 20px;
 }
 .light-mode #recommended {
     color: black;

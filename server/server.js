@@ -2,6 +2,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
 import NodeCache from 'node-cache';
+import fetch from 'node-fetch';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;

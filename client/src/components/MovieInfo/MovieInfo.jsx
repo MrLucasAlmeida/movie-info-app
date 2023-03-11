@@ -17,22 +17,22 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
     console.log(actorArray);
     let actorImages = [];
     for (let i = 0; i < 6; i++) {
-      if (actorArray[i].profile_path !== null) {
         console.log('actor image showing');
         actorImages.push((
-          <img  
-          src={`https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}`}
-          onClick={(e) => handleMovieActorClick(actorArray[i].id)}
-          key={`actor-image-${actorArray[i].id}`}
-          ></img>
+          <div id='actor-container'>
+            <img  
+            src={actorArray[i].profile_path ? 
+              `https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}` :
+              'https://via.placeholder.com/185'}
+            onClick={(e) => handleMovieActorClick(actorArray[i].id)}
+            key={`actor-image-${actorArray[i].id}`}
+            ></img>
+            <p>{actorArray[i].name}</p>
+            <p>{actorArray[i].character}</p>
+          </div>
+          
           
         ));
-      } else {
-        console.log('actor image failed to load');
-        actorImages.push((
-          <img src='https://via.placeholder.com/185'></img>
-        ));
-      }
     }
     return actorImages;
   }
@@ -63,7 +63,6 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20
       // also sort by popularity
-      console.log(mSimilar.results);
       // sort by most popular
       mSimilar.results = mSimilar.results.sort((a,b) => b.vote_average - a.vote_average);
       // limit to just 10 values
@@ -102,16 +101,19 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
             <div>
               <h2>Overview:</h2>
               <p id='overview'>{mDetails.overview}</p>
-              <h2>Cast:</h2>
-              <div id='actors'>
-                {showMovieActorImages(mCredits.cast)}
-              </div>
             </div>
             
 
 
           </div>
         </div>
+        {/* show cast */}
+        <div id='cast-header' >Top Cast:</div>
+        <div id='actors'>
+          {showMovieActorImages(mCredits.cast)}
+        </div>
+
+
 
         {/* display movie recommendations here */}
         {mSimilar.results.length > 0 && <div id='recommended'>You Might Also Like</div>}

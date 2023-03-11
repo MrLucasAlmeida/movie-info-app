@@ -9,8 +9,8 @@ import { useEffect, useState, useRef } from 'react'
 
 import { getMovieDetails } from '../../functions/requestfunctions'
 
-import LightModeIcon from '../../images/lightModeTest.png';
-import DarkModeIcon from '../../images/darkMode.svg';
+import MoonIcon from '../../images/moon.svg';
+import SunIcon from '../../images/sun.svg';
 
 
 function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading, setIsLoading, pageNumber }) {
@@ -18,7 +18,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [movieInfoId, setMovieInfoId] = useState(1771);
   const [movieInfo, setMovieInfo] = useState({});
-  const [isLightMode, setIsLightMode] = useState(true);
+  const [isLightMode, setIsLightMode] = useState(false);
 
 
 
@@ -151,19 +151,9 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
   }
 
   function handleDarkLightClick(e) {
-    const lightDarkContainer = e.target;
+    setIsLightMode(prev => !prev);
+    document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
   }
-
-  useEffect(() => {
-    const lightDarkContainer = document.querySelector('#light-dark-container');
-    if (isLightMode) {
-      console.log('is light mode');
-      lightDarkContainer.innerHTML = <img src={LightModeIcon}></img>;
-    } else {
-      console.log('is dark mode');
-      lightDarkContainer.innerHTML = {DarkModeIcon};
-    }
-  }, [isLightMode]);
   
 
 
@@ -187,9 +177,11 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
       <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
 
         <div className='top-header-container'>
-          <button id='light-dark-container'>
-            {/* add icon here */}
-          </button>
+          <div id='light-dark-container' onClick={handleDarkLightClick}>
+            {isLightMode ? 
+            <img src={MoonIcon}></img> :
+             <img src={SunIcon}></img>}
+          </div>
           <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm} setShowMovieList={setShowMovieList}></SearchBar>
           <div>Login</div>
         </div>
