@@ -14,21 +14,27 @@
     background-color: #c8020c;
 }
 
+/* darkmode light mode button */
 #light-dark-container {
     background-color: transparent;
     border: none;
+    width: 40px;
+    height: 40px;
     margin-left: 50px;
-    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 50px;
+    /* background-color: blue; */
+    overflow: none;
 }
 #light-dark-container img {
     /* background-color: transparent; */
-    width: 50px;
+    object-fit: cover;
     padding: 0;
+    filter: invert(1);
 }
 
 #light-dark-container:hover {
     cursor: pointer;
-    /* background-color:rgb(18, 18, 18); */
+    background-color:rgb(97, 97, 97);
 }
 
 
