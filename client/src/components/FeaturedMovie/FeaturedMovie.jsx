@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import './FeaturedMovie.css'
 import { getMovieDetails } from '../../functions/requestfunctions';
 
+import { Link } from 'react-router-dom';
+
 function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
 
   function handleClick() {
@@ -17,6 +19,7 @@ function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
   
 
   return (
+    <Link to={`/movie/${movie.id}`} >
       <div className='featured-movie-container' onClick={() => handleClick()}>
 
         
@@ -29,6 +32,7 @@ function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
           <p>{movie?.overview}</p>
         </div>
       </div>
+    </Link>
       
   )
 }

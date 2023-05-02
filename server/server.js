@@ -188,7 +188,8 @@ app.get('/configuration', async (req, res) => {
 // middleware for verifying movie details cache
 const verifyMovieDetailsCache = async (req, res, next) => {
     try {
-        const movie_id = req.params.id;
+        const movie_id = req.body.movieId;
+        console.log(movie_id);
         if (cache.has(`moviedetails-${movie_id}`)) {
             console.log(`moviedetails-${movie_id}: cache hit`);
             
@@ -206,9 +207,10 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     }
 }
 
-app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
+app.post('/get/movie', verifyMovieDetailsCache, async (req, res) => {
     // create urls for information fetching
-    const movie_id = req.params.id;
+    const movie_id = req.body.movieId;
+    console.log(movie_id);
     const urlMovieDetails = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieCredits = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.TMDB_API_KEY}&language=en-US`
     const urlMovieVideos = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
@@ -237,7 +239,6 @@ app.post('/movie/:id', verifyMovieDetailsCache, async (req, res) => {
             movieSimilar: dataSimilarMovies
         };
         cache.set(`moviedetails-${movie_id}`, movieDetailObject);
-
 
         // send response
         res.status(200).send(movieDetailObject);

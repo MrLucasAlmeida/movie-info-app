@@ -5,19 +5,14 @@ import { useEffect, useState } from 'react';
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
 
-function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryTerm }) {
+function MovieInfo({ movieInfoStuff }) {
   function handleMovieActorClick(personId) {
-    console.log('movie actor clicked');
-    setShowMovieList(true);
-    setQueryTerm('%person:'+personId);
+    window.location.href = '/person/' + personId;
   }
   
   function showMovieActorImages(actorArray) {
-    console.log('showing movie actor images');
-    console.log(actorArray);
     let actorImages = [];
     for (let i = 0; i < 6; i++) {
-        console.log('actor image showing');
         actorImages.push((
           <div id='actor-container'>
             <img  
@@ -38,7 +33,6 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
   }
   // returns video link for movie trailer
   function findMovieTrailer(videos) {
-    console.log('finding movie trailer');
     for (let i = 0; i < videos.results.length; i++) {
       if (videos.results[i].type === 'Trailer') {
         console.log('movie trailer found');
@@ -59,7 +53,6 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
       const mVideos = movieVideos;
       const mSimilar = movieSimilar;
 
-      console.log(mDetails);
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20
       // also sort by popularity
@@ -120,10 +113,11 @@ function MovieInfo({ movieInfoStuff, setMovieInfoId, setShowMovieList, setQueryT
         
         <div id='reccMoviesContainer'>
         {mSimilar.results.map((movie, idx) => (
-            <MovieCard  key={idx}
-                        movie={movie}
-                        setMovieInfoId={setMovieInfoId}
-                        setShowMovieList={setShowMovieList}></MovieCard>
+            
+            <MovieCard key={`${movie.id}-${idx}`}
+                      movie={movie}></MovieCard>
+            
+            
           ))}
         </div>
 

@@ -3,12 +3,16 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import FilmFlix from './components/FilmFlix/FilmFlix.jsx';
 
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
     return (
-    <div className="App">
-      <FilmFlix></FilmFlix>
-    </div>
+      <BrowserRouter>
+        <div className="App">
+          <FilmFlix></FilmFlix>
+        </div>
+      </BrowserRouter>
+    
   );
 }
 

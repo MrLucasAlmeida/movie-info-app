@@ -4,7 +4,7 @@ import SideBarButton from '../SideBarButton/SideBarButton.jsx'
 import PopFlix from '../../images/popflix-image.png'
 import { useEffect, useState } from 'react'
 
-import { getGenreList} from '../../functions/requestfunctions';
+import { getGenreList } from '../../functions/requestfunctions';
 
 // import images
 import genreIcons from '../../images/genres/index.js'
@@ -17,6 +17,7 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
       return;
     }
     console.log('got the list of genres');
+    console.log(response);
     setGenreObjects(response);
   }
 

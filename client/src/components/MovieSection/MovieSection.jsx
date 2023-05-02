@@ -12,6 +12,13 @@ import { getMovieDetails } from '../../functions/requestfunctions'
 import MoonIcon from '../../images/moon.svg';
 import SunIcon from '../../images/sun.svg';
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import GenreContainer from '../GenreContainer/GenreContainer.jsx'
+import KeywordSearchContainer from '../KeywordSearchContainer/KeywordSearchContainer'
+import CategoryContainer from '../CategoryContainer/CategoryContainer'
+import MovieInfoContainer from '../MovieInfoContainer/MovieInfoContainer'
+
 
 function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading, setIsLoading, pageNumber }) {
 
@@ -157,17 +164,17 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
   
 
 
-  useEffect(() => {
-    // change the random movie featured
-    if (showMovieList) {
-      // console.log('featured movie is');
-      setFeaturedMovie(getRandomMovie());
-    }    
-  }, [movies]);
+  // useEffect(() => {
+  //   // change the random movie featured
+  //   if (showMovieList) {
+  //     // console.log('featured movie is');
+  //     setFeaturedMovie(getRandomMovie());
+  //   }    
+  // }, [movies]);
 
-  useEffect(() => {
-    setMovieDetailsFunction(movieInfoId)
-  }, [movieInfoId]);
+  // useEffect(() => {
+  //   setMovieDetailsFunction(movieInfoId)
+  // }, [movieInfoId]);
 
   
 
@@ -188,9 +195,16 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
 
 
+        
+          <Routes>
+            <Route exact path="/" element={<GenreContainer/>}/>
+            <Route path="/genre/:genreId" element={<GenreContainer/>}/>
+            <Route path="/search/:searchTerm" element={<KeywordSearchContainer/>}/>
+            <Route path="/category/:category" element={<CategoryContainer/>}/>
+            <Route path="/movie/:movieId" element={<MovieInfoContainer/>}/>
 
 
-        {loadMovieSection()}
+          </Routes>
         
       </div>
     </div>

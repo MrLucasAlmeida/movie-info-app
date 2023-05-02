@@ -57,7 +57,8 @@ export async function getConfiguration() {
 
 
 export async function getMovieDetails(movieId) {
-    const response = await fetch(`http://localhost:5000/movie/${movieId}`, {
+    console.log('GETTING MOVIE DETAILS');
+    const response = await fetch(`http://localhost:5000/get/movie`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -102,3 +103,4 @@ export async function getMovieListbyPerson(personId, pageNum) {
     // console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
+
