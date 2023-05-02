@@ -2,7 +2,7 @@ import React from 'react'
 import './FilmFlix.css'
 import SideBar from '../SideBar/SideBar.jsx'
 import MovieSection from '../MovieSection/MovieSection.jsx'
-import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfiguration, getMovieListbyCategory, getMovieListbyPerson } from '../../functions/requestfunctions';
+import { getMovieListByKeyword, getGenreList, getMovieListbyGenre, getConfiguration, getMovieListbyCategory, getMovieListbyPerson, getPersonDetails } from '../../functions/requestfunctions';
 import { useState, useEffect } from 'react'
 
 
@@ -93,9 +93,6 @@ function FilmFlix() {
 
   useEffect(() => {
     // movieListQuery(searchTerm);
-    // console.log('app loaded');
-    // setMovies([]);
-    
   }, []);
   // useEffect(() => {
   //   movieListQuery(queryTerm, 1);

@@ -7,17 +7,18 @@ import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
 import MovieInfo from '../MovieInfo/MovieInfo.jsx'
 import { useEffect, useState, useRef } from 'react'
 
-import { getMovieDetails } from '../../functions/requestfunctions'
+import { getMovieDetails } from '../../functions/requestfunctions';
 
 import MoonIcon from '../../images/moon.svg';
 import SunIcon from '../../images/sun.svg';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import GenreContainer from '../GenreContainer/GenreContainer.jsx'
-import KeywordSearchContainer from '../KeywordSearchContainer/KeywordSearchContainer'
-import CategoryContainer from '../CategoryContainer/CategoryContainer'
-import MovieInfoContainer from '../MovieInfoContainer/MovieInfoContainer'
+import GenreContainer from '../GenreContainer/GenreContainer.jsx';
+import KeywordSearchContainer from '../KeywordSearchContainer/KeywordSearchContainer.jsx';
+import CategoryContainer from '../CategoryContainer/CategoryContainer.jsx';
+import MovieInfoContainer from '../MovieInfoContainer/MovieInfoContainer.jsx';
+import PersonInfoContainer from '../PersonInfoContainer/PersonInfoContainer.jsx';
 
 
 function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowMovieList, setPageNumber, isLoading, setIsLoading, pageNumber }) {
@@ -181,7 +182,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
   return (
     <div className='moviesection-container'>
-      <div className='scrollable-content-moviesection-container' onScroll={handleInfiniteScroll}>
+      <div className='scrollable-content-moviesection-container'>
 
         <div className='top-header-container'>
           <div id='light-dark-container' onClick={handleDarkLightClick}>
@@ -202,6 +203,8 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
             <Route path="/search/:searchTerm" element={<KeywordSearchContainer/>}/>
             <Route path="/category/:category" element={<CategoryContainer/>}/>
             <Route path="/movie/:movieId" element={<MovieInfoContainer/>}/>
+            <Route path="/person/:personId" element={<PersonInfoContainer/>}/>
+
 
 
           </Routes>

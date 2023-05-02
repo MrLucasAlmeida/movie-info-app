@@ -4,10 +4,16 @@ import { getMovieDetails } from '../../functions/requestfunctions'
 import { useEffect, useState } from 'react';
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
+import { useNavigate } from 'react-router';
+
+
 
 function MovieInfo({ movieInfoStuff }) {
+
+  const navigate = useNavigate();
+
   function handleMovieActorClick(personId) {
-    window.location.href = '/person/' + personId;
+    navigate(`/person/${personId}`);
   }
   
   function showMovieActorImages(actorArray) {

@@ -1,20 +1,23 @@
 import React from 'react'
 import './SideBarButton.css'
+import { useNavigate } from 'react-router'
 
 
 function SideBarButton( {text, image, id, setQueryTerm, setShowMovieList }) {
 
+  const navigate = useNavigate();
 
   function handleClick() {
     console.log(id);
     // if not a number then its a category not a genre
     if (typeof id === 'number') {
-      setQueryTerm('%genre:' + id);
+      navigate(`/genre/${id}`);
     } else {
-      setQueryTerm('%category:' + id);
+      navigate(`/category/${id}`);
     }
-    
-    setShowMovieList(true);
+
+
+
   }
 
 

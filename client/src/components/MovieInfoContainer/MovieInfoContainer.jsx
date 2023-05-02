@@ -1,10 +1,8 @@
 import React from 'react';
-import '../MovieInfo/MovieInfo.jsx';
 import MovieInfo from '../MovieInfo/MovieInfo.jsx';
 
 import { useEffect, useState } from 'react';
-import { useParams, useMatch } from 'react-router-dom';
-import { RouteContext } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../../functions/requestfunctions';
 

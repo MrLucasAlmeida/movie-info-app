@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // create cache client
-const cache = new NodeCache({ stdTTL: 600 });
+const cache = new NodeCache({ stdTTL: 6000 });
 
 
 
@@ -207,7 +207,7 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     }
 }
 
-app.post('/get/movie', verifyMovieDetailsCache, async (req, res) => {
+app.post('/details/movie', verifyMovieDetailsCache, async (req, res) => {
     // create urls for information fetching
     const movie_id = req.body.movieId;
     console.log(movie_id);
@@ -246,6 +246,55 @@ app.post('/get/movie', verifyMovieDetailsCache, async (req, res) => {
         console.log(error);
         res.status(500).send({ error });
     }
+});
+
+const verifyPersonDetailsCache = async (req, res, next) => {
+    try {
+        const person_id = req.body.personId;
+        console.log(person_id);
+        if (cache.has(`persondetails-${person_id}`)) {
+            console.log(`persondetails-${person_id}: cache hit`);
+            
+
+            const personDetailObject = cache.get(`persondetails-${person_id}`);
+            res.status(200).send(personDetailObject);
+            return;
+        }
+        console.log(`persondetails-${person_id}: cache miss`);
+        next();
+    } catch (error) {
+        console.log("there was an error");
+        console.log(error);
+        res.status(500).send({ error });
+    }
+
+
+}
+
+app.post('/details/person', verifyPersonDetailsCache, async (req, res) => {
+    // create urls for information fetching
+    const person_id = req.body.personId;
+    console.log(person_id);
+    const urlPersonDetails = `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    
+    try {
+        const responsePersonDetails = await fetch(urlPersonDetails);
+        const dataPersonDetails = await responsePersonDetails.json();
+
+
+        // set cache
+        console.log(`persondetails-${person_id}: setting cache`);
+        cache.set(`persondetails-${person_id}`, dataPersonDetails);
+
+        // send response
+        res.status(200).send(dataPersonDetails);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+
+
+
 });
 
 // middleware for checking cache for now playing, popular, top rated, upcoming movies

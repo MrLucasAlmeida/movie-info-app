@@ -42,7 +42,6 @@ export async function getGenreList() {
     return response.ok ? data.genreList : data.error;
 }
 
-
 export async function getConfiguration() {
     const response = await fetch('http://localhost:5000/configuration', {
         method: 'GET',
@@ -54,23 +53,6 @@ export async function getConfiguration() {
     console.log(response.ok ? data.configuration : data.error);
     return response.ok ? data.configuration : data.error;
 }
-
-
-export async function getMovieDetails(movieId) {
-    console.log('GETTING MOVIE DETAILS');
-    const response = await fetch(`http://localhost:5000/get/movie`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ movieId })
-    });
-    const data = await response.json();
-    // console.log('got movie details back');
-    // console.log(response.ok ? data : data.error);
-    return response.ok ? data : data.error;
-}
-
 
 export async function getMovieListbyCategory(category, pageNum) {
 
@@ -102,5 +84,34 @@ export async function getMovieListbyPerson(personId, pageNum) {
     const data = await response.json();
     // console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
+}
+
+export async function getMovieDetails(movieId) {
+    const response = await fetch(`http://localhost:5000/details/movie`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ movieId })
+    });
+    const data = await response.json();
+    // console.log('got movie details back');
+    // console.log(response.ok ? data : data.error);
+    return response.ok ? data : data.error;
+}
+
+export async function getPersonDetails(personId) {
+    if (personId === '') return {};
+    console.log(personId);
+    const response = await fetch('http://localhost:5000/details/person', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ personId })
+    });
+    const data = await response.json();
+    // console.log(response.ok ? data : data.error);
+    return response.ok ? data : data.error;
 }
 

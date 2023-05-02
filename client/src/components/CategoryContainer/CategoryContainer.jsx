@@ -86,9 +86,9 @@ function CategoryContainer() {
         console.log('did a search for category: ' + category);
 
 
-        // add event listener for infinite scroll
-        let movieSec = document.querySelector('.scrollable-content-moviesection-container');
-        movieSec.addEventListener('scroll', handleInfiniteScroll);
+        // add eventlistener for infinite scrolling
+        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
+        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
 
         
       }, []);
