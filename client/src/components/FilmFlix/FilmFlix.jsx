@@ -92,51 +92,8 @@ function FilmFlix() {
 
 
   useEffect(() => {
-    // movieListQuery(searchTerm);
+    // getConfiguration();
   }, []);
-  // useEffect(() => {
-  //   movieListQuery(queryTerm, 1);
-  // }, [queryTerm]);
-
-  // useEffect(() => {
-  //   console.log("query term changed");
-  //   // console.log('make movies EMPTY');
-  //   if (pageNumber === 1) {
-  //     movieListQuery(queryTerm,1);
-  //   }
-
-  //   setPageNumber(1);
-    
-    
-  //   // console.log("reset movies");
-  //   // movieListQuery(queryTerm, 1);
-    
-    
-  //   let movieSec = document.querySelector('.scrollable-content-moviesection-container');
-  //   movieSec.scrollTop = 0;
-
-
-  //   // test light mode
-  //   // console.log('toggle light mode');
-  //   // document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
-    
-
-
-
-  //   // console.log(movies);
-  // }, [queryTerm]);
-
-  // useEffect(() => {
-  //   // if (pageNumber === 1) {console.log('on first page');return;}
-  //   console.log("page number changed");
-  //   movieListQuery(queryTerm,pageNumber);
-  //   // console.log(pageNumber);
-  //   // have a loading bar that will always appear at the bottom
-  //   // use a timeout to wait for movies
-  // }, [pageNumber]);
-
-  
-  
 
 
 

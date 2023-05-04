@@ -8,18 +8,21 @@ function MovieCard({ movie }) {
 
   
   return (
-    <Link to={`/movie/${movie.id}`} >
+    
       <div className='movie'>
+        <Link to={`/movie/${movie.id}`} >
         <div className='poster-image'>
           <img 
             src={movie.poster_path !== null ? 
-              `https://image.tmdb.org/t/p/w500${movie.poster_path}` :
+              `https://image.tmdb.org/t/p/w780${movie.poster_path}` :
               'https://via.placeholder.com/400'}
             alt={"movie poster"}
           />
         </div>
+        <p>{movie.title}</p>
+        </Link>
       </div>
-    </Link>
+    
   )
 }
 

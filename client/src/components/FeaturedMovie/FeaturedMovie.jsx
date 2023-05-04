@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom';
 function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
 
   function handleClick() {
-    setShowMovieList(false);
-    setMovieInfoId(movie.id);
+    
 
   }
 
@@ -24,7 +23,7 @@ function FeaturedMovie({ movie, setShowMovieList, setMovieInfoId }) {
 
         
 
-        <img src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`} alt={movie.title}></img>
+        <img src={`https://image.tmdb.org/t/p/w1280${movie?.backdrop_path}`} alt={movie.title}></img>
 
 
         <div className='featured-movie-info'>

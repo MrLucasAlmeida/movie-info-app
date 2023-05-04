@@ -33,23 +33,27 @@ function CategoryContainer() {
         //     return newMoviesList.indexOf(movie) === index;
         // });
 
-        let newMoviesList = [...movieList];
+        let newMoviesList = [...movieList,...response];
 
-        // handles if we grabbed all the movies
-        for (let i = 0; i < response.length; i++) {
-            let flag = true;
-            for (let j = 0; j < newMoviesList.length; j++) {
-                if (response[i].id === newMoviesList[j].id) {
-                    console.log("there was a duplicate movie");
-                    flag = false;
-                    break;
-               }
-            }
-            // if we didn't get to the end of the list, add the movie
-            if (flag) {
-                newMoviesList.push(response[i]);
-            }
-        }
+        newMoviesList = newMoviesList.filter((movie, index) => {
+            return newMoviesList.indexOf(movie) === index;
+        });
+
+        // // handles if we grabbed all the movies
+        // for (let i = 0; i < response.length; i++) {
+        //     let flag = true;
+        //     for (let j = 0; j < newMoviesList.length; j++) {
+        //         if (response[i].id === newMoviesList[j].id) {
+        //             console.log("there was a duplicate movie");
+        //             flag = false;
+        //             break;
+        //        }
+        //     }
+        //     // if we didn't get to the end of the list, add the movie
+        //     if (flag) {
+        //         newMoviesList.push(response[i]);
+        //     }
+        // }
 
         // this keeps problems from happening
         if (pageNum === 1) {
@@ -81,17 +85,19 @@ function CategoryContainer() {
     useEffect(() => {
         // movieListQuery(searchTerm);
         // console.log('app loaded');
-        // setMovies([]);
-        loadMovieListbyCategory(category, pageNumber);
-        console.log('did a search for category: ' + category);
 
 
         // add eventlistener for infinite scrolling
         const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
         scrollContainer.addEventListener('scroll', handleInfiniteScroll);
 
+        console.log('category changed');
+        if (pageNumber === 1) {
+          loadMovieListbyCategory(category, 1);
+        }
+        setPageNumber(1);
         
-      }, []);
+      }, [category]);
 
 
     useEffect(() => {

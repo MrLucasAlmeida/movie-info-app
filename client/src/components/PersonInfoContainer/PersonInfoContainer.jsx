@@ -31,7 +31,7 @@ function PersonInfoContainer() {
           let personInfoObject = {};
           console.log('trying to fetch person details for person id: ' + personId);
           const response = await getPersonDetails(personId);
-
+          
 
           setIsLoading(false);
 
@@ -39,7 +39,7 @@ function PersonInfoContainer() {
           // let movieSec = document.querySelector('.scrollable-content-moviesection-container');
           // movieSec.scrollTop = 0;
           // console.log(movieInfoObjects);
-          setPersonInfo(personInfoObject);
+          setPersonInfo(response);
           // return <MovieInfo movieInfoStuff={movieInfoObjects}/>
 
       }
@@ -61,7 +61,7 @@ function PersonInfoContainer() {
 
       useEffect(() => {
           fetchPersonDetails();
-      }, [personId])
+      }, [personId]);
 
 
 

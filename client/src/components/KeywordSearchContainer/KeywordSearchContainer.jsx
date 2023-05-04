@@ -79,16 +79,19 @@ function KeywordSearchContainer() {
 
 
 
-    useEffect(() => {
-        //   add eventlistener for infinite scrolling
-        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
-        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
+    // useEffect(() => {
+        
     
 
         
-      }, []);
+    //   }, []);
 
     useEffect(() => {
+
+        //   add eventlistener for infinite scrolling
+        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
+        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
+
         console.log('search term changed');
         if (pageNumber === 1) {
             loadMovieListbySearch(searchTerm, 1);

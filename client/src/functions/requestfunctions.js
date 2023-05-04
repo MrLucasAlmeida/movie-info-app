@@ -111,7 +111,7 @@ export async function getPersonDetails(personId) {
         body: JSON.stringify({ personId })
     });
     const data = await response.json();
-    // console.log(response.ok ? data : data.error);
+    console.log(response.ok ? data : data.error);
     return response.ok ? data : data.error;
 }
 

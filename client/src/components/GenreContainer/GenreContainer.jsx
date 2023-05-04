@@ -23,7 +23,7 @@ function GenreContainer() {
 
     async function loadMovieListbyGenre(genreId, pageNum) {
         // set page to laoding
-        setIsLoading(true);
+        // setIsLoading(true);
         // fetch movies by genre id
         let response = await getMovieListbyGenre(genreId, pageNum);
         
@@ -33,23 +33,29 @@ function GenreContainer() {
         //     return newMoviesList.indexOf(movie) === index;
         // });
 
-        let newMoviesList = [...movieList];
+        let newMoviesList = [...movieList,...response];
 
-        // handles if we grabbed all the movies
-        for (let i = 0; i < response.length; i++) {
-            let flag = true;
-            for (let j = 0; j < newMoviesList.length; j++) {
-                if (response[i].id === newMoviesList[j].id) {
-                    console.log("there was a duplicate movie");
-                    flag = false;
-                    break;
-               }
-            }
-            // if we didn't get to the end of the list, add the movie
-            if (flag) {
-                newMoviesList.push(response[i]);
-            }
-        }
+        newMoviesList = newMoviesList.filter((movie, index) => {
+            return newMoviesList.indexOf(movie) === index;
+        });
+
+        // let newMoviesList = [...movieList];
+
+        // // handles if we grabbed all the movies
+        // for (let i = 0; i < response.length; i++) {
+        //     let flag = true;
+        //     for (let j = 0; j < newMoviesList.length; j++) {
+        //         if (response[i].id === newMoviesList[j].id) {
+        //             console.log("there was a duplicate movie");
+        //             flag = false;
+        //             break;
+        //        }
+        //     }
+        //     // if we didn't get to the end of the list, add the movie
+        //     if (flag) {
+        //         newMoviesList.push(response[i]);
+        //     }
+        // }
 
         // this keeps problems from happening
         if (pageNum === 1) {
@@ -59,7 +65,7 @@ function GenreContainer() {
             console.log(newMoviesList);
             setMovieList(newMoviesList);
         }
-        setIsLoading(false);
+        // setIsLoading(false);
     }
 
 
@@ -82,22 +88,27 @@ function GenreContainer() {
         // movieListQuery(searchTerm);
         // console.log('app loaded');
         // setMovies([]);
-        loadMovieListbyGenre(parseInt(genreId), pageNumber);
-        console.log('did a search for genre id ' + genreId);
 
 
         // add eventlistener for infinite scrolling
         const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
         scrollContainer.addEventListener('scroll', handleInfiniteScroll);
 
+
+        console.log('genre id changed');
+        if (pageNumber === 1) {
+          loadMovieListbyGenre(genreId, 1);
+      }
+        setPageNumber(1);
         
-      }, []);
+      }, [genreId]);
 
 
     useEffect(() => {
         // if (pageNumber === 1) {console.log('on first page');return;}
         console.log("page number changed");
-        loadMovieListbyGenre(parseInt(genreId), pageNumber);
+        loadMovieListbyGenre(genreId, pageNumber);
+        console.log('page number: ' + pageNumber);
         // console.log(pageNumber);
         // have a loading bar that will always appear at the bottom
         // use a timeout to wait for movies

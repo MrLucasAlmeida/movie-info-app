@@ -1,0 +1,76 @@
+
+#personInfo-container {
+    width: 100%;
+}
+
+
+
+#personInfoDetails-container {
+    display: flex;
+    color: white;
+}
+
+#personInfoDetails-image-container {
+    flex: 1;
+    background-color: red;
+}
+
+#personInfoDetails-image-container img {
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    margin-left: 0;
+    margin-right: auto;
+    width: 70%;
+    
+    border-radius: 15px;
+    overflow: hidden;
+
+    box-shadow: 0.5em 1em 1em rgb(124, 124, 124);
+}
+
+
+
+#personInfoDetails-info-container {
+    flex: 1.5;
+    background-color: blue ;
+}
+
+
+#personInfoDetails-info-container div:nth-child(1) #name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 10px;
+    
+}
+
+#personInfoDetails-info-container div:nth-child(1) #birthdate {
+    font-size: 2rem;
+    /* font-weight: 500; */
+    margin: 0;
+    
+}
+
+
+
+/* biography below */
+
+
+#personInfoDetails-info-container div:nth-child(2) {
+    margin: 0;
+    text-align: left;
+}
+#personInfoDetails-info-container div:nth-child(2) h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 0px 30px 5px;
+    padding: 0;
+}
+
+#personInfoDetails-info-container div:nth-child(2) #biography {
+    font-size: 1.8rem;
+    font-weight: 450;
+    margin: 10px 30px 20px;
+}
+
+
