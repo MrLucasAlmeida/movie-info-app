@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getPersonDetails, getMovieListbyPerson } from '../../functions/requestfunctions';
+import LoadingCircle from '../LoadingCircle/LoadingCircle.jsx';
 
 function PersonInfoContainer() {
 
@@ -50,7 +51,7 @@ function PersonInfoContainer() {
       function displayPersonInfo() {
           console.log('isloading ' + isLoading);
           if (isLoading) {
-              return <div>loading...</div>
+              return <LoadingCircle />
           } else {
               return <PersonInfo personDetails={personInfo} personMovielist={personMovielist} />
           }

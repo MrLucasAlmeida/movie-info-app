@@ -24,7 +24,7 @@ function MovieInfo({ movieInfoStuff }) {
             <img  
             src={actorArray[i].profile_path ? 
               `https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}` :
-              'https://via.placeholder.com/185'}
+              'https://via.placeholder.com/100x150'}
             onClick={(e) => handleMovieActorClick(actorArray[i].id)}
             key={`actor-image-${actorArray[i].id}`}
             ></img>
@@ -42,7 +42,8 @@ function MovieInfo({ movieInfoStuff }) {
     for (let i = 0; i < videos.results.length; i++) {
       if (videos.results[i].type === 'Trailer') {
         console.log('movie trailer found');
-        return `https://www.youtube.com/watch?v=${videos.results[i].key}`;
+        // return `https://www.youtube.com/watch?v=${videos.results[i].key}`;
+        return `https://www.youtube.com/embed/${videos.results[i].key}`;
       }
     }
     console.log('movie trailer not found');
@@ -65,11 +66,7 @@ function MovieInfo({ movieInfoStuff }) {
       // sort by most popular
       mSimilar.results = mSimilar.results.sort((a,b) => b.vote_average - a.vote_average);
       // limit to just 10 values
-      mSimilar.results = mSimilar.results.slice(0, 10);
-
-      if (mSimilar.results.length > 20) {
-        // mSimilar.results = mSimilar.results.slice(0, 20);
-      }
+      mSimilar.results = mSimilar.results.slice(0, 12);
 
       
     return (
@@ -88,7 +85,8 @@ function MovieInfo({ movieInfoStuff }) {
             </div>
               
             <div>
-              <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button>
+              {/* <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button> */}
+
               <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
             </div>
             
@@ -101,6 +99,12 @@ function MovieInfo({ movieInfoStuff }) {
               <h2>Overview:</h2>
               <p id='overview'>{mDetails.overview}</p>
             </div>
+            
+            <div>
+              <h2>Trailer:</h2>
+              <iframe src={findMovieTrailer(mVideos)} allowFullScreen></iframe>
+            </div>
+            
             
 
 

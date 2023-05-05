@@ -1,3 +1,6 @@
+const BACKEND_URL = 'http://localhost:5000';
+
+
 function sleep(ms) {
     return new Promise(
       resolve => setTimeout(resolve, ms)
@@ -9,7 +12,7 @@ export async function getMovieListByKeyword(keyword, pageNum) {
     await sleep(2000)
     if (keyword === '') return [];
 
-    const response = await fetch('http://localhost:5000/movielist/keyword', {
+    const response = await fetch(`${BACKEND_URL}/movielist/keyword`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -25,7 +28,7 @@ export async function getMovieListbyGenre(genreId, pageNum) {
     await sleep(2000);
     if (genreId === -1) return [];
     console.log(pageNum);
-    const response = await fetch('http://localhost:5000/movielist/genre', {
+    const response = await fetch(`${BACKEND_URL}/movielist/genre`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -39,7 +42,7 @@ export async function getMovieListbyGenre(genreId, pageNum) {
 
 
 export async function getGenreList() {
-    const response = await fetch('http://localhost:5000/genres', {
+    const response = await fetch(`${BACKEND_URL}/genres`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json'
@@ -51,7 +54,7 @@ export async function getGenreList() {
 }
 
 export async function getConfiguration() {
-    const response = await fetch('http://localhost:5000/configuration', {
+    const response = await fetch(`${BACKEND_URL}/configuration`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json'
@@ -66,7 +69,7 @@ export async function getMovieListbyCategory(category, pageNum) {
     await sleep(2000);
     if (category === '') return [];
     console.log(pageNum);
-    const response = await fetch('http://localhost:5000/movielist/category', {
+    const response = await fetch(`${BACKEND_URL}/movielist/category`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -82,7 +85,7 @@ export async function getMovieListbyPerson(personId, pageNum) {
     await sleep(1000);
     if (personId === '') return [];
     console.log(pageNum);
-    const response = await fetch('http://localhost:5000/movielist/person', {
+    const response = await fetch(`${BACKEND_URL}/movielist/person`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -96,7 +99,7 @@ export async function getMovieListbyPerson(personId, pageNum) {
 
 export async function getMovieDetails(movieId) {
     await sleep(2000);
-    const response = await fetch(`http://localhost:5000/details/movie`, {
+    const response = await fetch(`${BACKEND_URL}/details/movie`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -106,6 +109,7 @@ export async function getMovieDetails(movieId) {
     const data = await response.json();
     // console.log('got movie details back');
     // console.log(response.ok ? data : data.error);
+    console.log(data);
     return response.ok ? data : data.error;
 }
 
@@ -113,7 +117,7 @@ export async function getPersonDetails(personId) {
     await sleep(1000);
     if (personId === '') return {};
     console.log(personId);
-    const response = await fetch('http://localhost:5000/details/person', {
+    const response = await fetch(`${BACKEND_URL}/details/person`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'

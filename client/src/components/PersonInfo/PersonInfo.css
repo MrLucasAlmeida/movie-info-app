@@ -34,12 +34,15 @@
     flex: 1.5;
 }
 
+.light-mode #personInfoDetails-info-container {
+    color: black;
+}
+
 
 #personInfoDetails-info-container div:nth-child(1) #name {
     font-size: 3.5rem;
     font-weight: 700;
     margin: 10px;
-    
 }
 
 #personInfoDetails-info-container div:nth-child(1) #birthdate {
@@ -84,10 +87,23 @@
     margin-top: 20px;
 }
 
+.light-mode #person-movielist-header {
+    color: black;
+}
+
 #person-movielist-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     align-items:flex-start;
+}
+
+.empty-movieinfo {
+    height: auto;
+    color: white;
+}
+
+.light-mode .empty-movieinfo {
+    color: black;
 }

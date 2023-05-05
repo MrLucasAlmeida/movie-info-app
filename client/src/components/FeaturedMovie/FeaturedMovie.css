@@ -32,4 +32,5 @@
     height: 100%;
     filter: brightness(60%);
     background-blend-mode: darken;
+    border-radius: 7px;
 }

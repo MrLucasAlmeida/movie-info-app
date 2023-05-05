@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMovieListbyCategory } from '../../functions/requestfunctions';
 import MovieList from '../MovieList/MovieList.jsx';
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
 
 function CategoryContainer() {
@@ -69,7 +70,7 @@ function CategoryContainer() {
 
       function displayMovies() {
         if (isLoading) {
-            return <div>loading...</div>
+            return <LoadingCircle />
         } else {
             return (
                 <>

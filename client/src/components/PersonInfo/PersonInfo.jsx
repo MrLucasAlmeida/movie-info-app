@@ -78,7 +78,10 @@ function PersonInfo({ personDetails, personMovielist }) {
             console.log(err);
             // loads h1 if there is an error
             return (
-              <h1>ACTOR INFORMATION FAILED TO LOAD</h1>
+              <div className='empty-movieinfo'>
+                <h1>ACTOR INFORMATION FAILED TO LOAD</h1>
+              </div>
+              
             )
           }
 

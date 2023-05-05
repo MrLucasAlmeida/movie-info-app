@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { getMovieListByKeyword } from '../../functions/requestfunctions';
 import MovieList from '../MovieList/MovieList.jsx';
 
+import LoadingCircle from '../LoadingCircle/LoadingCircle.jsx';
+
 
 function KeywordSearchContainer() {
 
@@ -63,7 +65,7 @@ function KeywordSearchContainer() {
 
     function displayMovies() {
         if (isLoading) {
-            return <div>loading...</div>
+            return <LoadingCircle/>
         } else {
             return (
                 <>

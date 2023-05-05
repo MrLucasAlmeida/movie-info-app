@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getMovieDetails } from '../../functions/requestfunctions';
+import LoadingCircle from '../LoadingCircle/LoadingCircle.jsx';
 
 function MovieInfoContainer() {
 
@@ -30,39 +31,42 @@ function MovieInfoContainer() {
         setIsLoading(true);
         let movieInfoObjects = {};
         console.log('trying to fetch movie details for movie id: ' + movieId);
-        if (movieId === -1) {
-            console.log('movie id is invalid');
-            return {};
-        } else {
-            const { movieCredits, movieDetails, movieVideos, movieSimilar } = await getMovieDetails(movieId);
-            // check if it came back with a valid response
-            if (movieCredits.status_code === 34 ||
-                movieDetails.status_code === 34 ||
-                movieVideos.status_code === 34 ||
-                movieSimilar.status_code === 34) {
-                console.log('some information came back invalid');
-                return {};
+        try {
+            if (movieId === -1) {
+                console.log('movie id is invalid');
+                movieInfoObjects = {};
             } else {
-                // console.log('movie details loaded SUCCESSFULLY');
-                movieInfoObjects = { movieCredits, movieDetails, movieVideos, movieSimilar };
+                const { movieCredits, movieDetails, movieVideos, movieSimilar } = await getMovieDetails(movieId);
+                // check if it came back with a valid response
+                if (movieCredits.status_code === 34 ||
+                    movieDetails.status_code === 34 ||
+                    movieVideos.status_code === 34 ||
+                    movieSimilar.status_code === 34) {
+                    console.log('some information came back invalid');
+                    return {};
+                } else {
+                    // console.log('movie details loaded SUCCESSFULLY');
+                    movieInfoObjects = { movieCredits, movieDetails, movieVideos, movieSimilar };
+                }
             }
+        } catch (error) {
+            movieInfoObjects = {};
         }
-
+        
         setIsLoading(false);
-
         // moves scroll to top of page
         // let movieSec = document.querySelector('.scrollable-content-moviesection-container');
         // movieSec.scrollTop = 0;
         // console.log(movieInfoObjects);
         setMovieInfo(movieInfoObjects);
         // return <MovieInfo movieInfoStuff={movieInfoObjects}/>
-
+        
     }
 
     function displayMovieInfo() {
         console.log('isloading ' + isLoading);
         if (isLoading) {
-            return <div>loading...</div>
+            return <LoadingCircle />
         } else {
             return <MovieInfo movieInfoStuff={movieInfo} />
         }

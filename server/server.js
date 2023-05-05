@@ -208,36 +208,27 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     }
 }
 
-app.post('/details/movie', verifyMovieDetailsCache, async (req, res) => {
+app.post('/details/movie', verifyMovieDetailsCache , async (req, res) => {
     // create urls for information fetching
     const movie_id = req.body.movieId;
     console.log(movie_id);
-    const urlMovieDetails = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
-    const urlMovieCredits = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${process.env.TMDB_API_KEY}&language=en-US`
-    const urlMovieVideos = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${process.env.TMDB_API_KEY}&language=en-US`
-    const urlReccMovies = `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
+    
+    const holisticURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&append_to_response=videos,credits,recommendations&language=en-US`;
+
 
     try {
-        const responseMovieDetails = await fetch(urlMovieDetails);
+
+        const responseMovieDetails = await fetch(holisticURL);
         const dataMovieDetails = await responseMovieDetails.json();
-
-        const responseMovieCredits = await fetch(urlMovieCredits);
-        const dataMovieCredits = await responseMovieCredits.json();
-
-        const responseMovieVideos = await fetch(urlMovieVideos);
-        const dataMovieVideos = await responseMovieVideos.json();
-
-        const responseSimilarMovies = await fetch(urlReccMovies);
-        const dataSimilarMovies = await responseSimilarMovies.json();
 
 
         // set cache
         console.log(`moviedetails-${movie_id}: setting cache`);
         const movieDetailObject = {
             movieDetails: dataMovieDetails,
-            movieCredits: dataMovieCredits,
-            movieVideos: dataMovieVideos,
-            movieSimilar: dataSimilarMovies
+            movieCredits: dataMovieDetails.credits,
+            movieVideos: dataMovieDetails.videos,
+            movieSimilar: dataMovieDetails.recommendations
         };
         cache.set(`moviedetails-${movie_id}`, movieDetailObject);
 
@@ -395,4 +386,4 @@ app.post('/movielist/person', verifyMovieByPeopleCache, async (req, res) => {
 
 
 
-app.listen(PORT, () => {console.log(`Server is running on port http://localhost:5000`)});
+app.listen(PORT, () => {console.log(`Server is running on port http://localhost:${PORT}`)});

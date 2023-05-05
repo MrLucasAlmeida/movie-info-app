@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMovieListbyGenre } from '../../functions/requestfunctions';
 import MovieList from '../MovieList/MovieList.jsx';
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
 
 function GenreContainer() {
@@ -71,7 +72,7 @@ function GenreContainer() {
 
     function displayMovies() {
       if (isLoading) {
-          return <div>loading...</div>
+          return <LoadingCircle/>
       } else {
           return (
               <>
