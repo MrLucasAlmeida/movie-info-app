@@ -12,7 +12,6 @@
 
 #personInfoDetails-image-container {
     flex: 1;
-    background-color: red;
 }
 
 #personInfoDetails-image-container img {
@@ -33,7 +32,6 @@
 
 #personInfoDetails-info-container {
     flex: 1.5;
-    background-color: blue ;
 }
 
 

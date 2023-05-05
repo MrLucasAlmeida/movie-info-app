@@ -7,7 +7,6 @@
 }
 .movieInfo-image {
     flex: 1;
-    background-color: red;
 }
 .movieInfo-image img {
     position: relative;
@@ -31,7 +30,6 @@
 }
 .info {
     flex: 1.5;
-    background-color: blue;
     
 }
 /* header (title, tagline) */

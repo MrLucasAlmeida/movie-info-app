@@ -10,12 +10,16 @@ function PersonInfo({ personInfoStuff }) {
 
     if (!bioText) return 'No biography available';
 
+    console.log(bioText);
     console.log('processing bio text');
-    const sentences = bioText.split('. ');
+    const sentences = bioText.split('\n');
     if (sentences.length < 2) return bioText;
 
+    console.log(sentences);
 
-    return sentences[0];
+
+
+    return sentences[0] + ' ' + sentences[sentences.length-1];
 
   }
 
