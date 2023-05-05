@@ -26,12 +26,8 @@ function KeywordSearchContainer() {
         setIsLoading(true);
         // fetch movies by genre id
         let response = await getMovieListByKeyword(keyword, pageNum);
-        
-        let newMoviesList = [...movieList,...response];
-
-        newMoviesList = newMoviesList.filter((movie, index) => {
-            return newMoviesList.indexOf(movie) === index;
-        });
+        setMovieList(response);
+        setIsLoading(false);
 
         // let newMoviesList = [...movieList];
 
@@ -52,14 +48,6 @@ function KeywordSearchContainer() {
         // }
 
         // this keeps problems from happening
-        if (pageNum === 1) {
-            console.log(response);
-            setMovieList(response);
-        } else {
-            console.log(newMoviesList);
-            setMovieList(newMoviesList);
-        }
-        setIsLoading(false);
     }
 
 
@@ -73,7 +61,24 @@ function KeywordSearchContainer() {
       }
 
 
-
+    function displayMovies() {
+        if (isLoading) {
+            return <div>loading...</div>
+        } else {
+            return (
+                <>
+                    <MovieList movies={movieList} />
+                    {movieList.length > 0 && (
+                        <div id='arrows-container'>
+                        <div id='prev-btn' onClick={() => setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1,1))}>Prev</div>
+                        <div id='current-page'>{pageNumber}</div>
+                        <div id='next-btn' onClick={() => setPageNumber(prevPageNumber => prevPageNumber + 1)}>Next</div>
+                        </div>
+                    )}
+                </>
+            )
+        }
+    }
 
 
 
@@ -88,10 +93,6 @@ function KeywordSearchContainer() {
 
     useEffect(() => {
 
-        //   add eventlistener for infinite scrolling
-        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
-        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
-
         console.log('search term changed');
         if (pageNumber === 1) {
             loadMovieListbySearch(searchTerm, 1);
@@ -104,14 +105,16 @@ function KeywordSearchContainer() {
         // if (pageNumber === 1) {console.log('on first page');return;}
         console.log("page number changed");
         loadMovieListbySearch(searchTerm, pageNumber);
-        // console.log(pageNumber);
-        // have a loading bar that will always appear at the bottom
-        // use a timeout to wait for movies
-        console.log(movieList);
+        
+
+        // scroll to the top of the page
+        let scrollContainer = document.querySelector('.scrollable-content-moviesection-container');
+        scrollContainer.scrollTop = 0;
       }, [pageNumber]);
 
   return (
-    <MovieList movies={movieList} />
+    displayMovies()
+    
   )
 }
 

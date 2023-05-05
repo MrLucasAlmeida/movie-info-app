@@ -80,6 +80,7 @@ app.get('/genres', verifyGenreListCache, async (req, res) => {
 
 // middleware for verifying movie by query cache
 const verifyMovieByKeywordCache = async (req, res, next) => {
+    
     try {
         const keyword = req.body.keyword;
         const page = req.body.pageNum;

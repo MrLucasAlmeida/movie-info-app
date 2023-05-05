@@ -1,4 +1,12 @@
+function sleep(ms) {
+    return new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
+  }
+
+
 export async function getMovieListByKeyword(keyword, pageNum) {
+    await sleep(2000)
     if (keyword === '') return [];
 
     const response = await fetch('http://localhost:5000/movielist/keyword', {
@@ -14,7 +22,7 @@ export async function getMovieListByKeyword(keyword, pageNum) {
 }
 
 export async function getMovieListbyGenre(genreId, pageNum) {
-
+    await sleep(2000);
     if (genreId === -1) return [];
     console.log(pageNum);
     const response = await fetch('http://localhost:5000/movielist/genre', {
@@ -55,7 +63,7 @@ export async function getConfiguration() {
 }
 
 export async function getMovieListbyCategory(category, pageNum) {
-
+    await sleep(2000);
     if (category === '') return [];
     console.log(pageNum);
     const response = await fetch('http://localhost:5000/movielist/category', {
@@ -71,7 +79,7 @@ export async function getMovieListbyCategory(category, pageNum) {
 }
 
 export async function getMovieListbyPerson(personId, pageNum) {
-
+    await sleep(1000);
     if (personId === '') return [];
     console.log(pageNum);
     const response = await fetch('http://localhost:5000/movielist/person', {
@@ -87,6 +95,7 @@ export async function getMovieListbyPerson(personId, pageNum) {
 }
 
 export async function getMovieDetails(movieId) {
+    await sleep(2000);
     const response = await fetch(`http://localhost:5000/details/movie`, {
         method: 'POST',
         headers: {
@@ -101,6 +110,7 @@ export async function getMovieDetails(movieId) {
 }
 
 export async function getPersonDetails(personId) {
+    await sleep(1000);
     if (personId === '') return {};
     console.log(personId);
     const response = await fetch('http://localhost:5000/details/person', {

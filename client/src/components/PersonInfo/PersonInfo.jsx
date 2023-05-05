@@ -30,11 +30,13 @@ function PersonInfo({ personDetails, personMovielist }) {
 
 
   function createMovieInfoCard(personInfoObject, personMovies) {
-
+    try {
    
     const pDetails = personInfoObject;
     console.log(pDetails);
     console.log(personMovies);
+    // if there is an error load nothing
+    if (!pDetails.name) throw new Error('person details not found');
 
     return (
       <div id='personInfo-container'>
@@ -66,18 +68,19 @@ function PersonInfo({ personDetails, personMovielist }) {
           {personMovies.map((movie,idx) => (
             <MovieCard movie={movie} key={`${movie.id}-${idx}`}/>
           ))}
+
         </div>
-
-
-
-
-
       </div>
 
 
     )
-    
-
+          } catch (err) {
+            console.log(err);
+            // loads h1 if there is an error
+            return (
+              <h1>ACTOR INFORMATION FAILED TO LOAD</h1>
+            )
+          }
 
   }
         

@@ -35,8 +35,6 @@ function PersonInfoContainer() {
           const pMovieList = await getMovieListbyPerson(personId, 1);
 
 
-          
-
           setIsLoading(false);
 
           // moves scroll to top of page

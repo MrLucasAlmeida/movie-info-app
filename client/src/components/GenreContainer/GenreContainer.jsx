@@ -25,19 +25,14 @@ function GenreContainer() {
         // set page to laoding
         // setIsLoading(true);
         // fetch movies by genre id
+        setIsLoading(true);
         let response = await getMovieListbyGenre(genreId, pageNum);
         
-
-
+        setMovieList(response);
+        setIsLoading(false);
         // newMoviesList = newMoviesList.filter((movie, index) => {
         //     return newMoviesList.indexOf(movie) === index;
         // });
-
-        let newMoviesList = [...movieList,...response];
-
-        newMoviesList = newMoviesList.filter((movie, index) => {
-            return newMoviesList.indexOf(movie) === index;
-        });
 
         // let newMoviesList = [...movieList];
 
@@ -58,27 +53,40 @@ function GenreContainer() {
         // }
 
         // this keeps problems from happening
-        if (pageNum === 1) {
-            console.log(response);
-            setMovieList(response);
-        } else {
-            console.log(newMoviesList);
-            setMovieList(newMoviesList);
-        }
         // setIsLoading(false);
     }
 
 
-    function handleInfiniteScroll() {
-        let movieSec = document.querySelector('.scrollable-content-moviesection-container');
-        if (movieSec.scrollTop + movieSec.clientHeight + 1 >= movieSec.scrollHeight) {
-          console.log('bottom of page');
-          setPageNumber(prevPageNumber => prevPageNumber + 1);
-        }
+    // function handleInfiniteScroll() {
+    //     let movieSec = document.querySelector('.scrollable-content-moviesection-container');
+    //     if (movieSec.scrollTop + movieSec.clientHeight + 1 >= movieSec.scrollHeight) {
+    //       console.log('bottom of page');
+    //       setPageNumber(prevPageNumber => prevPageNumber + 1);
+
+    //       // move scroll back up a little bit
+    //       movieSec.scrollTop -= 100;
+    //     }
+    //   }
+
+
+    function displayMovies() {
+      if (isLoading) {
+          return <div>loading...</div>
+      } else {
+          return (
+              <>
+                  <MovieList movies={movieList} />
+                  {movieList.length > 0 && (
+                      <div id='arrows-container'>
+                      <div id='prev-btn' onClick={() => setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1,1))}>Prev</div>
+                      <div id='current-page'>{pageNumber}</div>
+                      <div id='next-btn' onClick={() => setPageNumber(prevPageNumber => prevPageNumber + 1)}>Next</div>
+                      </div>
+                  )}
+              </>
+          )
       }
-
-
-
+  }
 
 
 
@@ -91,15 +99,20 @@ function GenreContainer() {
 
 
         // add eventlistener for infinite scrolling
-        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
-        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
+        // const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
+        // scrollContainer.addEventListener('scroll', handleInfiniteScroll);
+
+        // scroll to top of page
+        // scrollContainer.scrollTop = 0;
 
 
         console.log('genre id changed');
         if (pageNumber === 1) {
           loadMovieListbyGenre(genreId, 1);
-      }
+        }
         setPageNumber(1);
+        
+        
         
       }, [genreId]);
 
@@ -109,13 +122,15 @@ function GenreContainer() {
         console.log("page number changed");
         loadMovieListbyGenre(genreId, pageNumber);
         console.log('page number: ' + pageNumber);
-        // console.log(pageNumber);
-        // have a loading bar that will always appear at the bottom
-        // use a timeout to wait for movies
+        
+        // scroll to the top of the page
+        let scrollContainer = document.querySelector('.scrollable-content-moviesection-container');
+        scrollContainer.scrollTop = 0;
+
       }, [pageNumber]);
 
   return (
-    <MovieList movies={movieList} />
+    displayMovies()
   )
 }
 

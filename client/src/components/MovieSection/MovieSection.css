@@ -128,3 +128,36 @@
 .light-mode #loading {
     color: #111111;
 }
+
+
+
+
+/* arrow container for movielist */
+
+#arrows-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-size: 30px;
+}
+
+#current-page {
+    color: white;
+    margin: 20px;
+}
+
+#prev-btn, #next-btn {
+    color: white;
+    padding: 5px 20px;
+    cursor: pointer;
+    background-color: #c8020c;
+    border-radius: 10px;
+    border: 1px solid white;
+    transition: 0.3s;
+    text-align: center;
+}
+
+#prev-btn:hover, #next-btn:hover {
+    background-color: #a8000c;
+}

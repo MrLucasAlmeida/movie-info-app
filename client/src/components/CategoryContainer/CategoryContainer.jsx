@@ -26,18 +26,14 @@ function CategoryContainer() {
         setIsLoading(true);
         // fetch movies by genre id
         let response = await getMovieListbyCategory(category, pageNum);
+        setMovieList(response);
+        setIsLoading(false);
         
 
 
         // newMoviesList = newMoviesList.filter((movie, index) => {
         //     return newMoviesList.indexOf(movie) === index;
         // });
-
-        let newMoviesList = [...movieList,...response];
-
-        newMoviesList = newMoviesList.filter((movie, index) => {
-            return newMoviesList.indexOf(movie) === index;
-        });
 
         // // handles if we grabbed all the movies
         // for (let i = 0; i < response.length; i++) {
@@ -56,14 +52,7 @@ function CategoryContainer() {
         // }
 
         // this keeps problems from happening
-        if (pageNum === 1) {
-            console.log(response);
-            setMovieList(response);
-        } else {
-            console.log(newMoviesList);
-            setMovieList(newMoviesList);
-        }
-        setIsLoading(false);
+        
     }
 
 
@@ -78,6 +67,26 @@ function CategoryContainer() {
 
 
 
+      function displayMovies() {
+        if (isLoading) {
+            return <div>loading...</div>
+        } else {
+            return (
+                <>
+                    <MovieList movies={movieList} />
+                    {movieList.length > 0 && (
+                        <div id='arrows-container'>
+                        <div id='prev-btn' onClick={() => setPageNumber(prevPageNumber => Math.max(prevPageNumber - 1,1))}>Prev</div>
+                        <div id='current-page'>{pageNumber}</div>
+                        <div id='next-btn' onClick={() => setPageNumber(prevPageNumber => prevPageNumber + 1)}>Next</div>
+                        </div>
+                    )}
+                </>
+            )
+        }
+    }
+
+
 
 
 
@@ -85,11 +94,6 @@ function CategoryContainer() {
     useEffect(() => {
         // movieListQuery(searchTerm);
         // console.log('app loaded');
-
-
-        // add eventlistener for infinite scrolling
-        const scrollContainer = document.getElementsByClassName('scrollable-content-moviesection-container')[0];
-        scrollContainer.addEventListener('scroll', handleInfiniteScroll);
 
         console.log('category changed');
         if (pageNumber === 1) {
@@ -104,13 +108,16 @@ function CategoryContainer() {
         // if (pageNumber === 1) {console.log('on first page');return;}
         console.log("page number changed");
         loadMovieListbyCategory(category, pageNumber);
-        // console.log(pageNumber);
-        // have a loading bar that will always appear at the bottom
-        // use a timeout to wait for movies
+        
+        // scroll to the top of the page
+        let scrollContainer = document.querySelector('.scrollable-content-moviesection-container');
+        scrollContainer.scrollTop = 0;
+
       }, [pageNumber]);
 
   return (
-    <MovieList movies={movieList} />
+    displayMovies()
+    
   )
 }
 
