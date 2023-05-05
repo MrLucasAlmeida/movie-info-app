@@ -2,7 +2,9 @@ import React from 'react'
 
 import './PersonInfo.css'
 
-function PersonInfo({ personInfoStuff }) {
+import MovieCard from '../MovieCard/MovieCard';
+
+function PersonInfo({ personDetails, personMovielist }) {
 
 
 
@@ -27,11 +29,12 @@ function PersonInfo({ personInfoStuff }) {
 
 
 
-  function createMovieInfoCard(personInfoObject) {
+  function createMovieInfoCard(personInfoObject, personMovies) {
 
    
     const pDetails = personInfoObject;
     console.log(pDetails);
+    console.log(personMovies);
 
     return (
       <div id='personInfo-container'>
@@ -54,14 +57,15 @@ function PersonInfo({ personInfoStuff }) {
             </div>
             
           </div>
-          {/* movies by person */}
+        </div>
 
-          <h2></h2>
+        {/* movies by person */}
 
-
-
-
-
+        {personMovies.length > 0 && <div id='person-movielist-header'>Featured In</div>}
+        <div id='person-movielist-container'>
+          {personMovies.map((movie,idx) => (
+            <MovieCard movie={movie} key={`${movie.id}-${idx}`}/>
+          ))}
         </div>
 
 
@@ -88,7 +92,7 @@ function PersonInfo({ personInfoStuff }) {
 
 
   return (
-    createMovieInfoCard(personInfoStuff)
+    createMovieInfoCard(personDetails,personMovielist)
   )
 }
 

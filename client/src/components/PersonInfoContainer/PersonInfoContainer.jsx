@@ -4,12 +4,13 @@ import PersonInfo from '../PersonInfo/PersonInfo.jsx';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getPersonDetails } from '../../functions/requestfunctions';
+import { getPersonDetails, getMovieListbyPerson } from '../../functions/requestfunctions';
 
 function PersonInfoContainer() {
 
 
       const [personInfo, setPersonInfo] = useState({});
+      const [personMovielist, setPersonMovielist] = useState([]);
       const [isLoading, setIsLoading] = useState(false);
 
 
@@ -30,7 +31,10 @@ function PersonInfoContainer() {
           setIsLoading(true);
           let personInfoObject = {};
           console.log('trying to fetch person details for person id: ' + personId);
-          const response = await getPersonDetails(personId);
+          const pDetails = await getPersonDetails(personId);
+          const pMovieList = await getMovieListbyPerson(personId, 1);
+
+
           
 
           setIsLoading(false);
@@ -39,7 +43,8 @@ function PersonInfoContainer() {
           // let movieSec = document.querySelector('.scrollable-content-moviesection-container');
           // movieSec.scrollTop = 0;
           // console.log(movieInfoObjects);
-          setPersonInfo(response);
+          setPersonInfo(pDetails);
+          setPersonMovielist(pMovieList);
           // return <MovieInfo movieInfoStuff={movieInfoObjects}/>
 
       }
@@ -49,7 +54,7 @@ function PersonInfoContainer() {
           if (isLoading) {
               return <div>loading...</div>
           } else {
-              return <PersonInfo personInfoStuff={personInfo} />
+              return <PersonInfo personDetails={personInfo} personMovielist={personMovielist} />
           }
       }
 
