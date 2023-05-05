@@ -1,12 +1,17 @@
-# Netflix Clone App
+# Movie Information App
 
 ## Movie Backdrop
 <img src="./showcase_images/backdrop.jpg"/>
 <br>
 
-## Movie Selection
-<img src="./showcase_images/movies.jpg"/>
+## Movie List
+<img src="./showcase_images/movielist.jpg"/>
 <br>
 
-## Movie Information
-<img src="./showcase_images/infocard.jpg"/>
+## Movie Information Page
+<img src="./showcase_images/movieinfocard.jpg"/>
+<br>
+
+## Actor Information Page
+<img src="./showcase_images/personinfocard.jpg"/>
+<br>
