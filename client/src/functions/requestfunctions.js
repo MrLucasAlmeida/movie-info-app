@@ -5,7 +5,7 @@ function sleep(ms) {
     return new Promise(
       resolve => setTimeout(resolve, ms)
     );
-  }
+}
 
 
 export async function getMovieListByKeyword(keyword, pageNum) {
@@ -40,7 +40,6 @@ export async function getMovieListbyGenre(genreId, pageNum) {
     return response.ok ? data.movieList : data.error;
 }
 
-
 export async function getGenreList() {
     const response = await fetch(`${BACKEND_URL}/genres`, {
         method: 'GET',
@@ -61,7 +60,8 @@ export async function getConfiguration() {
         }
     });
     const data = await response.json();
-    console.log(response.ok ? data.configuration : data.error);
+    console.log('configuration below');
+    console.log(data);
     return response.ok ? data.configuration : data.error;
 }
 
@@ -125,7 +125,7 @@ export async function getPersonDetails(personId) {
         body: JSON.stringify({ personId })
     });
     const data = await response.json();
-    console.log(response.ok ? data : data.error);
+    // console.log(data);
     return response.ok ? data : data.error;
 }
 

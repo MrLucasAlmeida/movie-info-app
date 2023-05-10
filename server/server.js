@@ -208,27 +208,34 @@ const verifyMovieDetailsCache = async (req, res, next) => {
     }
 }
 
-app.post('/details/movie', verifyMovieDetailsCache , async (req, res) => {
+app.post('/details/movie', verifyMovieDetailsCache, async (req, res) => {
     // create urls for information fetching
     const movie_id = req.body.movieId;
     console.log(movie_id);
     
     const holisticURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&append_to_response=videos,credits,recommendations&language=en-US`;
-
+    const watchProviderURL = `https://api.themoviedb.org/3/movie/${movie_id}/watch/providers?api_key=${process.env.TMDB_API_KEY}`
 
     try {
-
+        // general movie details
         const responseMovieDetails = await fetch(holisticURL);
         const dataMovieDetails = await responseMovieDetails.json();
 
+        // watch providers
+        const responseWatchProviders = await fetch(watchProviderURL);
+        const dataWatchProviders = await responseWatchProviders.json();
+        // console.log(responseWatchProviders);
+        // console.log(dataWatchProviders);
 
         // set cache
         console.log(`moviedetails-${movie_id}: setting cache`);
         const movieDetailObject = {
-            movieDetails: dataMovieDetails,
-            movieCredits: dataMovieDetails.credits,
-            movieVideos: dataMovieDetails.videos,
-            movieSimilar: dataMovieDetails.recommendations
+            mDetails: dataMovieDetails,
+            mCredits: dataMovieDetails.credits,
+            mVideos: dataMovieDetails.videos,
+            mSimilar: dataMovieDetails.recommendations,
+            mWatchProviders: dataWatchProviders.results.US
+            
         };
         cache.set(`moviedetails-${movie_id}`, movieDetailObject);
 

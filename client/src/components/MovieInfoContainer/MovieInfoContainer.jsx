@@ -31,24 +31,9 @@ function MovieInfoContainer() {
         setIsLoading(true);
         let movieInfoObjects = {};
         console.log('trying to fetch movie details for movie id: ' + movieId);
+
         try {
-            if (movieId === -1) {
-                console.log('movie id is invalid');
-                movieInfoObjects = {};
-            } else {
-                const { movieCredits, movieDetails, movieVideos, movieSimilar } = await getMovieDetails(movieId);
-                // check if it came back with a valid response
-                if (movieCredits.status_code === 34 ||
-                    movieDetails.status_code === 34 ||
-                    movieVideos.status_code === 34 ||
-                    movieSimilar.status_code === 34) {
-                    console.log('some information came back invalid');
-                    return {};
-                } else {
-                    // console.log('movie details loaded SUCCESSFULLY');
-                    movieInfoObjects = { movieCredits, movieDetails, movieVideos, movieSimilar };
-                }
-            }
+            movieInfoObjects = await getMovieDetails(movieId);
         } catch (error) {
             movieInfoObjects = {};
         }

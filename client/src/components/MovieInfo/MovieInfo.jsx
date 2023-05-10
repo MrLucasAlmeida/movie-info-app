@@ -51,14 +51,53 @@ function MovieInfo({ movieInfoStuff }) {
   }
 
 
+  function showWatchProviders(wpObj) {
+    try {
+      let wpArray = wpObj.buy.sort((a,b) => a.display_priority - b.display_priority);
+      wpArray = wpArray.slice(0,5);
+      // console.log(wpArray);
+      return (
+        <>
+          <div id='watchprovider-header' >Watch On</div>
+          <div id='watch-providers-container'>
+            <div id='watch-providers'>
+              {wpArray.map((provider, idx) => (
+                <div className='provider-container'>
+                  <img src={provider.logo_path ? `https://image.tmdb.org/t/p/w500${provider.logo_path}` :
+                  `https://via.placeholder.com/45`}
+                  alt={provider.provider_name}
+                  ></img>
+                  <p>{provider.provider_name}</p>
+
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+
+      )
+    } catch {
+      // return nothing if empty
+      return <></>
+    }
+
+
+
+
+
+
+  }
+
+
   function createMovieInfoCard(mInfo) {
     try {
       // console.log('movie info card showing');
-      const { movieCredits, movieDetails, movieVideos, movieSimilar } = mInfo;
-      const mCredits = movieCredits;
-      const mDetails = movieDetails;
-      const mVideos = movieVideos;
-      const mSimilar = movieSimilar;
+      const { mCredits, mDetails, mVideos, mSimilar, mWatchProviders } = mInfo;
+      console.log(mWatchProviders);
+      // const mCredits = movieCredits;
+      // const mDetails = movieDetails;
+      // const mVideos = movieVideos;
+      // const mSimilar = movieSimilar;
 
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20
@@ -78,13 +117,13 @@ function MovieInfo({ movieInfoStuff }) {
               'https://via.placeholder.com/400'}></img>
           </div>
           <div className='info'>
-            <div>
+            <div id='header-container-info'>
               <h1 id='title'>{mDetails.original_title} ({mDetails.release_date.substring(0,4)})</h1>
               <p id='tagline'>{mDetails.tagline}</p>
               
             </div>
               
-            <div>
+            <div id='metadata-container'>
               {/* <button id='trailer-btn'><a href={findMovieTrailer(mVideos)} target='_blank'>Trailer</a></button> */}
 
               <p id='metadata'>{mDetails.runtime} mins / {mDetails.release_date}</p>
@@ -95,12 +134,14 @@ function MovieInfo({ movieInfoStuff }) {
             
             
             
-            <div>
+            <div id='overview-container'>
               <h2>Overview:</h2>
               <p id='overview'>{mDetails.overview}</p>
             </div>
+
+
             
-            <div>
+            <div id='trailer-container'>
               <h2>Trailer:</h2>
               <iframe src={findMovieTrailer(mVideos)} allowFullScreen></iframe>
             </div>
@@ -110,6 +151,12 @@ function MovieInfo({ movieInfoStuff }) {
 
           </div>
         </div>
+
+
+        {/* show watch providers */}
+        {showWatchProviders(mWatchProviders)}
+
+
         {/* show cast */}
         <div id='cast-header' >Top Cast:</div>
         <div id='actors'>
