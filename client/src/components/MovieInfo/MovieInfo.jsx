@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+
+import genreIcons from '../../images/genres/index.js'
 
 
 
@@ -80,20 +83,39 @@ function MovieInfo({ movieInfoStuff }) {
       // return nothing if empty
       return <></>
     }
-
-
-
-
-
-
   }
 
+
+  function addGenreTags(genreList) {
+    let genreOfCurrMovie = genreList.slice(0,3);
+    try {
+      return (
+        <div id='genretag-container'>
+          {genreOfCurrMovie.map((genre, idx) => (
+            <div className='genretag'>
+              <Link to={`/genre/${genre.id}`} key={`genre-${genre.id}-${idx}`} >
+                <img src={genreIcons[genre.name.toLowerCase()]} alt={genre.name}></img>
+                <span>{genre.name}</span>
+              </Link>
+            </div>
+          ))}
+  
+  
+        </div>
+  
+      );
+    } catch {
+      return <></>
+    }
+    
+  }
 
   function createMovieInfoCard(mInfo) {
     try {
       // console.log('movie info card showing');
       const { mCredits, mDetails, mVideos, mSimilar, mWatchProviders } = mInfo;
-      console.log(mWatchProviders);
+      console.log(mDetails);
+      // console.log(mWatchProviders);
       // const mCredits = movieCredits;
       // const mDetails = movieDetails;
       // const mVideos = movieVideos;
@@ -120,7 +142,6 @@ function MovieInfo({ movieInfoStuff }) {
             <div id='header-container-info'>
               <h1 id='title'>{mDetails.original_title} ({mDetails.release_date.substring(0,4)})</h1>
               <p id='tagline'>{mDetails.tagline}</p>
-              
             </div>
               
             <div id='metadata-container'>
@@ -130,7 +151,7 @@ function MovieInfo({ movieInfoStuff }) {
             </div>
             
             
-              
+            {addGenreTags(mDetails.genres)}
             
             
             

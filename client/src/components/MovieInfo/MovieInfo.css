@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+}
+
+
 .info-container {
     display: flex;
     color: white;
@@ -14,7 +19,7 @@
     margin-bottom: 10%;
     margin-left: 0;
     margin-right: auto;
-    width: 70%;
+    width: 80%;
     
     border-radius: 15px;
     overflow: hidden;
@@ -29,8 +34,8 @@
     box-shadow: 0.5em 1em 1em rgb(64 64 70);
 }
 .info {
-    flex: 1.5;
-    
+    flex: 1.75;
+    padding-right: 20px;
 }
 /* header (title, tagline) */
 
@@ -81,26 +86,65 @@
     color: black;
 }
 
-/* #trailer-btn {
-    float: left;
-    padding: 10px 20px 10px;
-    margin: 10px auto 10px 30px;
-    background-color: transparent;
-    border-radius: 30px;
-    border-color: white;
-}
-#trailer-btn a {
-    font-size: 1.5rem;
-    color: white;
-    text-decoration: none;
-} */
 
-.light-mode #trailer-btn {
-    border-color: black;
+/* genre button styling */
+
+
+
+#genretag-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    width: 100%;
 }
-.light-mode #trailer-btn a {
-    color: black;
+
+.genretag {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    margin: 0 10px;
+    padding: 0;
+    
 }
+.genretag:hover {
+    transform: scale(1.05);
+}
+
+.genretag a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+}
+
+.genretag img {
+    height: 2.5rem;
+    filter: invert(1);
+}
+
+.genretag span {
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem;
+    margin: 0;
+    margin-left: 10px;
+    padding: 0;
+}
+
+
+
+
+
+
 
 
 /* movie info area; overview header and content */
@@ -261,8 +305,7 @@
     width: 100px;
     height: auto;
     cursor: pointer;
-    transition: transform 0.5s ease-in-out;
-    transition: margin 0.5s ease;
+    transition: margin 0.4s ease;
     
 }
 #actor-container img {
@@ -278,7 +321,7 @@
 }
 
 #actor-container:hover {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
     margin-top: 15px;
     margin-bottom: 15px;
     
