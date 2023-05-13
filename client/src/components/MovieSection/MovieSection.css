@@ -24,6 +24,8 @@
     border-radius: 50px;
     /* background-color: blue; */
     overflow: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 #light-dark-container img {
     /* background-color: transparent; */
@@ -33,9 +35,14 @@
 }
 
 #light-dark-container:hover {
-    cursor: pointer;
     background-color:rgb(97, 97, 97);
 }
+
+.light-mode #light-dark-container:hover {
+    background-color:rgb(39, 39, 39);
+}
+
+
 
 
 .featured-movie {

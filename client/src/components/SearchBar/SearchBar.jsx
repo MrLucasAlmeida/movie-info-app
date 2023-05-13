@@ -10,14 +10,19 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
 
   const navigate = useNavigate();
 
-  function handleSearch(e) {
+  function handleEnterSearch(e) {
     if (e.keyCode !== 13) {return;}
 
     if (e.target.value === '') return;
     
     // window.location.href = `/search/${e.target.value}`;
     navigate(`/search/${e.target.value}`);
+  }
 
+  function handleSearchIconClick() {
+    const searchBar = document.getElementById('search-bar');
+    if (searchBar.value === '') return;
+    navigate(`/search/${searchBar.value}`);
   }
   
 
@@ -28,12 +33,12 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
         <input
           placeholder='Search All Movies'
           id='search-bar'
-          onKeyDown={handleSearch}
+          onKeyDown={handleEnterSearch}
         />
         <img
           src={SearchIcon}
           alt='search icon'
-          onClick={() => {setQueryTerm('%keyword:'+document.getElementById('search-bar').value);setShowMovieList(true);}}
+          onClick={handleSearchIconClick}
         />
       </div>
   )
