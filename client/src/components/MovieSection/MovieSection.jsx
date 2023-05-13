@@ -191,7 +191,7 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
              <img src={SunIcon}></img>}
           </div>
           <SearchBar queryTerm={queryTerm} setQueryTerm={setQueryTerm} setShowMovieList={setShowMovieList}></SearchBar>
-          <div>Login</div>
+          <div style={{marginRight: 40}}></div>
         </div>
 
 

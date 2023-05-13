@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './MovieList.css'
 import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
 import MovieCard from '../MovieCard/MovieCard.jsx'
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
 function MovieList({ movies }) {
 
 
     function loadMovieList() {
-    
         if (movies?.length > 0) {
+            console.log('LENGTH OF MOVIES IS NOT 0');
             return (
             <>
             <FeaturedMovie  movie={getRandomMovie()}
@@ -45,10 +46,12 @@ function MovieList({ movies }) {
         while (movies[randomIdx].backdrop_path === null) {
           randomIdx = Math.floor(Math.random() * movies.length);
         }
-    
+
         // console.log(movies[randomIdx]);
         return movies[randomIdx];
-      }
+    }
+
+
 
 
 

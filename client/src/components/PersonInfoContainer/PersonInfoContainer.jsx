@@ -50,7 +50,7 @@ function PersonInfoContainer() {
 
       function displayPersonInfo() {
           console.log('isloading ' + isLoading);
-          if (isLoading) {
+          if (isLoading || Object.keys(personInfo).length == 0) {
               return <LoadingCircle />
           } else {
               return <PersonInfo personDetails={personInfo} personMovielist={personMovielist} />

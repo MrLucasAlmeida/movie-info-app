@@ -50,7 +50,7 @@ function MovieInfoContainer() {
 
     function displayMovieInfo() {
         console.log('isloading ' + isLoading);
-        if (isLoading) {
+        if (isLoading || Object.keys(movieInfo).length == 0) {
             return <LoadingCircle />
         } else {
             return <MovieInfo movieInfoStuff={movieInfo} />

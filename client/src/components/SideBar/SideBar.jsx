@@ -45,20 +45,14 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
           <SideBarButton  key='popular' text='Popular'
                               image={genreIcons['popular']}
                               id='popular'
-                              setQueryTerm={setQueryTerm}
-                              setShowMovieList={setShowMovieList}
                               ></SideBarButton>
           <SideBarButton  key='upcoming' text='Upcoming'
                               image={genreIcons['upcoming']}
                               id='upcoming'
-                              setQueryTerm={setQueryTerm}
-                              setShowMovieList={setShowMovieList}
                               ></SideBarButton>
           <SideBarButton  key='top rated' text='Top Rated'
                               image={genreIcons['top rated']}
                               id='top_rated'
-                              setQueryTerm={setQueryTerm}
-                              setShowMovieList={setShowMovieList}
                               ></SideBarButton>
 
 
@@ -67,8 +61,6 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
               <SideBarButton  key={idx} text={genre.name}
                               image={genreIcons[genre.name.toLowerCase()]}
                               id={genre.id}
-                              setQueryTerm={setQueryTerm}
-                              setShowMovieList={setShowMovieList}
                               ></SideBarButton>
             )
           )

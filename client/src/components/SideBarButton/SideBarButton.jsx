@@ -3,7 +3,7 @@ import './SideBarButton.css'
 import { useNavigate } from 'react-router'
 
 
-function SideBarButton( {text, image, id, setQueryTerm, setShowMovieList }) {
+function SideBarButton( {text, image, id}) {
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function SideBarButton( {text, image, id, setQueryTerm, setShowMovieList }) {
   return (
     <div className='sidebarbutton' onClick={() => handleClick()}>
         <img src={image} alt={text}></img>
-        <span className='span'>{text}</span> 
+        <span className='span'>{text}</span>
     </div>
   )
 }

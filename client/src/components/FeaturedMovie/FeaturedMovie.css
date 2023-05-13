@@ -1,6 +1,7 @@
 .featured-movie-container {
     position: relative; 
-    margin: 3% 2% 2%;
+    margin: 3% 3% 2%;
+
 }
 
 .featured-movie-info {
@@ -25,11 +26,8 @@
     font-family: 'Trebuchet MS';
 }
 
-
-
 .featured-movie-container img {
     width: 100%;
-    height: 100%;
     filter: brightness(60%);
     background-blend-mode: darken;
     border-radius: 7px;

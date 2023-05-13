@@ -12,12 +12,12 @@ function PersonInfo({ personDetails, personMovielist }) {
 
     if (!bioText) return 'No biography available';
 
-    console.log(bioText);
+    // console.log(bioText);
     console.log('processing bio text');
     const sentences = bioText.split('\n');
     if (sentences.length < 2) return bioText;
 
-    console.log(sentences);
+    // console.log(sentences);
 
 
 
@@ -35,6 +35,8 @@ function PersonInfo({ personDetails, personMovielist }) {
     const pDetails = personInfoObject;
     console.log(pDetails);
     console.log(personMovies);
+    // if (Object.keys(personDetails).length == 0) return <></>;
+
     // if there is an error load nothing
     if (!pDetails.name) throw new Error('person details not found');
 
@@ -45,13 +47,13 @@ function PersonInfo({ personDetails, personMovielist }) {
             <img  
               src={pDetails.profile_path ? 
                 `https://image.tmdb.org/t/p/h632${pDetails.profile_path}` :
-                'https://via.placeholder.com/185'}
+                'https://via.placeholder.com/600x900'}
               ></img>
           </div>
           <div id='personInfoDetails-info-container'>
             <div>
               <h1 id='name'>{pDetails.name}</h1>
-              <p id='birthdate'>Born: {pDetails.birthday}</p>
+              {pDetails.birthday && <p id='birthdate'>Born: {pDetails.birthday}</p>}
             </div>
             <div>
               <h2>Biography: </h2>
