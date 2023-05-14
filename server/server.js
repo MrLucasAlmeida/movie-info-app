@@ -9,11 +9,16 @@ import https from 'https';
 
 dotenv.config();
 
+const API_KEY_TMDB = process.env.TMDB_API_KEY;
+
 const port = 5002;
 
-const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`
-const urlQueryMovieList = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&include_adult=false`
-const urlGenreMovieList = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&`
+const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY_TMDB}&language=en-US`
+const urlQueryMovieList = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY_TMDB}&language=en-US&page=1&include_adult=false`
+const urlGenreMovieList = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY_TMDB}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&`
+
+console.log('API KEY:');
+console.log(API_KEY_TMDB);
 
 
 // create express app
@@ -168,7 +173,7 @@ app.post('/movielist/genre', verifyMovieByGenreCache, async (req, res) => {
 });
 
 app.get('/configuration', async (req, res) => {
-    const url = `https://api.themoviedb.org/3/configuration?api_key=${process.env.TMDB_API_KEY}`;
+    const url = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY_TMDB}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -210,8 +215,8 @@ app.post('/details/movie', verifyMovieDetailsCache, async (req, res) => {
     const movie_id = req.body.movieId;
     console.log(movie_id);
     
-    const holisticURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.TMDB_API_KEY}&append_to_response=videos,credits,recommendations&language=en-US`;
-    const watchProviderURL = `https://api.themoviedb.org/3/movie/${movie_id}/watch/providers?api_key=${process.env.TMDB_API_KEY}`
+    const holisticURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY_TMDB}&append_to_response=videos,credits,recommendations&language=en-US`;
+    const watchProviderURL = `https://api.themoviedb.org/3/movie/${movie_id}/watch/providers?api_key=${API_KEY_TMDB}`
 
     try {
         // general movie details
@@ -271,7 +276,7 @@ app.post('/details/person', verifyPersonDetailsCache, async (req, res) => {
     // create urls for information fetching
     const person_id = req.body.personId;
     console.log(person_id);
-    const urlPersonDetails = `https://api.themoviedb.org/3/person/${person_id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`
+    const urlPersonDetails = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY_TMDB}&language=en-US`
     
     try {
         const responsePersonDetails = await fetch(urlPersonDetails);
@@ -321,7 +326,7 @@ app.post('/movielist/category', verifyMovieByCategoryCache, async (req, res) => 
     // fetches movie list based on genre
     const category = req.body.category;
     const page = req.body.pageNum;
-    const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=${page}`;
+    const url = `https://api.themoviedb.org/3/movie/${category}?api_key=${API_KEY_TMDB}&language=en-US&page=${page}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -365,7 +370,7 @@ app.post('/movielist/person', verifyMovieByPeopleCache, async (req, res) => {
     // fetches movie list based on genre
     const personId = req.body.personId;
     const page = req.body.pageNum;
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&with_people=${personId}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false`;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY_TMDB}&with_people=${personId}&page=${page}&language=en-US&sort_by=popularity.desc&include_adult=false`;
     try {
         const response = await fetch(url);
         const data = await response.json();
