@@ -30,7 +30,7 @@ export async function getMovieListbyGenre(genreId, pageNum) {
         body: JSON.stringify({ genreId, pageNum })
     });
     const data = await response.json();
-    // console.log(response.ok ? data.movieList : data.error);
+    console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
 
@@ -70,7 +70,7 @@ export async function getMovieListbyCategory(category, pageNum) {
         body: JSON.stringify({ category, pageNum })
     });
     const data = await response.json();
-    // console.log(response.ok ? data.movieList : data.error);
+    console.log(response.ok ? data.movieList : data.error);
     return response.ok ? data.movieList : data.error;
 }
 
