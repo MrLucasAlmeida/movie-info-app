@@ -160,22 +160,16 @@ function MovieSection({ movies, queryTerm, setQueryTerm, showMovieList, setShowM
 
   function handleDarkLightClick(e) {
     setIsLightMode(prev => !prev);
-    document.querySelectorAll('*').forEach(element => element.classList.toggle('light-mode'));
   }
   
 
-
-  // useEffect(() => {
-  //   // change the random movie featured
-  //   if (showMovieList) {
-  //     // console.log('featured movie is');
-  //     setFeaturedMovie(getRandomMovie());
-  //   }    
-  // }, [movies]);
-
-  // useEffect(() => {
-  //   setMovieDetailsFunction(movieInfoId)
-  // }, [movieInfoId]);
+  useEffect(() => {
+    if (isLightMode) {
+      document.querySelectorAll('*').forEach(element => element.classList.add('light-mode'));
+    } else {
+      document.querySelectorAll('*').forEach(element => element.classList.remove('light-mode'));  
+    }
+  }, [isLightMode]);
 
   
 

@@ -7,14 +7,15 @@ import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
 function MovieList({ movies }) {
 
+    const [randMovie, setRandMovie] = useState({});
 
     function loadMovieList() {
         if (movies?.length > 0) {
-            console.log('LENGTH OF MOVIES IS NOT 0');
             return (
             <>
-            <FeaturedMovie  movie={getRandomMovie()}
+            <FeaturedMovie  movie={randMovie}
                             ></FeaturedMovie>
+ 
             <div className='movie-card-container'>
                 {movies.map((movie, idx) => (
                     
@@ -50,6 +51,11 @@ function MovieList({ movies }) {
         // console.log(movies[randomIdx]);
         return movies[randomIdx];
     }
+
+
+    useEffect(() => {
+        setRandMovie(getRandomMovie());
+    }, [movies]);
 
 
 

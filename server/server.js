@@ -5,7 +5,7 @@ import NodeCache from 'node-cache';
 import fetch from 'node-fetch';
 
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5002;
 
 const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`
 const urlQueryMovieList = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1&include_adult=false`
@@ -19,13 +19,6 @@ app.use(express.json());
 
 // create cache client
 const cache = new NodeCache({ stdTTL: 6000 });
-
-
-
-
-
-
-
 
 
 
@@ -393,4 +386,16 @@ app.post('/movielist/person', verifyMovieByPeopleCache, async (req, res) => {
 
 
 
-app.listen(PORT, () => {console.log(`Server is running on port http://localhost:${PORT}`)});
+// app.listen(PORT, () => {console.log(`Server is running on port http://localhost:${PORT}`)});
+
+
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/backend.mrlucasalmeida.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/backend.mrlucasalmeida.com/fullchain.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port, () => {
+  console.log(`Backend server listening at https://localhost:${port}`);
+});
