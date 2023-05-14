@@ -1,11 +1,7 @@
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = 'https://backend.mrlucasalmeida.com:5002';
+// const BACKEND_URL = 'http://localhost:5002';
 
 
-function sleep(ms) {
-    return new Promise(
-      resolve => setTimeout(resolve, ms)
-    );
-}
 
 
 export async function getMovieListByKeyword(keyword, pageNum) {
