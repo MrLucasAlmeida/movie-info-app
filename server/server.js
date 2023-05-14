@@ -4,7 +4,11 @@ import express from 'express';
 import NodeCache from 'node-cache';
 import fetch from 'node-fetch';
 
+import fs from 'fs';
+import https from 'https';
+
 dotenv.config();
+
 const port = 5002;
 
 const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.TMDB_API_KEY}&language=en-US`
