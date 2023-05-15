@@ -17,10 +17,12 @@ function MovieList({ movies }) {
  
             <div className='movie-card-container'>
                 {movies.map((movie, idx) => (
-                    
-                    <MovieCard key={`${movie.id}-${idx}`}
+                    <React.Fragment key={`${movie.id}-${idx}`}>
+                    <MovieCard
                             movie={movie}
                             ></MovieCard>
+                    </React.Fragment>
+                    
                     
                 ))}
                 

@@ -93,7 +93,6 @@ export async function getMovieDetails(movieId) {
 
 export async function getPersonDetails(personId) {
     if (personId === '') return {};
-    console.log(personId);
     const response = await fetch(`${BACKEND_URL}/details/person`, {
         method: 'POST',
         headers: {

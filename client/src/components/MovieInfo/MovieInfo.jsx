@@ -12,10 +12,6 @@ import genreIcons from '../../images/genres/index.js'
 function MovieInfo({ movieInfoStuff }) {
 
   const navigate = useNavigate();
-
-  function handleMovieActorClick(personId) {
-    navigate(`/person/${personId}`);
-  }
   
   function showMovieActorImages(actorArray) {
     let actorImages = [];
@@ -26,14 +22,12 @@ function MovieInfo({ movieInfoStuff }) {
             src={actorArray[i].profile_path ? 
               `https://image.tmdb.org/t/p/w185${actorArray[i].profile_path}` :
               'https://via.placeholder.com/100x150'}
-            onClick={(e) => handleMovieActorClick(actorArray[i].id)}
+            onClick={() => navigate(`/person/${actorArray[i].id}`)}
             key={`actor-image-${actorArray[i].id}`}
             ></img>
             <p>{actorArray[i].name}</p>
             <p>{actorArray[i].character}</p>
           </div>
-          
-          
         ));
     }
     return actorImages;
@@ -62,7 +56,7 @@ function MovieInfo({ movieInfoStuff }) {
           <div id='watch-providers-container'>
             <div id='watch-providers'>
               {wpArray.map((provider, idx) => (
-                <div className='provider-container'>
+                <div className='provider-container' key={`${provider.provider_name}-${idx}`}>
                   <img src={provider.logo_path ? `https://image.tmdb.org/t/p/w500${provider.logo_path}` :
                   `https://via.placeholder.com/45`}
                   alt={provider.provider_name}
@@ -89,8 +83,8 @@ function MovieInfo({ movieInfoStuff }) {
       return (
         <div id='genretag-container'>
           {genreOfCurrMovie.map((genre, idx) => (
-            <div className='genretag'>
-              <Link to={`/genre/${genre.id}`} key={`genre-${genre.id}-${idx}`} >
+            <div className='genretag' key={`genre-${genre.id}-${idx}`}>
+              <Link to={`/genre/${genre.id}`} >
                 <img src={genreIcons[genre.name.toLowerCase()]} alt={genre.name}></img>
                 <span>{genre.name}</span>
               </Link>
@@ -184,8 +178,11 @@ function MovieInfo({ movieInfoStuff }) {
         <div id='reccMoviesContainer'>
         {mSimilar.results.map((movie, idx) => (
             
-            <MovieCard key={`${movie.id}-${idx}`}
-                      movie={movie}></MovieCard>
+            <React.Fragment key={`${movie.id}-${idx}`}>
+                <MovieCard
+                        movie={movie}
+                        ></MovieCard>
+            </React.Fragment>
             
             
           ))}

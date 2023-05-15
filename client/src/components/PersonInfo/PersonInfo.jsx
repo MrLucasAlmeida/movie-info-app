@@ -12,7 +12,6 @@ function PersonInfo({ personDetails, personMovielist }) {
 
     if (!bioText) return 'No biography available';
 
-    console.log('processing bio text');
     const sentences = bioText.split('\n');
     if (sentences.length < 2) return bioText;
 
@@ -64,7 +63,6 @@ function PersonInfo({ personDetails, personMovielist }) {
       </div>
     )
     } catch (err) {
-      console.log(err);
       // loads h1 if there is an error
       return (
         <div className='empty-movieinfo'>
