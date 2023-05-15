@@ -24,7 +24,6 @@ function PersonInfoContainer() {
 
       async function fetchPersonDetails() {
           setIsLoading(true);
-          console.log('trying to fetch person details for person id: ' + personId);
           const pDetails = await getPersonDetails(personId);
           const pMovieList = await getMovieListbyPerson(personId, 1);
 
@@ -36,7 +35,6 @@ function PersonInfoContainer() {
       }
 
       function displayPersonInfo() {
-          console.log('isloading ' + isLoading);
           if (isLoading || Object.keys(personInfo).length == 0) {
               return <LoadingCircle />
           } else {

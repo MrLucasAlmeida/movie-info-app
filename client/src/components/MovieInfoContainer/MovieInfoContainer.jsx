@@ -24,7 +24,6 @@ function MovieInfoContainer() {
     async function fetchMovieDetails() {
         setIsLoading(true);
         let movieInfoObjects = {};
-        console.log('trying to fetch movie details for movie id: ' + movieId);
 
         try {
             movieInfoObjects = await getMovieDetails(movieId);
@@ -38,7 +37,6 @@ function MovieInfoContainer() {
     }
 
     function displayMovieInfo() {
-        console.log('isloading ' + isLoading);
         if (isLoading || Object.keys(movieInfo).length == 0) {
             return <LoadingCircle />
         } else {

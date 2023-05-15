@@ -8,7 +8,6 @@ function SideBarButton( {text, image, id}) {
   const navigate = useNavigate();
 
   function handleClick() {
-    console.log(id);
     // if not a number then its a category not a genre
     if (typeof id === 'number') {
       navigate(`/genre/${id}`);
