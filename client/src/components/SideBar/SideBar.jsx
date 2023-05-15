@@ -1,15 +1,18 @@
 import React from 'react'
 import './SideBar.css'
-import SideBarButton from '../SideBarButton/SideBarButton.jsx'
-import PopFlix from '../../images/popflix-image.png'
+
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { getGenreList } from '../../functions/requestfunctions';
 
 // import images
 import genreIcons from '../../images/genres/index.js'
 
-function SideBar({ setQueryTerm, setShowMovieList }) {
+import SideBarButton from '../SideBarButton/SideBarButton.jsx'
+import PopFlix from '../../images/popflix-image.png'
+
+function SideBar() {
   
   async function getListOfGenres() {
     const response = await getGenreList();
@@ -33,14 +36,12 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
 
   return (
     <div className='nav-bar'>
-      
-
-
-
       <div className='scrollable-content-nav-bar'>
+      <Link to='/'>
         <div className='nav-bar-logo-container'>
-          <img src={PopFlix} alt="Netflix Logo"/>
+            <img src={PopFlix} alt="Netflix Logo"/>
         </div>
+        </Link>
           {/* create non genre side bar button */}
           <SideBarButton  key='popular' text='Popular'
                               image={genreIcons['popular']}
@@ -55,7 +56,6 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
                               id='top_rated'
                               ></SideBarButton>
 
-
           {genreObjects?.length > 0 ? (
           genreObjects.map((genre, idx) => (
               <SideBarButton  key={idx} text={genre.name}
@@ -67,12 +67,7 @@ function SideBar({ setQueryTerm, setShowMovieList }) {
           ) : (
             <h1>No Genres</h1>
           )
-
           }
-          
-          
-          
-
         </div>
     </div>
   )

@@ -1,7 +1,5 @@
 import React from 'react'
 import './MovieInfo.css'
-import { getMovieDetails } from '../../functions/requestfunctions'
-import { useEffect, useState } from 'react';
 
 import MovieCard from '../MovieCard/MovieCard.jsx'
 import { useNavigate } from 'react-router';
@@ -44,12 +42,11 @@ function MovieInfo({ movieInfoStuff }) {
   function findMovieTrailer(videos) {
     for (let i = 0; i < videos.results.length; i++) {
       if (videos.results[i].type === 'Trailer') {
-        console.log('movie trailer found');
-        // return `https://www.youtube.com/watch?v=${videos.results[i].key}`;
+        
         return `https://www.youtube.com/embed/${videos.results[i].key}`;
       }
     }
-    console.log('movie trailer not found');
+    
     return 'https://www.youtube.com';
   }
 
@@ -58,7 +55,7 @@ function MovieInfo({ movieInfoStuff }) {
     try {
       let wpArray = wpObj.buy.sort((a,b) => a.display_priority - b.display_priority);
       wpArray = wpArray.slice(0,5);
-      // console.log(wpArray);
+
       return (
         <>
           <div id='watchprovider-header' >Watch On</div>
@@ -112,14 +109,9 @@ function MovieInfo({ movieInfoStuff }) {
 
   function createMovieInfoCard(mInfo) {
     try {
-      // console.log('movie info card showing');
+      
       const { mCredits, mDetails, mVideos, mSimilar, mWatchProviders } = mInfo;
-      console.log(mDetails);
-      // console.log(mWatchProviders);
-      // const mCredits = movieCredits;
-      // const mDetails = movieDetails;
-      // const mVideos = movieVideos;
-      // const mSimilar = movieSimilar;
+      
 
       // checks if there is over 20 movies in the recommendations array
       // if there is, it will only show the first 20

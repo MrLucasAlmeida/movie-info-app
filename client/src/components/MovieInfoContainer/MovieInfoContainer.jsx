@@ -21,12 +21,6 @@ function MovieInfoContainer() {
     movieId = parseInt(movieId);
 
 
-
-
-
-
-
-
     async function fetchMovieDetails() {
         setIsLoading(true);
         let movieInfoObjects = {};
@@ -39,12 +33,7 @@ function MovieInfoContainer() {
         }
         
         setIsLoading(false);
-        // moves scroll to top of page
-        // let movieSec = document.querySelector('.scrollable-content-moviesection-container');
-        // movieSec.scrollTop = 0;
-        // console.log(movieInfoObjects);
         setMovieInfo(movieInfoObjects);
-        // return <MovieInfo movieInfoStuff={movieInfoObjects}/>
         
     }
 
@@ -57,11 +46,6 @@ function MovieInfoContainer() {
         }
     }
 
-
-
-    // useEffect(() => {
-    //     fetchMovieDetails();
-    // }, []);
 
     useEffect(() => {
         fetchMovieDetails();

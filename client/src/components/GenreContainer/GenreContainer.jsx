@@ -53,8 +53,6 @@ function GenreContainer() {
 
 
 
-
-
     useEffect(() => {
       // genre id changed
         if (pageNumber === 1) {

@@ -5,8 +5,7 @@ import './SearchBar.css'
 import { useNavigate } from 'react-router';
 
 
-function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
-
+function SearchBar() {
 
   const navigate = useNavigate();
 
@@ -15,7 +14,6 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
 
     if (e.target.value === '') return;
     
-    // window.location.href = `/search/${e.target.value}`;
     navigate(`/search/${e.target.value}`);
   }
 
@@ -25,8 +23,6 @@ function SearchBar({ queryTerm, setQueryTerm, setShowMovieList }) {
     navigate(`/search/${searchBar.value}`);
   }
   
-
-
 
   return (
     <div className="search">

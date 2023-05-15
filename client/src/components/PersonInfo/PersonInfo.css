@@ -3,8 +3,6 @@
     width: 100%;
 }
 
-
-
 #personInfoDetails-container {
     display: flex;
     color: white;
@@ -21,13 +19,10 @@
     margin-left: 0;
     margin-right: auto;
     width: 70%;
-    
     border-radius: 15px;
     overflow: hidden;
-
     box-shadow: 0.5em 1em 1em rgb(124, 124, 124);
 }
-
 
 
 #personInfoDetails-info-container {
@@ -47,9 +42,7 @@
 
 #personInfoDetails-info-container div:nth-child(1) #birthdate {
     font-size: 2rem;
-    /* font-weight: 500; */
     margin: 0;
-    
 }
 
 
@@ -74,8 +67,6 @@
     margin: 10px 30px 20px;
 }
 
-
-
 #person-movielist-header {
     text-align: left;
     font-size: 3rem;
@@ -90,6 +81,7 @@
 .light-mode #person-movielist-header {
     color: black;
 }
+
 
 #person-movielist-container {
     display: flex;

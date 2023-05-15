@@ -15,9 +15,6 @@ function SideBarButton( {text, image, id}) {
     } else {
       navigate(`/category/${id}`);
     }
-
-
-
   }
 
 

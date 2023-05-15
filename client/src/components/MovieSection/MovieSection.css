@@ -43,8 +43,6 @@
 }
 
 
-
-
 .featured-movie {
     display: flex;
     width: 100%;
@@ -68,12 +66,7 @@
 
 
 
-
-
-
-
 /* add custom scroll bar to main movie section */
-
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollable-content-moviesection-container {
@@ -110,11 +103,6 @@
 
 
 
-
-
-
-
-
 .movie-card-container {
     display: flex;
     flex-wrap: wrap;
@@ -138,8 +126,6 @@
 }
 
 
-
-
 /* arrow container for movielist */
 
 #arrows-container {
@@ -153,6 +139,10 @@
 #current-page {
     color: white;
     margin: 20px;
+}
+
+.light-mode #current-page {
+    color: #111111;
 }
 
 #prev-btn, #next-btn {

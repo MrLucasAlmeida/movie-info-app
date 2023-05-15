@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import './MovieList.css'
 import FeaturedMovie from '../FeaturedMovie/FeaturedMovie.jsx'
 import MovieCard from '../MovieCard/MovieCard.jsx'
-import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
 function MovieList({ movies }) {
 
@@ -23,7 +22,6 @@ function MovieList({ movies }) {
                             movie={movie}
                             ></MovieCard>
                     
-                
                 ))}
                 
             </div>
@@ -48,16 +46,14 @@ function MovieList({ movies }) {
           randomIdx = Math.floor(Math.random() * movies.length);
         }
 
-        // console.log(movies[randomIdx]);
         return movies[randomIdx];
     }
 
 
     useEffect(() => {
+        // get a random movie from the movies array
         setRandMovie(getRandomMovie());
     }, [movies]);
-
-
 
 
 

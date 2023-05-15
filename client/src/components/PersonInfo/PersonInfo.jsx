@@ -7,35 +7,24 @@ import MovieCard from '../MovieCard/MovieCard';
 function PersonInfo({ personDetails, personMovielist }) {
 
 
-
+  // pre process biography for better readability
   function processBiography(bioText) {
 
     if (!bioText) return 'No biography available';
 
-    // console.log(bioText);
     console.log('processing bio text');
     const sentences = bioText.split('\n');
     if (sentences.length < 2) return bioText;
 
-    // console.log(sentences);
-
-
-
     return sentences[0] + ' ' + sentences[sentences.length-1];
-
   }
 
 
-
-
-
+  // function that returns all of the JSX for the movie info card
   function createMovieInfoCard(personInfoObject, personMovies) {
     try {
    
     const pDetails = personInfoObject;
-    console.log(pDetails);
-    console.log(personMovies);
-    // if (Object.keys(personDetails).length == 0) return <></>;
 
     // if there is an error load nothing
     if (!pDetails.name) throw new Error('person details not found');
@@ -73,30 +62,18 @@ function PersonInfo({ personDetails, personMovielist }) {
 
         </div>
       </div>
-
-
     )
-          } catch (err) {
-            console.log(err);
-            // loads h1 if there is an error
-            return (
-              <div className='empty-movieinfo'>
-                <h1>ACTOR INFORMATION FAILED TO LOAD</h1>
-              </div>
-              
-            )
-          }
-
-  }
+    } catch (err) {
+      console.log(err);
+      // loads h1 if there is an error
+      return (
+        <div className='empty-movieinfo'>
+          <h1>ACTOR INFORMATION FAILED TO LOAD</h1>
+        </div>
         
-
-    
-  
-
-
-
-
-
+      )
+    }
+  }
 
 
   return (

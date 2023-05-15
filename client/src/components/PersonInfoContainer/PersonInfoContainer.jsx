@@ -22,15 +22,8 @@ function PersonInfoContainer() {
       personId = parseInt(personId);
 
 
-
-
-
-
-
-
       async function fetchPersonDetails() {
           setIsLoading(true);
-          let personInfoObject = {};
           console.log('trying to fetch person details for person id: ' + personId);
           const pDetails = await getPersonDetails(personId);
           const pMovieList = await getMovieListbyPerson(personId, 1);
@@ -38,14 +31,8 @@ function PersonInfoContainer() {
 
           setIsLoading(false);
 
-          // moves scroll to top of page
-          // let movieSec = document.querySelector('.scrollable-content-moviesection-container');
-          // movieSec.scrollTop = 0;
-          // console.log(movieInfoObjects);
           setPersonInfo(pDetails);
           setPersonMovielist(pMovieList);
-          // return <MovieInfo movieInfoStuff={movieInfoObjects}/>
-
       }
 
       function displayPersonInfo() {
@@ -57,24 +44,11 @@ function PersonInfoContainer() {
           }
       }
 
-
-
-      // useEffect(() => {
-      //     fetchMovieDetails();
-      // }, []);
-
       useEffect(() => {
           fetchPersonDetails();
       }, [personId]);
 
-
-
-
-
-
-
-
-
+      
   return (
     displayPersonInfo()
   )

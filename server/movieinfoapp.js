@@ -17,9 +17,6 @@ const urlGenreList = `https://api.themoviedb.org/3/genre/movie/list?api_key=${AP
 const urlQueryMovieList = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY_TMDB}&language=en-US&page=1&include_adult=false`
 const urlGenreMovieList = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY_TMDB}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&`
 
-console.log('API KEY:');
-console.log(API_KEY_TMDB);
-
 
 // create express app
 const app = express();

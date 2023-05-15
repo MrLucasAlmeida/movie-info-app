@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getMovieListbyCategory } from '../../functions/requestfunctions';
+
 import MovieList from '../MovieList/MovieList.jsx';
 import LoadingCircle from '../LoadingCircle/LoadingCircle';
 
@@ -32,7 +33,6 @@ function CategoryContainer() {
     }
 
 
-
       function displayMovies() {
         if (isLoading) {
             return <LoadingCircle />
@@ -54,7 +54,9 @@ function CategoryContainer() {
 
     useEffect(() => {
       // category changed
+      // reset page number to 1
         if (pageNumber === 1) {
+          
           loadMovieListbyCategory(category, 1);
         }
         setPageNumber(1);
@@ -63,6 +65,7 @@ function CategoryContainer() {
 
 
     useEffect(() => {
+        // page number changed, update movie list with new page number
         loadMovieListbyCategory(category, pageNumber);
         
         // scroll to the top of the page
