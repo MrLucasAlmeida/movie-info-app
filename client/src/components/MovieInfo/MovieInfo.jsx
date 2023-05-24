@@ -165,7 +165,7 @@ function MovieInfo({ movieInfoStuff }) {
 
 
         {/* show cast */}
-        <div id='cast-header' >Top Cast:</div>
+        <div id='cast-header' >Top Cast</div>
         <div id='actors'>
           {showMovieActorImages(mCredits.cast)}
         </div>
