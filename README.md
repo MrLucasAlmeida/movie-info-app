@@ -1,5 +1,5 @@
-# Movie Information App
-React app that displays movie information. Check it out [HERE](https://movie-info-app-mrlucasalmeida.vercel.app/).
+# Popflix Movie App
+React app that allows users to find information about movies. Check it out [HERE](https://movie-info-app-mrlucasalmeida.vercel.app/).
 
 ## Movie Backdrop
 <img src="./showcase_images/backdrop.jpg"/>
